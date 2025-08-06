@@ -1,0 +1,25 @@
+```js
+var aladin;
+A.init.then(() => {
+    aladin = A.aladin('#aladin-lite-div', {
+    fov:1,
+target: 'M81',
+showReticle:false,
+showProjectionControl:false,
+showZoomControl:false,
+showFullscreenControl:false,
+showLayersControl:false,
+showGotoControl:false,
+showFrame:false});
+});
+```
+
+```html
+<div id='aladin-lite-div' style='width: 100%;height: 98%;'></div>
+<script src='https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js' charset='utf-8'></script>
+<style>
+.aladin-location,.aladin-dark-theme {
+	display:none;  
+}
+</style>
+```

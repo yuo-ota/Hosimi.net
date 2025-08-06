@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="99cm" height="79cm" viewBox="424 -298 1978 1561" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <ellipse style="fill: #ffffff" cx="497.45" cy="229.842" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="497.45" cy="229.842" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="477.45" y1="229.842" x2="457.45" y2="229.842"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="457.45" y1="209.842" x2="457.45" y2="249.842"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="497.45" y="275.842">
+      <tspan x="497.45" y="275.842">観測地設定画面</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="653.697" cy="51.2948" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="653.697" cy="51.2948" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="633.697" y1="51.2948" x2="613.697" y2="51.2948"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="613.697" y1="31.2948" x2="613.697" y2="71.2948"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="653.697" y="97.2948">
+      <tspan x="653.697" y="97.2948">インフォーメーションダイアログ</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="676.154" cy="334.421" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="676.154" cy="334.421" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="656.154" y1="334.421" x2="636.154" y2="334.421"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="636.154" y1="314.421" x2="636.154" y2="354.421"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="676.154" y="382.221">
+      <tspan x="676.154" y="382.221">GPS情報確認ダイアログ</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="671.659" cy="479.607" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="671.659" cy="479.607" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="651.659" y1="479.607" x2="631.659" y2="479.607"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="631.659" y1="459.607" x2="631.659" y2="499.607"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="671.659" y="525.607">
+      <tspan x="671.659" y="525.607">観測地入力画面</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="484.92" cy="698.945" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="484.92" cy="698.945" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="464.92" y1="698.945" x2="444.92" y2="698.945"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="444.92" y1="678.945" x2="444.92" y2="718.945"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="484.92" y="744.945">
+      <tspan x="484.92" y="744.945">天体観測画面</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="715.548" cy="1056.06" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="715.548" cy="1056.06" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="695.548" y1="1056.06" x2="675.548" y2="1056.06"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="675.548" y1="1036.06" x2="675.548" y2="1076.06"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="715.548" y="1102.06">
+      <tspan x="715.548" y="1102.06">天体検索画面</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="712.592" cy="1207.34" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="712.592" cy="1207.34" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="692.592" y1="1207.34" x2="672.592" y2="1207.34"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="672.592" y1="1187.34" x2="672.592" y2="1227.34"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="712.592" y="1253.34">
+      <tspan x="712.592" y="1253.34">設定画面</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="932.221" y1="1011.45" x2="682.826" y2="55.6221"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="689.624,61.8722 682.261,53.4584 679.948,64.3968 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="504.719" y1="679.146" x2="652.569" y2="111.622"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="655.451,120.396 653.133,109.459 645.774,117.875 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="653.549" cy="-98.2954" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="653.549" cy="-98.2954" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="633.549" y1="-98.2954" x2="613.549" y2="-98.2954"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="613.549" y1="-118.295" x2="613.549" y2="-78.2954"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="653.549" y="-52.2954">
+      <tspan x="653.549" y="-52.2954">サービスアクセス画面</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="681.549" y1="-98.2954" x2="931.236" y2="1007.09"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="924.648,1000.62 931.728,1009.27 934.402,998.416 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="653.697" y1="107.295" x2="520.821" y2="207.353"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="524.015,198.688 519.035,208.698 530.031,206.677 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="932.221" y1="1011.45" x2="519.305" y2="214.014"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="527.315,218.61 518.277,212.029 518.435,223.208 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="525.45" y1="229.842" x2="672.167" y2="304.395"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="662.981,305.335 674.161,305.408 667.511,296.42 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="525.45" y1="229.842" x2="669.197" y2="447.874"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="660.749,444.144 670.428,449.741 669.098,438.64 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="978.328" cy="69.6159" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="978.328" cy="69.6159" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="973.152" y1="50.2973" x2="981.152" y2="55.6307"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="973.152" y1="50.2973" x2="981.152" y2="44.964"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="978.328" y="117.416">
+      <tspan x="978.328" y="117.416">Geolocation APIにアクセス</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="704.154" y1="334.421" x2="947.283" y2="72.8913"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="945.659,81.9819 948.806,71.2536 938.335,75.1732 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="676.154" y1="390.421" x2="671.987" y2="447.147"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="667.569,439.038 671.823,449.377 677.542,439.771 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1213.69" cy="69.0912" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1213.69" cy="69.0912" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1193.69" y1="89.0912" x2="1233.69" y2="89.0912"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1213.69" y="116.891">
+      <tspan x="1213.69" y="116.891">Geolocaiton API</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1006.33" y1="69.6159" x2="1181.22" y2="69.1043"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1173.47,74.127 1183.45,69.0978 1173.44,64.127 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1732.91" cy="196.302" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1732.91" cy="196.302" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1727.73" y1="176.984" x2="1735.73" y2="182.317"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1727.73" y1="176.984" x2="1735.73" y2="171.65"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1732.91" y="244.102">
+      <tspan x="1732.91" y="244.102">Geocoding.jp APIにアクセス</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1947.2" cy="197.758" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1947.2" cy="197.758" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1927.2" y1="217.758" x2="1967.2" y2="217.758"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1947.2" y="245.558">
+      <tspan x="1947.2" y="245.558">Geocoding.jp API</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="982.981" cy="199.749" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="982.981" cy="199.749" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="977.804" y1="180.431" x2="985.804" y2="185.764"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="977.804" y1="180.431" x2="985.804" y2="175.097"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="982.981" y="247.549">
+      <tspan x="982.981" y="247.549">Geocoding APIにアクセス</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="699.659" y1="479.607" x2="951.967" y2="203.053"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="950.428,212.158 953.474,201.401 943.04,205.419 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="973.253" cy="462.13" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="973.253" cy="462.13" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="968.077" y1="442.812" x2="976.077" y2="448.145"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="968.077" y1="442.812" x2="976.077" y2="437.478"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="973.253" y="509.93">
+      <tspan x="973.253" y="509.93">天球情報取得APIにアクセス</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="945.253" y1="462.13" x2="516.842" y2="696.796"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="521.25,688.681 514.881,697.87 526.054,697.451 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="966.502" cy="810.061" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="966.502" cy="810.061" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="961.326" y1="790.742" x2="969.326" y2="796.075"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="961.326" y1="790.742" x2="969.326" y2="785.409"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="966.502" y="857.861">
+      <tspan x="966.502" y="857.861">星情報取得APIにアクセス</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="512.92" y1="698.945" x2="934.175" y2="808.931"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="925.4,811.807 936.339,809.496 927.926,802.132 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="938.502" y1="810.061" x2="738.335" y2="1032.93"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="739.803,1023.82 736.841,1034.6 747.243,1030.5 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="512.92" y1="698.945" x2="710.875" y2="1175.21"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="703.278,1169.96 711.733,1177.28 712.512,1166.13 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="970.01" cy="687.348" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="970.01" cy="687.348" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="964.833" y1="668.029" x2="972.833" y2="673.362"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="964.833" y1="668.029" x2="972.833" y2="662.696"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="970.01" y="735.148">
+      <tspan x="970.01" y="735.148">星座情報取得APIにアクセス</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="512.92" y1="698.945" x2="941.331" y2="464.279"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="936.923,472.394 943.292,463.205 932.119,463.623 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="512.92" y1="698.945" x2="937.539" y2="687.468"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="929.913,692.676 939.775,687.408 929.643,682.68 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="973.442" cy="339.993" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="973.442" cy="339.993" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="968.266" y1="320.675" x2="976.266" y2="326.008"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="968.266" y1="320.675" x2="976.266" y2="315.341"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="973.442" y="387.793">
+      <tspan x="973.442" y="387.793">赤道座標計算APIにアクセス</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="704.154" y1="334.421" x2="940.971" y2="339.89"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="933.094,344.709 943.207,339.942 933.325,334.712 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="699.659" y1="479.607" x2="941.554" y2="342.202"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="937.272,350.384 943.498,341.098 932.333,341.689 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="973.442" y1="395.993" x2="973.275" y2="429.658"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="968.314,421.87 973.264,431.894 978.314,421.919 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="965.72" cy="571.462" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="965.72" cy="571.462" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="960.544" y1="552.143" x2="968.544" y2="557.477"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="960.544" y1="552.143" x2="968.544" y2="546.81"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="965.72" y="619.262">
+      <tspan x="965.72" y="619.262">DeviceOrientationEventにアクセス</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1234.83" cy="568.678" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1234.83" cy="568.678" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1214.83" y1="588.678" x2="1254.83" y2="588.678"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1234.83" y="616.478">
+      <tspan x="1234.83" y="616.478">DeviceOrientationEvent</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="993.72" y1="571.462" x2="1202.36" y2="568.737"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1194.66,573.838 1204.59,568.707 1194.53,563.839 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="512.92" y1="698.945" x2="933.437" y2="572.747"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="927.438,579.768 935.579,572.105 924.563,570.19 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="520.218,-296.114 1193.32,-296.114 1205.32,-284.114 1205.32,-262.114 520.218,-262.114 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="520.218,-296.114 1193.32,-296.114 1205.32,-284.114 1205.32,-262.114 520.218,-262.114 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="1193.32,-296.114 1193.32,-284.114 1205.32,-284.114 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="527.218" y="-272.114">
+      <tspan x="527.218" y="-272.114">----------------------------------------フロントエンド-----------------------------------</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="952.02" cy="1031.25" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="952.02" cy="1031.25" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="946.844" y1="1011.93" x2="954.844" y2="1017.27"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="946.844" y1="1011.93" x2="954.844" y2="1006.6"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="952.02" y="1077.25">
+      <tspan x="952.02" y="1077.25">ユーザー設定情報にアクセス</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="740.592" y1="1207.34" x2="920.794" y2="1034.35"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="918.656,1043.33 922.407,1032.8 911.73,1036.12 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1229.21" cy="1036.63" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1229.21" cy="1036.63" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1209.21" y1="1056.63" x2="1249.21" y2="1056.63"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1229.21" y="1082.63">
+      <tspan x="1229.21" y="1082.63">ユーザー設定情報</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="980.02" y1="1031.25" x2="1196.74" y2="1036.52"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1188.85,1041.33 1198.97,1036.57 1189.1,1031.33 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1952.77" cy="525.58" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1952.77" cy="525.58" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1932.77" y1="545.58" x2="1972.77" y2="545.58"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1952.77" y="571.58">
+      <tspan x="1952.77" y="571.58">星情報</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1944.04" cy="643.501" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1944.04" cy="643.501" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1924.04" y1="663.501" x2="1964.04" y2="663.501"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1944.04" y="689.501">
+      <tspan x="1944.04" y="689.501">星座構成線情報</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1945.33" cy="743.126" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1945.33" cy="743.126" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1925.33" y1="763.126" x2="1965.33" y2="763.126"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1945.33" y="789.126">
+      <tspan x="1945.33" y="789.126">星座名情報</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1542.68" cy="686.438" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1542.68" cy="686.438" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1522.68" y1="686.438" x2="1502.68" y2="686.438"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1502.68" y1="666.438" x2="1502.68" y2="706.438"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1542.68" y="734.238">
+      <tspan x="1542.68" y="734.238">星座情報取得API</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="998.01" y1="687.348" x2="1482.21" y2="686.446"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1474.46,691.461 1484.45,686.442 1474.44,681.461 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1727.45" cy="685.347" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1727.45" cy="685.347" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1722.27" y1="666.029" x2="1730.27" y2="671.362"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1722.27" y1="666.029" x2="1730.27" y2="660.696"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1727.45" y="731.347">
+      <tspan x="1727.45" y="731.347">星座情報管理機能</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1570.68" y1="686.438" x2="1694.98" y2="685.385"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1687.26,690.451 1697.21,685.366 1687.17,680.451 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1755.45" y1="685.347" x2="1911.72" y2="644.629"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1905.46,651.425 1913.88,644.065 1902.94,641.748 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1755.45" y1="685.347" x2="1913.12" y2="741.622"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1904.13,743.722 1915.23,742.374 1907.49,734.304 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1526.62" cy="523.757" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1526.62" cy="523.757" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1506.62" y1="523.757" x2="1486.62" y2="523.757"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1486.62" y1="503.757" x2="1486.62" y2="543.757"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1526.62" y="571.557">
+      <tspan x="1526.62" y="571.557">天球情報取得API</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1001.25" y1="462.13" x2="1466.19" y2="523.175"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1457.84,527.122 1468.41,523.466 1459.14,517.207 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1725.52" cy="523.757" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1725.52" cy="523.757" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1720.34" y1="504.439" x2="1728.34" y2="509.772"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1720.34" y1="504.439" x2="1728.34" y2="499.105"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1725.52" y="569.757">
+      <tspan x="1725.52" y="569.757">天球情報管理機能</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1554.62" y1="523.757" x2="1693.05" y2="523.757"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1685.28,528.757 1695.28,523.757 1685.28,518.757 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1753.52" y1="523.757" x2="1920.3" y2="525.532"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1912.48,530.449 1922.54,525.556 1912.59,520.45 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1533.32" cy="344.493" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1533.32" cy="344.493" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1513.32" y1="344.493" x2="1493.32" y2="344.493"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1493.32" y1="324.493" x2="1493.32" y2="364.493"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1533.32" y="392.293">
+      <tspan x="1533.32" y="392.293">赤道座標計算API</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1001.44" y1="339.993" x2="1472.85" y2="344.451"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1465.04,349.377 1475.09,344.472 1465.14,339.378 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1533.19" cy="197.484" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1533.19" cy="197.484" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1513.19" y1="197.484" x2="1493.19" y2="197.484"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1493.19" y1="177.484" x2="1493.19" y2="217.484"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1533.19" y="245.284">
+      <tspan x="1533.19" y="245.284">Geocoding API</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1010.98" y1="199.749" x2="1472.72" y2="197.506"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1464.98,202.544 1474.96,197.495 1464.93,192.544 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1561.19" y1="197.484" x2="1700.44" y2="196.339"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1692.71,201.403 1702.67,196.321 1692.63,191.403 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1760.91" y1="196.302" x2="1914.73" y2="197.717"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1906.92,202.646 1916.96,197.738 1907.01,192.646 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="2087.64,215.067 2385.54,215.067 2397.54,227.067 2397.54,441.067 2087.64,441.067 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="2087.64,215.067 2385.54,215.067 2397.54,227.067 2397.54,441.067 2087.64,441.067 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="2385.54,215.067 2385.54,227.067 2397.54,227.067 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="2094.64" y="238.744">
+      <tspan x="2094.64" y="238.744"></tspan>
+      <tspan x="2094.64" y="254.744"></tspan>
+      <tspan x="2094.64" y="270.744"></tspan>
+      <tspan x="2094.64" y="286.744"></tspan>
+      <tspan x="2094.64" y="302.744"></tspan>
+      <tspan x="2094.64" y="318.744"></tspan>
+      <tspan x="2094.64" y="334.744">外部APIのためレート制限規約を守れるようにする</tspan>
+      <tspan x="2094.64" y="350.744"></tspan>
+      <tspan x="2094.64" y="366.744"></tspan>
+      <tspan x="2094.64" y="382.744"></tspan>
+      <tspan x="2094.64" y="398.744"></tspan>
+      <tspan x="2094.64" y="414.744"></tspan>
+      <tspan x="2094.64" y="430.744"></tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1724.88" cy="346.006" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1724.88" cy="346.006" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1719.71" y1="326.687" x2="1727.71" y2="332.021"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1719.71" y1="326.687" x2="1727.71" y2="321.354"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1724.88" y="392.006">
+      <tspan x="1724.88" y="392.006">座標計算機能</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1955.06" cy="309.848" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1955.06" cy="309.848" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1935.06" y1="329.848" x2="1975.06" y2="329.848"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1955.06" y="357.648">
+      <tspan x="1955.06" y="357.648">月位置(方位角･高度･月齢)計算API</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1956.35" cy="421.685" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1956.35" cy="421.685" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1936.35" y1="441.685" x2="1976.35" y2="441.685"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1956.35" y="469.485">
+      <tspan x="1956.35" y="469.485">Horizons API</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1752.88" y1="346.006" x2="1922.68" y2="310.757"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1916.09,317.231 1924.87,310.303 1914.06,307.44 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1752.88" y1="346.006" x2="1924.24" y2="419.914"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1915.13,421.43 1926.3,420.799 1919.09,412.248 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1561.32" y1="344.493" x2="1692.41" y2="345.956"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1684.59,350.869 1694.65,345.981 1684.7,340.87 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1536.06" cy="846.407" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1536.06" cy="846.407" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1516.06" y1="846.407" x2="1496.06" y2="846.407"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1496.06" y1="826.407" x2="1496.06" y2="866.407"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1536.06" y="894.207">
+      <tspan x="1536.06" y="894.207">星情報取得API</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1731.02" cy="849.678" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1731.02" cy="849.678" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1711.02" y1="849.678" x2="1691.02" y2="849.678"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1691.02" y1="829.678" x2="1691.02" y2="869.678"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1731.02" y="895.678">
+      <tspan x="1731.02" y="895.678">星情報管理機能</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1564.06" y1="846.407" x2="1670.54" y2="849.547"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1662.64,854.316 1672.78,849.613 1662.93,844.32 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="1929.87" cy="849.678" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="1929.87" cy="849.678" rx="20" ry="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1909.87" y1="869.678" x2="1949.87" y2="869.678"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1929.87" y="897.478">
+      <tspan x="1929.87" y="897.478">SIMBAD API</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1759.02" y1="849.678" x2="1897.39" y2="849.678"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1889.63,854.678 1899.63,849.678 1889.63,844.678 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="994.502" y1="810.061" x2="1475.61" y2="846.073"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1467.49,850.48 1477.83,846.24 1468.24,840.508 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="2090.17,838.941 2388.07,838.941 2400.07,850.941 2400.07,872.941 2090.17,872.941 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="2090.17,838.941 2388.07,838.941 2400.07,850.941 2400.07,872.941 2090.17,872.941 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="2388.07,838.941 2388.07,850.941 2400.07,850.941 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="2097.17" y="862.941">
+      <tspan x="2097.17" y="862.941">外部APIのためレート制限規約を守れるようにする</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="1403.76,-295.166 2064.06,-295.166 2076.06,-283.166 2076.06,-261.166 1403.76,-261.166 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1403.76,-295.166 2064.06,-295.166 2076.06,-283.166 2076.06,-261.166 1403.76,-261.166 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="2064.06,-295.166 2064.06,-283.166 2076.06,-283.166 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1410.76" y="-271.166">
+      <tspan x="1410.76" y="-271.166">----------------------------------------バックエンド-----------------------------------</tspan>
+    </text>
+  </g>
+</svg>

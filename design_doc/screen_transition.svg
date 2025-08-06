@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="93cm" height="20cm" viewBox="-197 157 1857 398" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="-37.5422" y="419.614" width="214" height="54"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-37.5422" y="419.614" width="214" height="54"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="69.4578" y="442.514">
+      <tspan x="69.4578" y="442.514">(G01)</tspan>
+      <tspan x="69.4578" y="458.514">インフォーメーションダイアログ</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="340" y="260" width="111.6" height="54"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="340" y="260" width="111.6" height="54"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="395.8" y="282.9">
+      <tspan x="395.8" y="282.9">(G02)</tspan>
+      <tspan x="395.8" y="298.9">観測地設定画面</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="480" y="500" width="159.95" height="54"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="480" y="500" width="159.95" height="54"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="559.975" y="523.8">
+      <tspan x="559.975" y="523.8">(G03)</tspan>
+      <tspan x="559.975" y="539.8">GPS情報確認ダイアログ</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="900" y="260" width="111.6" height="54"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="900" y="260" width="111.6" height="54"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="955.8" y="282.9">
+      <tspan x="955.8" y="282.9">(G04)</tspan>
+      <tspan x="955.8" y="298.9">観測地入力画面</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1200" y="260" width="98.8" height="54"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1200" y="260" width="98.8" height="54"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1249.4" y="282.9">
+      <tspan x="1249.4" y="282.9">(G05)</tspan>
+      <tspan x="1249.4" y="298.9">天体観測画面</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1540" y="160" width="98.8" height="54"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1540" y="160" width="98.8" height="54"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1589.4" y="182.9">
+      <tspan x="1589.4" y="182.9">(G06)</tspan>
+      <tspan x="1589.4" y="198.9">設定画面</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1560" y="360" width="98.8" height="54"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1560" y="360" width="98.8" height="54"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1609.4" y="382.9">
+      <tspan x="1609.4" y="382.9">(G07)</tspan>
+      <tspan x="1609.4" y="398.9">天体検索画面</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="69.6454,236.774 232.172,286.95 69.6454,337.127 -92.8816,286.95 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="69.6454,236.774 232.172,286.95 69.6454,337.127 -92.8816,286.95 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="69.6454" y="289.95">
+      <tspan x="69.6454" y="289.95">「説明を表示しない」フラグ済みか</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="232.172,286.95 252.884,286.95 252.884,287 335.528,287 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="321.764,295 337.764,287 321.764,279 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="254.884" y="282.975"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="236.172" y="282.95"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="320" y="283"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="69.6454,337.126 69.6454,370.976 69.4578,370.976 69.4578,415.142 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="61.4578,401.378 69.4578,417.378 77.4578,401.378 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="69.5516" y="366.976"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="73.6454" y="349.126"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="80.4578" y="415.614"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="260" y="280">
+    <tspan x="260" y="280">yes</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="80" y="380">
+    <tspan x="80" y="380">no</tspan>
+  </text>
+  <g>
+    <polygon style="fill: #ffffff" points="599.972,253.48 641.049,273.481 599.972,293.482 558.896,273.481 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="599.972,253.48 641.049,273.481 599.972,293.482 558.896,273.481 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="599.972" y="278.281">
+      <tspan x="599.972" y="278.281"></tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="451.6,273.5 480.696,273.5 480.696,273.482 554.424,273.482 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="540.66,281.482 556.66,273.482 540.66,265.482 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="482.696" y="269.491"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="455.6" y="269.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="538.896" y="269.482"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="599.972,293.482 599.972,308.322 599.962,308.322 599.962,495.528 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="591.962,481.764 599.962,497.764 607.962,481.764 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="599.967" y="304.322"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="603.972" y="305.482"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="610.962" y="496"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="608.59" y="360.476">
+    <tspan x="608.59" y="360.476">「現在地を観測地に設定する」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="641.05,273.482 650.37,273.482 650.37,273.5 895.528,273.5 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="881.764,281.5 897.764,273.5 881.764,265.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="652.37" y="269.491"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="645.05" y="269.482"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="880" y="269.5"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="635.128" y="268.398">
+    <tspan x="635.128" y="268.398">「手動で観測地を設定する」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="519.987,500 519.987,300.5 456.072,300.5 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="469.836,292.5 453.836,300.5 469.836,308.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="485.794" y="296.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="523.987" y="496"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="471.6" y="296.5"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="380" y="360">
+    <tspan x="380" y="360">「戻る」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="900,300.5 899,300.5 467.6,300.5 456.072,300.5 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="469.836,292.5 453.836,300.5 469.836,308.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="683.3" y="296.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="896" y="296.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="471.6" y="296.5"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="686.846" y="318.892">
+    <tspan x="686.846" y="318.892">「戻る」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="639.95,513.5 1224.7,513.5 1224.7,318.472 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1232.7,332.236 1224.7,316.236 1216.7,332.236 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="932.325" y="509.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="643.95" y="509.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1235.7" y="326"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1235.96" y="378.81">
+    <tspan x="1235.96" y="378.81">「確認」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="639.95,513.5 927.9,513.5 927.9,318.472 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="935.9,332.236 927.9,316.236 919.9,332.236 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="783.925" y="509.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="643.95" y="509.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="938.9" y="326"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="936.654" y="380.094">
+    <tspan x="936.654" y="380.094">「手動設定に切り替える」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1011.6,273.5 1012.6,273.5 1184,273.5 1195.53,273.5 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1181.76,281.5 1197.76,273.5 1181.76,265.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1098.3" y="269.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1015.6" y="269.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="1180" y="269.5"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1046.33" y="262.964">
+    <tspan x="1046.33" y="262.964">「確認」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1011.6,273.5 1032.6,273.5 1032.6,224 927.9,224 927.9,255.528 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="919.9,241.764 927.9,257.764 935.9,241.764 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="980.25" y="220"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1015.6" y="269.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="938.9" y="256"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="930.496" y="215.638">
+    <tspan x="930.496" y="215.638">「再検索」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1298.8,273.5 1440,273.5 1440,173.5 1535.53,173.5 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1521.76,181.5 1537.76,173.5 1521.76,165.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1442" y="219.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1302.8" y="269.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="1520" y="169.5"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1300" y="240">
+    <tspan x="1300" y="240">「設定」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1540,200.5 1460,200.5 1460,300.5 1303.27,300.5 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1317.04,292.5 1301.04,300.5 1317.04,308.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1462" y="246.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="1536" y="196.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1318.8" y="296.5"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1460" y="240">
+    <tspan x="1460" y="240">「戻る」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1298.8,273.5 1440,273.5 1440,373.5 1555.53,373.5 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1541.76,381.5 1557.76,373.5 1541.76,365.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1442" y="319.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1302.8" y="269.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="1540" y="369.5"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1560,400.5 1460,400.5 1460,300.5 1303.27,300.5 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1317.04,292.5 1301.04,300.5 1317.04,308.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1462" y="346.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="1556" y="396.5"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1318.8" y="296.5"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1380" y="340">
+    <tspan x="1380" y="340">星を選択</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1460" y="340">
+    <tspan x="1460" y="340">「閉じる」ボタンを押下</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1274.1,314 1274.1,433.114 180.93,433.114 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="194.694,425.114 178.694,433.114 194.694,441.114 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="725.279" y="429.114"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1278.1" y="326"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="196.458" y="429.114"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="176.458,460.114 300,460.114 300,287 335.528,287 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="321.764,295 337.764,287 321.764,279 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="302" y="369.557"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="180.458" y="456.114"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="320" y="283"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="176.458,460.114 1224.7,460.114 1224.7,318.472 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1232.7,332.236 1224.7,316.236 1216.7,332.236 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="700.579" y="456.114"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="180.458" y="456.114"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1235.7" y="326"></text>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="200" y="480">
+    <tspan x="200" y="480">「閉じる」ボタンを押下</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="200" y="430">
+    <tspan x="200" y="430">「インフォーメーション」ボタンを押下</tspan>
+  </text>
+  <g>
+    <ellipse style="fill: #000000" cx="-185.794" cy="286.916" rx="10" ry="10"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="-185.794" cy="286.916" rx="10" ry="10"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-175.794,286.916 -114.441,286.916 -114.441,286.95 -97.3537,286.95 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-111.118,294.95 -95.1177,286.95 -111.118,278.95 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-112.441" y="282.933"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-171.794" y="282.916"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-112.882" y="282.95"></text>
+  </g>
+</svg>
