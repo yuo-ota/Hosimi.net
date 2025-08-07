@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import TypekitLoader from "@/type/TypekitLoader";
+import TypekitLoader from "@/utils/TypekitLoader";
 
 export const metadata: Metadata = {
   title: "Astronom",
