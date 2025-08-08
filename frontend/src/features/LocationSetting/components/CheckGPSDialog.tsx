@@ -13,6 +13,7 @@ const CheckGPSDialog = () => {
       >
         <div className="w-full flex justify-between items-start justify-items-end">
           <Headline
+            preferSmall={true}
             title="観測地点確認"
             description="指定された地点はこちらで間違いありませんか？"
             className="mb-10 lg:mb-20"
