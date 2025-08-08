@@ -29,8 +29,8 @@ const LocationSettingButton = ({
             className="h-full w-auto"
           />
         </div>
-        <div className="flex flex-col items-center justify-around">
-          <span className="font-title text-5xl">{buttonTitle}</span>
+        <div className="flex flex-col items-center justify-around gap-y-1">
+          <span className="font-title text-xl lg:text-4xl">{buttonTitle}</span>
           {buttonDescription}
         </div>
       </button>

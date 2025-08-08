@@ -9,7 +9,7 @@ export default function LocationSettingPage() {
           <Headline
             title="観測地点設定方法選択"
             description="観測値を設定するための方法を選んでください"
-            className="mt-30 mb-20"
+            className="mt-10 lg:mt-30 mb-10 lg:mb-20"
           />
           <LocationSetting />
         </div>
