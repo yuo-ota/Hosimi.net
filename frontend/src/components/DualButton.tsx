@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode } from "react";
 import Button from "@/components/Button";
 
@@ -5,6 +7,7 @@ type ButtonProps = {
   isPriority: boolean;
   children: ReactNode;
   handleClick: () => void;
+  isActive: boolean;
   className?: string;
 };
 
@@ -22,6 +25,7 @@ const DualButton = ({ buttons, className = "" }: DualButtonProps) => {
             key={i}
             isPriority={b.isPriority}
             handleClick={b.handleClick}
+            isActive={b.isActive}
             className={b.className}
           >
             {b.children}

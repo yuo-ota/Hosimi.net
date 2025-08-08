@@ -3,6 +3,7 @@
 import LocationSettingButton from "@/components/LocationSettingButton";
 import GPSIcon from "@/assets/location.svg";
 import ManualIcon from "@/assets/touch.svg";
+import CheckGPSDialog from "./components/CheckGPSDialog";
 
 const LocationSetting = () => {
   return (
@@ -35,6 +36,7 @@ const LocationSetting = () => {
           className="w-9/10 lg:w-9/20 h-full"
         />
       </div>
+      <CheckGPSDialog isOpenDialog={true} />
     </>
   );
 };
