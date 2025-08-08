@@ -34,4 +34,5 @@ html.wf-active {
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-body);
 }
