@@ -1,12 +1,13 @@
 type HeadlineProps = {
   title: string;
   description: string;
+  className?: string;
 };
 
-const Headline = ({ title, description }: HeadlineProps) => {
+const Headline = ({ title, description, className }: HeadlineProps) => {
   return (
     <>
-      <div className="flex gap-x-2 items-stretch">
+      <div className={`${className} flex gap-x-2 items-stretch`}>
         <div className="w-[3px] bg-accent" />
         <div className="flex flex-col gap-y-1 py-[2px]">
           <span className="font-title text-foreground text-6xl">{title}</span>
