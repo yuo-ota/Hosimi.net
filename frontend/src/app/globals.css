@@ -5,6 +5,7 @@
   --foreground: #ffffff;
   --base-color: #333333;
   --accent-color: #bcff32;
+  --attention-color: #ff6767;
 }
 
 @theme inline {
@@ -12,6 +13,7 @@
   --color-foreground: var(--foreground);
   --color-accent: var(--accent-color);
   --color-base: var(--base-color);
+  --color-attention: var(--attention-color);
 
   --font-title: ten-mincho-text, serif;
   --font-body: fot-tsukumin-pr6n, sans-serif;
