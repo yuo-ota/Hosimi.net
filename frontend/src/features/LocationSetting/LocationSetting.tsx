@@ -36,7 +36,7 @@ const LocationSetting = () => {
           className="w-9/10 lg:w-9/20 h-full"
         />
       </div>
-      <CheckGPSDialog isOpenDialog={true} />
+      <CheckGPSDialog isOpenDialog={false} />
     </>
   );
 };

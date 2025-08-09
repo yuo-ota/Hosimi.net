@@ -39,7 +39,7 @@ const LocationSettingByManual = () => {
             },
           ]}
           className="h-[50px] lg:h-[70px] lg:row-span-1 w-full lg:w-auto flex justify-between  gap-x-5 gap-y-3 flex-col lg:flex-row"
-        ></DualButton>
+        />
       </div>
     </>
   );
