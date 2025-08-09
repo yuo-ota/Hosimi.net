@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { LatLng } from "leaflet";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import MapController from "./MapController";
+import dynamic from "next/dynamic";
+
+const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 type CheckMapProps = {
   handleGPSChenge: (userPosition: GeoLocation) => void;
@@ -94,21 +93,7 @@ const CheckMap = ({ handleGPSChenge, className }: CheckMapProps) => {
             ブラウザの設定を確認するか、手動設定に切り替えてください
           </div>
         ) : (
-          <MapContainer
-            center={new LatLng(location.latitude, location.longitude)}
-            zoom={13}
-            scrollWheelZoom={true}
-            className="flex-1 rounded-lg h-full w-full"
-          >
-            <MapController userPosition={location} />
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {location.latitude !== null && location.longitude !== null && (
-              <Marker position={[location.latitude, location.longitude]} />
-            )}
-          </MapContainer>
+          <Map userPosition={location} />
         )}
       </div>
     </>
