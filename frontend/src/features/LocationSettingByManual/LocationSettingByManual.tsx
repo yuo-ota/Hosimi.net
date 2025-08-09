@@ -2,13 +2,19 @@
 
 import DualButton from "@/components/DualButton";
 import LocationInput from "./components/LocationInput";
+import dynamic from "next/dynamic";
+
+const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const LocationSettingByManual = () => {
   return (
     <>
       <div className="mb-10 lg:mb-30 w-full h-2/3 lg:h-[500px] flex flex-col lg:grid lg:grid-flow-row lg:grid-rows-[auto_1fr] lg:grid-cols-2 gap-8">
         <LocationInput className="w-full lg:w-auto lg:row-span-1"></LocationInput>
-        <div className="flex-1 lg:col-span-1 w-full lg:w-auto lg:row-span-2 bg-green-200"></div>
+        <Map
+          userPosition={{ latitude: 35, longitude: 135 }}
+          className="flex-1 lg:col-span-1 w-full lg:w-auto lg:row-span-2"
+        />
         <DualButton
           key={"aa"}
           buttons={[

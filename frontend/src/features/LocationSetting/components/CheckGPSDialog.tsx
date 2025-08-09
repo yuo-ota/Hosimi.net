@@ -3,16 +3,14 @@
 import DualButton from "@/components/DualButton";
 import Headline from "@/components/Headline";
 import CloseIcon from "@/features/LocationSetting/assets/close.svg";
+import CheckMap from "./CheckMap";
 import { useState } from "react";
-import dynamic from "next/dynamic";
 
-const CheckMap = dynamic(() => import("./CheckMap"), { ssr: false });
-
-type CheckGPSDialog = {
+type CheckGPSDialogProps = {
   isOpenDialog: boolean;
 };
 
-const CheckGPSDialog = ({ isOpenDialog }: CheckGPSDialog) => {
+const CheckGPSDialog = ({ isOpenDialog }: CheckGPSDialogProps) => {
   const [activeConfirmButton, setActiveConfirmButton] = useState(false);
 
   const handleGPSChenge = (userPosition: GeoLocation) => {
