@@ -30,7 +30,7 @@ const CheckGPSDialog = ({ isOpenDialog }: CheckGPSDialog) => {
           <div className="fixed left-0 top-0 w-dvw h-dvh bg-background/50 backdrop-blur-lg z-10"></div>
           <div
             className="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[80dvh] p-5 flex flex-col items-start absolute z-20 bg-foreground/30 backdrop-blur-lg
-    rounded-md border border-foreground/30 shadow-lg z-20"
+    rounded-md border border-foreground/30 shadow-lg"
           >
             <div className="w-full flex justify-between items-start justify-items-end">
               <Headline

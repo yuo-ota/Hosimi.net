@@ -1,5 +1,5 @@
 import Headline from "@/components/Headline";
-import LocationSettingByManual from "@/features/LocationSettingByManual.tsx/LocationSettingByManual";
+import LocationSettingByManual from "@/features/LocationSettingByManual/LocationSettingByManual";
 
 export default function LocationSettingByManualPage() {
   return (
