@@ -18,7 +18,7 @@ const LocationSettingButton = ({
   return (
     <>
       <button
-        className={`${className} flex flex-col items-center justify-center gap-y-10 bg-foreground/30 backdrop-blur-lg
+        className={`${className} flex flex-col items-center justify-center gap-y-5 lg:gap-y-10 bg-foreground/30 backdrop-blur-lg
     rounded-md border border-foreground/30 shadow-lg`}
         onClick={handleClick}
       >
