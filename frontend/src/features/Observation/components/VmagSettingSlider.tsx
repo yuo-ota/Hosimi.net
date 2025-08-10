@@ -1,0 +1,210 @@
+"use client";
+
+import { useRef, useState } from "react";
+import IconButton from "./IconButton";
+import StarIcon from "../assets/star.svg";
+import StartShineIcon from "../assets/star_shine.svg";
+import TriangleIcon from "../assets/triangle.svg";
+
+type VmagSettingSliderProps = {
+  sliderValueChangeHandle: ((n: number) => void)[];
+  className?: string;
+};
+
+const VmagSettingSlider = ({
+  sliderValueChangeHandle,
+  className,
+}: VmagSettingSliderProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [bottomSliderValue, setBottomSliderValue] = useState<number>(-1);
+  const [topSliderValue, setTopSliderValue] = useState<number>(3);
+  const [bottomThumbDragging, setBottomThumbDragging] =
+    useState<boolean>(false);
+  const [topThumbDragging, setTopThumbDragging] = useState<boolean>(false);
+
+  const min = -1;
+  const max = 5;
+
+  const changedBottomSliderValue = (n: number) => {
+    setBottomSliderValue(n);
+    sliderValueChangeHandle[0](n);
+  };
+  const changedTopSliderValue = (n: number) => {
+    setTopSliderValue(n);
+    sliderValueChangeHandle[0](n);
+  };
+
+  const getGradient = (
+    bottomValue: number,
+    topValue: number,
+    isBottom: boolean
+  ) => {
+    const value = isBottom ? bottomValue : topValue;
+    const ratio = ((value - min) / (max - min)) * 100;
+    console.log(
+      value - min + "/" + (max - min) + "=" + (value - min) / (max - min)
+    );
+    if (bottomValue < topValue) {
+      isBottom = !isBottom;
+    }
+
+    const color = isBottom ? "var(--accent-color)" : "var(--base-color)";
+    const rightColor = isBottom ? "var(--base-color)" : "rgba(0, 0, 0, 0)";
+    return `linear-gradient(90deg, ${color} ${ratio}%, ${rightColor} ${ratio}%)`;
+  };
+
+  const getZIndex = (
+    bottomValue: number,
+    topValue: number,
+    isBottom: boolean
+  ) => {
+    if (bottomValue < topValue) {
+      isBottom = !isBottom;
+    }
+
+    const zIndex = isBottom ? 10 : 20;
+    return zIndex;
+  };
+
+  return (
+    <>
+      <div
+        className={`${className} bg-foreground rounded-full flex flex-col justify-between items-center`}
+      >
+        <IconButton
+          icon={{ path: StarIcon.src, alt: "低等級アイコン" }}
+          isActive={false}
+          className="flex-none"
+        />
+        <div
+          ref={containerRef}
+          className="relative aspect-square flex-1 pointer-events-none"
+        >
+          <input
+            type="range"
+            min={min}
+            max={max}
+            step={0.1}
+            className="absolute top-1/2 h-[2px] lg:h-[3px] w-full bg-base appearance-none cursor-pointer rounded-full rotate-90
+								[&::-webkit-slider-thumb]:appearance-none
+								[&::-webkit-slider-thumb]:h-5
+								[&::-webkit-slider-thumb]:w-1.5
+								lg:[&::-webkit-slider-thumb]:h-7
+								lg:[&::-webkit-slider-thumb]:w-2.5
+								[&::-webkit-slider-thumb]:rounded-full
+								[&::-webkit-slider-thumb]:bg-foreground
+								[&::-webkit-slider-thumb]:border-1.5
+								lg:[&::-webkit-slider-thumb]:border-3
+								[&::-webkit-slider-thumb]:border-base
+								[&::-webkit-slider-thumb]:pointer-events-auto
+
+								[&::-moz-range-thumb]:h-5
+								[&::-moz-range-thumb]:w-1.5
+								lg:[&::-moz-range-thumb]:h-7
+								lg:[&::-moz-range-thumb]:w-2.5
+								[&::-moz-range-thumb]:rounded-full
+								[&::-moz-range-thumb]:bg-foreground
+								[&::-moz-range-thumb]:border-1.5
+								lg:[&::-moz-range-thumb]:border-3
+								[&::-moz-range-thumb]:border-base
+								[&::-moz-range-thumb]:pointer-events-auto"
+            onChange={(e) =>
+              changedBottomSliderValue(parseFloat(e.target.value))
+            }
+            onMouseDown={() => setBottomThumbDragging(true)}
+            onMouseUp={() => setBottomThumbDragging(false)}
+            value={bottomSliderValue}
+            style={{
+              background: getGradient(bottomSliderValue, topSliderValue, true),
+              zIndex: getZIndex(bottomSliderValue, topSliderValue, true),
+            }}
+          />
+          <input
+            type="range"
+            min={min}
+            max={max}
+            step={0.1}
+            className="absolute top-1/2 h-[2px] lg:h-[3px] w-full appearance-none cursor-pointer rounded-full rotate-90
+								[&::-webkit-slider-thumb]:appearance-none
+								[&::-webkit-slider-thumb]:h-5
+								[&::-webkit-slider-thumb]:w-1.5
+								lg:[&::-webkit-slider-thumb]:h-7
+								lg:[&::-webkit-slider-thumb]:w-2.5
+								[&::-webkit-slider-thumb]:rounded-full
+								[&::-webkit-slider-thumb]:bg-foreground
+								[&::-webkit-slider-thumb]:border-1.5
+								lg:[&::-webkit-slider-thumb]:border-3
+								[&::-webkit-slider-thumb]:border-base
+								[&::-webkit-slider-thumb]:pointer-events-auto
+
+								[&::-moz-range-thumb]:h-5
+								[&::-moz-range-thumb]:w-1.5
+								lg:[&::-moz-range-thumb]:h-7
+								lg:[&::-moz-range-thumb]:w-2.5
+								[&::-moz-range-thumb]:rounded-full
+								[&::-moz-range-thumb]:bg-foreground
+								[&::-moz-range-thumb]:border-1.5
+								lg:[&::-moz-range-thumb]:border-3
+								[&::-moz-range-thumb]:border-base
+								[&::-moz-range-thumb]:pointer-events-auto"
+            onChange={(e) => changedTopSliderValue(parseFloat(e.target.value))}
+            onMouseDown={() => setTopThumbDragging(true)}
+            onMouseUp={() => setTopThumbDragging(false)}
+            value={topSliderValue}
+            style={{
+              background: getGradient(bottomSliderValue, topSliderValue, false),
+              zIndex: getZIndex(bottomSliderValue, topSliderValue, false),
+            }}
+          />
+          <div className="relative w-full h-[calc(100%-6px)] mt-[3px] lg:h-[calc(100%-10px)] lg:mt-[5px]">
+            {bottomThumbDragging && (
+              <div
+                className="flex justify-center items-center absolute left-1/2 h-[40px] w-auto bg-foreground rounded-lg ml-9"
+                style={{
+                  top: `calc(${
+                    ((bottomSliderValue - min) / (max - min)) * 100
+                  }% - 20px)`,
+                }}
+              >
+                <span className="text-[var(--base-color)] text-sm mx-2 font-num">
+                  {bottomSliderValue}
+                </span>
+                <img
+                  src={TriangleIcon.src}
+                  alt="先端要素"
+                  className="absolute transform origin-top-right left-0 -translate-x-3/4"
+                />
+              </div>
+            )}
+            {topThumbDragging && (
+              <div
+                className="flex justify-center items-center absolute left-1/2 h-[40px] w-auto bg-foreground rounded-lg ml-9"
+                style={{
+                  top: `calc(${
+                    ((topSliderValue - min) / (max - min)) * 100
+                  }% - 20px)`,
+                }}
+              >
+                <span className="text-[var(--base-color)] text-sm mx-2 font-num">
+                  {topSliderValue}
+                </span>
+                <img
+                  src={TriangleIcon.src}
+                  alt="先端要素"
+                  className="absolute transform origin-top-right left-0 -translate-x-3/4"
+                />
+              </div>
+            )}
+          </div>
+        </div>
+        <IconButton
+          icon={{ path: StartShineIcon.src, alt: "高等級アイコン" }}
+          isActive={false}
+          className="flex-none"
+        />
+      </div>
+    </>
+  );
+};
+
+export default VmagSettingSlider;

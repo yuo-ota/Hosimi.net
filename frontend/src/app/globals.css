@@ -17,6 +17,7 @@
 
   --font-title: ten-mincho-text, serif;
   --font-body: fot-tsukumin-pr6n, sans-serif;
+  --font-num: hiragino-kaku-gothic-pron, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

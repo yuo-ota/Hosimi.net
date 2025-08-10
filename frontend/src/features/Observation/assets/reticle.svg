@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="reticle" transform="translate(-189.5 -458)">
+    <path id="線_8" data-name="線 8" d="M6.968,1H0A1,1,0,0,1-1,0,1,1,0,0,1,0-1H6.968a1,1,0,0,1,1,1A1,1,0,0,1,6.968,1Z" transform="translate(190.5 474)" fill="#bcff32"/>
+    <path id="線_9" data-name="線 9" d="M0,7.968a1,1,0,0,1-1-1V0A1,1,0,0,1,0-1,1,1,0,0,1,1,0V6.968A1,1,0,0,1,0,7.968Z" transform="translate(205.5 459)" fill="#bcff32"/>
+    <path id="線_10" data-name="線 10" d="M6.968,1H0A1,1,0,0,1-1,0,1,1,0,0,1,0-1H6.968a1,1,0,0,1,1,1A1,1,0,0,1,6.968,1Z" transform="translate(213.532 474)" fill="#bcff32"/>
+    <path id="線_11" data-name="線 11" d="M0,7.968a1,1,0,0,1-1-1V0A1,1,0,0,1,0-1,1,1,0,0,1,1,0V6.968A1,1,0,0,1,0,7.968Z" transform="translate(205.5 482.032)" fill="#bcff32"/>
+  </g>
+</svg>
