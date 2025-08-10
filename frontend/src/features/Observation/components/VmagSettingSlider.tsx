@@ -88,23 +88,23 @@ const VmagSettingSlider = ({
             className="absolute top-1/2 h-[2px] lg:h-[3px] w-full bg-base appearance-none cursor-pointer rounded-full rotate-90
 								[&::-webkit-slider-thumb]:appearance-none
 								[&::-webkit-slider-thumb]:h-5
-								[&::-webkit-slider-thumb]:w-1.5
+								[&::-webkit-slider-thumb]:w-5
 								lg:[&::-webkit-slider-thumb]:h-7
 								lg:[&::-webkit-slider-thumb]:w-2.5
 								[&::-webkit-slider-thumb]:rounded-full
 								[&::-webkit-slider-thumb]:bg-foreground
-								[&::-webkit-slider-thumb]:border-1.5
+								[&::-webkit-slider-thumb]:border-2
 								lg:[&::-webkit-slider-thumb]:border-3
 								[&::-webkit-slider-thumb]:border-base
 								[&::-webkit-slider-thumb]:pointer-events-auto
 
 								[&::-moz-range-thumb]:h-5
-								[&::-moz-range-thumb]:w-1.5
+								[&::-moz-range-thumb]:w-5
 								lg:[&::-moz-range-thumb]:h-7
-								lg:[&::-moz-range-thumb]:w-2.5
+								lg:[&::-moz-range-thumb]:w-5
 								[&::-moz-range-thumb]:rounded-full
 								[&::-moz-range-thumb]:bg-foreground
-								[&::-moz-range-thumb]:border-1.5
+								[&::-moz-range-thumb]:border-2
 								lg:[&::-moz-range-thumb]:border-3
 								[&::-moz-range-thumb]:border-base
 								[&::-moz-range-thumb]:pointer-events-auto"
@@ -113,6 +113,10 @@ const VmagSettingSlider = ({
             }
             onMouseDown={() => setBottomThumbDragging(true)}
             onMouseUp={() => setBottomThumbDragging(false)}
+            onTouchStart={() => setBottomThumbDragging(true)}
+            onTouchEnd={() => setBottomThumbDragging(false)}
+            onPointerDown={() => setBottomThumbDragging(true)}
+            onPointerUp={() => setBottomThumbDragging(false)}
             value={bottomSliderValue}
             style={{
               background: getGradient(bottomSliderValue, topSliderValue, true),
@@ -127,29 +131,33 @@ const VmagSettingSlider = ({
             className="absolute top-1/2 h-[2px] lg:h-[3px] w-full appearance-none cursor-pointer rounded-full rotate-90
 								[&::-webkit-slider-thumb]:appearance-none
 								[&::-webkit-slider-thumb]:h-5
-								[&::-webkit-slider-thumb]:w-1.5
+								[&::-webkit-slider-thumb]:w-5
 								lg:[&::-webkit-slider-thumb]:h-7
 								lg:[&::-webkit-slider-thumb]:w-2.5
 								[&::-webkit-slider-thumb]:rounded-full
 								[&::-webkit-slider-thumb]:bg-foreground
-								[&::-webkit-slider-thumb]:border-1.5
+								[&::-webkit-slider-thumb]:border-2
 								lg:[&::-webkit-slider-thumb]:border-3
 								[&::-webkit-slider-thumb]:border-base
 								[&::-webkit-slider-thumb]:pointer-events-auto
 
 								[&::-moz-range-thumb]:h-5
-								[&::-moz-range-thumb]:w-1.5
+								[&::-moz-range-thumb]:w-5
 								lg:[&::-moz-range-thumb]:h-7
 								lg:[&::-moz-range-thumb]:w-2.5
 								[&::-moz-range-thumb]:rounded-full
 								[&::-moz-range-thumb]:bg-foreground
-								[&::-moz-range-thumb]:border-1.5
+								[&::-moz-range-thumb]:border-2
 								lg:[&::-moz-range-thumb]:border-3
 								[&::-moz-range-thumb]:border-base
 								[&::-moz-range-thumb]:pointer-events-auto"
             onChange={(e) => changedTopSliderValue(parseFloat(e.target.value))}
             onMouseDown={() => setTopThumbDragging(true)}
             onMouseUp={() => setTopThumbDragging(false)}
+            onTouchStart={() => setTopThumbDragging(true)}
+            onTouchEnd={() => setTopThumbDragging(false)}
+            onPointerDown={() => setTopThumbDragging(true)}
+            onPointerUp={() => setTopThumbDragging(false)}
             value={topSliderValue}
             style={{
               background: getGradient(bottomSliderValue, topSliderValue, false),

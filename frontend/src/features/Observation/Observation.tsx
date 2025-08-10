@@ -4,17 +4,20 @@ import FunctionButtons from "./components/FunctionButtons";
 import SkyView from "./components/SkyView";
 
 import settingIcon from "./assets/settings.svg";
+import StarInformationSheet from "./components/StarInformationSheet";
+import { useState } from "react";
 
 const Observation = () => {
-  const SheetWidth = 500;
+  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(true);
+  const SHEET_WIDTH = 500;
 
   return (
     <>
       <div className="flex w-full h-full relative overflow-hidden">
         <SkyView
           className={`absolute -left-[${
-            SheetWidth / 2
-          }px] w-[calc(100%+${SheetWidth}px)] h-full z-0`}
+            SHEET_WIDTH / 2
+          }px] w-[calc(100%+${SHEET_WIDTH}px)] h-full z-0`}
         />
         <FunctionButtons
           icons={[
@@ -33,9 +36,19 @@ const Observation = () => {
           ]}
           sliderValueChangeHandle={[(n) => {}, (n) => {}]}
         />
-        <div
-          className={`absolute -right-[0px] h-full w-[${SheetWidth}px] bg-red-200 rounded-lg z-100`}
-        ></div>
+        <StarInformationSheet
+          sheetWidth={SHEET_WIDTH}
+          starData={{
+            name: "NAME LMC",
+            category: "銀河",
+            vMag: 0.4,
+            rightAscension: "5時23分34.6秒",
+            declination: "-69度45分22秒",
+          }}
+          isOpenSheet={isOpenSheet}
+          setIsOpenSheet={setIsOpenSheet}
+          className={`absolute h-full w-[${SHEET_WIDTH}px] rounded-lg z-100`}
+        ></StarInformationSheet>
       </div>
     </>
   );
