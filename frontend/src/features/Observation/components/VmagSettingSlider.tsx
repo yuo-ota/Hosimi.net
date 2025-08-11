@@ -41,9 +41,6 @@ const VmagSettingSlider = ({
   ) => {
     const value = isBottom ? bottomValue : topValue;
     const ratio = ((value - min) / (max - min)) * 100;
-    console.log(
-      value - min + "/" + (max - min) + "=" + (value - min) / (max - min)
-    );
     if (bottomValue < topValue) {
       isBottom = !isBottom;
     }

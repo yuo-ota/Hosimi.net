@@ -10,6 +10,7 @@ import { useState } from "react";
 const Observation = () => {
   const [isOpenSheet, setIsOpenSheet] = useState<boolean>(true);
   const SHEET_WIDTH = 500;
+  const SHEET_HEIGHT = 500;
 
   return (
     <>
@@ -38,6 +39,7 @@ const Observation = () => {
         />
         <StarInformationSheet
           sheetWidth={SHEET_WIDTH}
+          sheetHeight={SHEET_HEIGHT}
           starData={{
             name: "NAME LMC",
             category: "銀河",
@@ -47,8 +49,8 @@ const Observation = () => {
           }}
           isOpenSheet={isOpenSheet}
           setIsOpenSheet={setIsOpenSheet}
-          className={`absolute h-full w-[${SHEET_WIDTH}px] rounded-lg z-100`}
-        ></StarInformationSheet>
+          className={`absolute z-30`}
+        />
       </div>
     </>
   );
