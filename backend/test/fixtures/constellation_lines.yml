@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_star: one
+  end_star: one
+  constellation: one
+
+two:
+  start_star: two
+  end_star: two
+  constellation: two
