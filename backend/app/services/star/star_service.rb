@@ -1,3 +1,4 @@
+require_relative '../manage_access'
 require_relative 'simbad_fetcher'
 require_relative 'star_parser'
 require_relative 'star_classifier'
@@ -8,15 +9,17 @@ require 'json'
 
 class StarService
     MAX_REQUESTS_PER_MINUTE = 30
-    @@request_count = 0
-    @@last_reset_time = Time.now
+    ACCESS_THRESHOLD = 60
 
 
     # -----------------------
     # 公開メソッド（外部から呼ぶ）
     # -----------------------
     def research_star(star_name)
-        check_request_limit
+        access_manager = ManageAccess.new(
+            max_requests_per_minute: MAX_REQUESTS_PER_MINUTE,
+            access_threshold: ACCESS_THRESHOLD)
+        status = access_manager.check_request
 
         data = SimbadFetcher.fetch_star_html(star_name)
         info = StarParser.parse_star_info(data)
@@ -36,24 +39,6 @@ class StarService
     # privateメソッド（内部処理用）
     # -----------------------
     private
-    
-    # リクエスト数確認
-    def check_request_limit
-        reset_counter_if_needed
-        if @@request_count >= MAX_REQUESTS_PER_MINUTE then
-            raise TooManyRequestsError, "Simbadへのリクエストが多すぎます"
-        end
-        
-        @@request_count += 1
-    end
-
-    # アクセス数管理
-    def reset_counter_if_needed
-        if Time.now - @@last_reset_time >= 60
-            @@request_count = 0
-            @@last_reset_time = Time.now
-        end
-    end
 
     # jsonの作成
     def build_star_json(name, category, distance)
