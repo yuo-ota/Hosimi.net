@@ -1,4 +1,4 @@
-require_relative '../manage_access'
+require_relative '../access_manager'
 require_relative 'simbad_fetcher'
 require_relative 'star_parser'
 require_relative 'star_classifier'
@@ -16,7 +16,7 @@ class StarService
     # 公開メソッド（外部から呼ぶ）
     # -----------------------
     def research_star(star_name)
-        access_manager = ManageAccess.new(
+        access_manager = AccessManager.new(
             max_requests_per_minute: MAX_REQUESTS_PER_MINUTE,
             access_threshold: ACCESS_THRESHOLD)
         status = access_manager.check_request
