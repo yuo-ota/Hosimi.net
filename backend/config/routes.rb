@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # GET /api/geolocation/{locationName}
+  get 'api/geolocation/:locationName', to: 'geolocation#show'
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # GET /api/equatorialCoords/{latitude}/{longitude}
+  get 'api/equatorialCoords/:latitude/:longitude', to: 'equatorial_coords#show'
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # GET /api/stars/{id}
+  get 'api/stars/:id', to: 'stars#show'
+
+  # GET /api/stars?minVMag=&maxVMag=
+  get 'api/stars', to: 'stars#index'
+
+  # GET /api/constellation
+  get 'api/constellations', to: 'constellations#index'
 end
