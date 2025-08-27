@@ -13,6 +13,7 @@ class StarsController < ApplicationController
         end
     end
 
+    # GET /api/stars?minVMag=&maxVMag=
     def index
     end
 end
