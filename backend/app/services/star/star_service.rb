@@ -8,17 +8,18 @@ require 'nokogiri'
 require 'json'
 
 class StarService
-    MAX_REQUESTS_PER_MINUTE = 30
-    ACCESS_THRESHOLD = 60
+    MAX_REQUESTS = 30
+    ACCESS_MANAGE_BASE_TIME = 60
 
 
     # -----------------------
     # 公開メソッド（外部から呼ぶ）
     # -----------------------
+
     def research_star(star_name)
         access_manager = AccessManager.new(
-            max_requests_per_minute: MAX_REQUESTS_PER_MINUTE,
-            access_threshold: ACCESS_THRESHOLD)
+            max_requests: MAX_REQUESTS,
+            access_manage_base_time: ACCESS_MANAGE_BASE_TIME)
         status = access_manager.check_request
 
         data = SimbadFetcher.fetch_star_html(star_name)
