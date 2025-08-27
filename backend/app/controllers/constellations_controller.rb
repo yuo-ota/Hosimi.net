@@ -5,7 +5,7 @@ class ConstellationsController < ApplicationController
 
         render json: constellations.map { |c|
             {
-                constellationName: c.constellations_name_jpn,
+                constellationName: c.constellation_name_jpn,
                 constellationLines: c.constellation_lines.map { |line|
                     {
                         startStarId: line.start_star_id.to_s,
