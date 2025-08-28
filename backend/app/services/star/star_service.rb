@@ -11,16 +11,22 @@ class StarService
     MAX_REQUESTS = 30
     ACCESS_MANAGE_BASE_TIME = 60
 
+    attr_reader :simbad_access_manager
+
+    def initialize
+        @@simbad_access_manager = AccessManager.new(
+            max_requests: MAX_REQUESTS,
+            access_manage_base_time: ACCESS_MANAGE_BASE_TIME
+        )
+    end
+
 
     # -----------------------
     # 公開メソッド（外部から呼ぶ）
     # -----------------------
 
     def research_star(star_name)
-        access_manager = AccessManager.new(
-            max_requests: MAX_REQUESTS,
-            access_manage_base_time: ACCESS_MANAGE_BASE_TIME)
-        status = access_manager.check_request
+        status = simbad_access_manager.check_request
 
         data = SimbadFetcher.fetch_star_html(star_name)
         info = StarParser.parse_star_info(data)
