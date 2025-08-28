@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get 'api/geolocation/:locationName', to: 'geolocation#show'
 
   # GET /api/equatorialCoords/{latitude}/{longitude}
-  get 'api/equatorialCoords/:latitude/:longitude', to: 'equatorial_coords#show'
+  get "/api/equatorialCoords/:latitude/:longitude", to: "equatorial_coords#show",
+    constraints: { latitude: /-?\d+(\.\d+)?/, longitude: /-?\d+(\.\d+)?/ }
 
   # GET /api/stars/{id}
   get 'api/stars/:id', to: 'stars#show'

@@ -10,14 +10,14 @@ require 'json'
 class StarService
     MAX_REQUESTS = 30
     ACCESS_MANAGE_BASE_TIME = 60
+        
+    @simbad_access_manager = AccessManager.new(
+        max_requests: MAX_REQUESTS,
+        access_manage_base_time: ACCESS_MANAGE_BASE_TIME
+    )
 
-    attr_reader :simbad_access_manager
-
-    def initialize
-        @@simbad_access_manager = AccessManager.new(
-            max_requests: MAX_REQUESTS,
-            access_manage_base_time: ACCESS_MANAGE_BASE_TIME
-        )
+    class << self
+        attr_reader :simbad_access_manager
     end
 
 
@@ -25,8 +25,8 @@ class StarService
     # 公開メソッド（外部から呼ぶ）
     # -----------------------
 
-    def research_star(star_name)
-        status = simbad_access_manager.check_request
+    def self.research_star(star_name)
+        status = StarService.simbad_access_manager.check_request
 
         data = SimbadFetcher.fetch_star_html(star_name)
         info = StarParser.parse_star_info(data)
@@ -48,22 +48,21 @@ class StarService
     private
 
     # jsonの作成
-    def build_star_json(name, category, distance)
+    def self.build_star_json(name, category, distance)
         star_hash = {
             starName: name,
             category: category,
             distance: distance
         }
 
-        star_hash.to_json
+        star_hash
     end
 end
 
 if __FILE__ == $0
-    service = StarService.new
     # 確認したい星のIDを指定
     test_star_name = "NGC 7209"
-    results = service.research_star(test_star_name)
+    results = StarService.research_star(test_star_name)
 
     puts "Fetched data for #{test_star_name}:"
     puts results
