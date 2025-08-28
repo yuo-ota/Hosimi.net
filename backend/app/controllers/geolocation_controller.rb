@@ -4,7 +4,7 @@ class GeolocationController < ApplicationController
         location_name = params[:locationName]
         
         begin
-            data = GeolocationService.searchLocation(location_name)
+            data = GeolocationService.search_location(location_name)
             render json: data, status: :ok
         rescue TooManyRequestsError => e
             render json: { error: e.message }, status: :too_many_requests  # 429

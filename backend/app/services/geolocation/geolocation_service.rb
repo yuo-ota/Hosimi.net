@@ -21,7 +21,7 @@ class GeolocationService
     # 公開メソッド（外部から呼ぶ）
     # -----------------------
 
-    def searchLocation(location_name)
+    def search_location(location_name)
         status = @access_manager.check_request
 
         data = GeocodingManager.fetch_coords_xml(location_name)
@@ -51,7 +51,7 @@ if __FILE__ == $0
     service = GeolocationService.new
     # 座標を取得したい地名を指定
     location_name = "横浜駅"
-    result = service.searchLocation(location_name)
+    result = service.search_location(location_name)
 
     puts "Fetched data for #{location_name}:"
     puts result

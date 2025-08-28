@@ -9,8 +9,8 @@ class HorizonAPIManager
     # 公開メソッド（外部から呼ぶ）
     # -----------------------
 
-    # 位置情報text取得
-    def self.fetch_equatorial_coords_text
+    # 月の赤道座標取得
+    def self.get_moon_equatorial_coords
         time_param = make_param
         
         url = "#{BASE_URL}#{time_param}"
@@ -46,7 +46,7 @@ class HorizonAPIManager
     # 位置情報XML解析
     def self.parse_equatorial_coords_from_text(text)
         # テキストで座標を取得
-        extract_result_text(text)
+        equatorial_coord_text = extract_result_text(text)
 
         parts = equatorial_coord_text.split
         {
@@ -58,7 +58,7 @@ class HorizonAPIManager
     # API結果のブロック抽出
     def self.extract_result_text(text)
         result_block = text[/\$\$SOE\s*(.*?)\s*\$\$EOE/m, 1]
-        result_now_data = result_container.split("\n")[0]
+        result_now_data = result_block.split("\n")[0]
 
         # 赤緯, 赤経に該当する箇所の文字列の抽出 ex) "14 06 39.84 -17 48 13.4"
         equatorial_coord_text = result_now_data[-23..-1]
@@ -66,5 +66,5 @@ class HorizonAPIManager
 end
 
 if __FILE__ == $0
-    HorizonAPIManager.fetch_equatorial_coords_text
+    HorizonAPIManager.get_moon_equatorial_coords
 end
