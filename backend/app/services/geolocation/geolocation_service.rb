@@ -1,5 +1,7 @@
 require_relative '../access_manager'
-require_relative './geolocation_manager'
+require_relative './geocoding_manager'
+
+require 'json'
 
 class GeolocationService
     MAX_REQUESTS = 1
@@ -19,6 +21,32 @@ class GeolocationService
         data = GeocodingManager.fetch_coords_xml(location_name)
         location = GeocodingManager.parse_coords_xml(data)
 
-        location
+        build_location_json(location[:latitude], location[:longitude])
     end
+
+
+    # -----------------------
+    # privateメソッド（内部処理用）
+    # -----------------------
+    private
+
+    # jsonの作成
+    def build_location_json(latitude, longitude)
+        location_hash = {
+            latitude: latitude&.to_f,
+            longitude: longitude&.to_f
+        }
+
+        location_hash.to_json
+    end
+end
+
+if __FILE__ == $0
+    service = GeolocationService.new
+    # 座標を取得したい地名を指定
+    location_name = "横浜駅"
+    result = service.searchLocation(location_name)
+
+    puts "Fetched data for #{location_name}:"
+    puts result
 end
