@@ -1,3 +1,5 @@
+require_relative "../services/star/star_service"
+
 class StarsController < ApplicationController
     # GET /api/stars/{id}
     def show
@@ -7,8 +9,12 @@ class StarsController < ApplicationController
             data = StarService.research_star(star.simbad_id)
             render json: data, status: :ok
         rescue TooManyRequestsError => e
+            Rails.logger.error e.message
+            Rails.logger.error e.backtrace.join("\n")
             render json: { error: e.message }, status: :too_many_requests  # 429
         rescue StandardError => e
+            Rails.logger.error e.message
+            Rails.logger.error e.backtrace.join("\n")
             render json: { error: e.message }, status: :internal_server_error  # 500
         end
     end
@@ -21,7 +27,7 @@ class StarsController < ApplicationController
             max_vmag = params[:maxVMag]
 
             if min_vmag.blank? || max_vmag.blank?
-                return render json: { error: "minVMagとmaxVMagは必須です" }, status: :bad_request_error # 400
+                return render json: { error: "minVMagとmaxVMagは必須です" }, status: :bad_request # 400
             end
 
             min_vmag = min_vmag.to_f
@@ -40,7 +46,7 @@ class StarsController < ApplicationController
             }
             end
 
-            render json: result, status: ok
+            render json: result, status: :ok
         rescue => e
             render json: { error: e.message }, status: :internal_server_error  # 500
         end
