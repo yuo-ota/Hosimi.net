@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   # GET /api/stars?minVMag=&maxVMag=
   get 'api/stars', to: 'stars#index'
 
-  # GET /api/constellation
+  # GET /api/constellations
   get 'api/constellations', to: 'constellations#index'
 end
