@@ -5,12 +5,15 @@ import Headline from "@/components/Headline";
 import CloseIcon from "@/features/LocationSetting/assets/close.svg";
 import CheckMap from "./CheckMap";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type CheckGPSDialogProps = {
   isOpenDialog: boolean;
+  setIsOpenDialog: (isOpenDialog: boolean) => void
 };
 
-const CheckGPSDialog = ({ isOpenDialog }: CheckGPSDialogProps) => {
+const CheckGPSDialog = ({ isOpenDialog, setIsOpenDialog }: CheckGPSDialogProps) => {
+  const router = useRouter();
   const [activeConfirmButton, setActiveConfirmButton] = useState(false);
 
   const handleGPSChenge = (userPosition: GeoLocation) => {
@@ -20,6 +23,18 @@ const CheckGPSDialog = ({ isOpenDialog }: CheckGPSDialogProps) => {
     }
     setActiveConfirmButton(true);
   };
+
+  const clickSwitchManualSettingButton = () => {
+    router.push("/location-settings/manual");
+  }
+
+  const clickConfirmPositionButton = () => {
+    router.push("/observation");
+  }
+
+  const clickCloseDialogButton = () => {
+    setIsOpenDialog(false);
+  }
 
   return (
     <>
@@ -37,11 +52,13 @@ const CheckGPSDialog = ({ isOpenDialog }: CheckGPSDialogProps) => {
                 description="現在の地点はこちらで間違いありませんか？"
                 className="mb-5 lg:mb-10"
               />
-              <img
-                src={`${CloseIcon.src}`}
-                alt="閉じるボタン"
-                className="aspect-square h-full max-h-[60px]"
-              />
+              <button className="aspect-square h-full max-h-[60px]" onClick={clickCloseDialogButton}>
+                <img
+                  src={`${CloseIcon.src}`}
+                  alt="閉じるボタン"
+                  className="w-full h-full"
+                />
+              </button>
             </div>
             <CheckMap
               handleGPSChenge={handleGPSChenge}
@@ -60,14 +77,14 @@ const CheckGPSDialog = ({ isOpenDialog }: CheckGPSDialogProps) => {
                         </span>
                       </>
                     ),
-                    handleClick: () => console.log("戻るボタン"),
+                    handleClick: clickSwitchManualSettingButton,
                     isActive: true,
                     className: "flex-1 w-full lg:px-4 py-2",
                   },
                   {
                     isPriority: false,
                     children: "確認",
-                    handleClick: () => console.log("確認ボタン"),
+                    handleClick: clickConfirmPositionButton,
                     isActive: activeConfirmButton,
                     className:
                       "flex-1 w-full lg:px-4 py-2 text-base md:text-xl",
