@@ -4,8 +4,10 @@ import DualButton from "@/components/DualButton";
 import Headline from "@/components/Headline";
 import CloseIcon from "@/features/LocationSetting/assets/close.svg";
 import CheckMap from "./CheckMap";
+import { Geolocation } from "@/type/Geolocation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUserPosition } from "@/context/UserPositionContext";
 
 type CheckGPSDialogProps = {
   isOpenDialog: boolean;
@@ -14,13 +16,16 @@ type CheckGPSDialogProps = {
 
 const CheckGPSDialog = ({ isOpenDialog, setIsOpenDialog }: CheckGPSDialogProps) => {
   const router = useRouter();
+  const { setPosition } = useUserPosition();
+  const [userPosition, setUserPosition] = useState<Geolocation | null>(null)
   const [activeConfirmButton, setActiveConfirmButton] = useState(false);
 
-  const handleGPSChenge = (userPosition: GeoLocation) => {
+  const handleGPSChenge = (userPosition: Geolocation) => {
     if (userPosition.latitude === null || userPosition.longitude === null) {
       setActiveConfirmButton(false);
       return;
     }
+    setUserPosition(userPosition);
     setActiveConfirmButton(true);
   };
 
@@ -29,6 +34,11 @@ const CheckGPSDialog = ({ isOpenDialog, setIsOpenDialog }: CheckGPSDialogProps) 
   }
 
   const clickConfirmPositionButton = () => {
+    if (userPosition === null) {
+      return;
+    }
+    
+    setPosition(userPosition);
     router.push("/observation");
   }
 

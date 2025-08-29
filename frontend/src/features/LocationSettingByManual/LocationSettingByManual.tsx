@@ -6,17 +6,20 @@ import { Geolocation } from "@/type/Geolocation";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useUserPosition } from "@/context/UserPositionContext";
 
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const LocationSettingByManual = () => {
   const router = useRouter();
+  const { setPosition } = useUserPosition();
   const [userPosition, setUserPosition] = useState<Geolocation>({ latitude: 35.68132693484021, longitude: 139.76719496924264 })
 
   const clickBackLocationSettingButton = () => {
     router.push("/location-settings");
   }
   const clickConfirmPositionButton = () => {
+    setPosition(userPosition);
     router.push("/observation");
   }
 
