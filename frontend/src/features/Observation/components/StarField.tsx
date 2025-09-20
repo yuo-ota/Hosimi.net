@@ -53,8 +53,7 @@ const StarField = () => {
 
   useEffect(() => {
     (async () => {
-      // if (!pointsRef.current || starData.length === 0) return;
-      if (!pointsRef.current) return;
+      if (!pointsRef.current || starData.length === 0) return;
 
       const positions: number[] = [];
       const sizes: number[] = [];

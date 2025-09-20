@@ -11,8 +11,8 @@ export const isStarDetailInfo = (data: any) => {
 		("starName" in data) &&
 		("category" in data) &&
 		("distance" in data) &&
-		typeof data.starName === "number" &&
-		typeof data.category === "number" &&
+		typeof data.starName === "string" &&
+		typeof data.category === "string" &&
 		(typeof data.distance === "number" || data === null)
 	);
 }

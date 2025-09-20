@@ -1,16 +1,18 @@
 import Reticle from "../assets/reticle.svg";
 
 import { Canvas } from "@react-three/fiber";
-import CameraMoveControls from "./CameraMoveControls";
 import StarField from "./StarField";
-import { DeviceOrientationControls, OrbitControls } from "@react-three/drei";
+import { DeviceOrientationControls } from "@react-three/drei";
+import * as THREE from "three";
+import CameraDirectionTracker from "./CameraDirectionTracker";
 
 type SkyViewProps = {
   sheetWidth: number;
+  setTargetVector: (vector: THREE.Vector3) => void;
   className?: string;
 };
 
-const SkyView = ({ sheetWidth, className = "" }: SkyViewProps) => {
+const SkyView = ({ sheetWidth, setTargetVector, className = "" }: SkyViewProps) => {
   return (
     <>
       <div
@@ -30,6 +32,9 @@ const SkyView = ({ sheetWidth, className = "" }: SkyViewProps) => {
           <Canvas camera={{ position: [0, 0, 0], fov: 75 }}>
             {/* カメラ操作 */}
             <DeviceOrientationControls />
+            
+            {/* カメラの方向を追跡 */}
+            <CameraDirectionTracker onDirectionChange={setTargetVector} />
 
             {/* ライト */}
             <ambientLight intensity={0.5} />
