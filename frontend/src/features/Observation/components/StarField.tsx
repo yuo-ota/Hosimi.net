@@ -68,12 +68,12 @@ const StarField = () => {
         const x = radius * Math.cos(dec) * Math.cos(ra);
         const y = radius * Math.sin(dec);
         const z = radius * Math.cos(dec) * Math.sin(ra);
-        positions.push(x, y, z);
-        sizes.push(Math.max(0.1, 5 - star.vMag));
-      });
 
-      positions.push(0, 5, -10);
-      
+        if (y > 0) {
+          positions.push(x, y, z);
+          sizes.push(Math.max(0.1, 5 - star.vMag));
+        }
+      });
 
       const geometry = new THREE.BufferGeometry();
       geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
