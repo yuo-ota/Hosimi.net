@@ -1,18 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import IconButton from "./IconButton";
 import StarIcon from "../assets/star.svg";
 import StartShineIcon from "../assets/star_shine.svg";
 import TriangleIcon from "../assets/triangle.svg";
+import { useStarData } from "@/context/StarDataContext";
 
 type VmagSettingSliderProps = {
-  sliderValueChangeHandle: ((n: number) => void)[];
   className?: string;
 };
 
 const VmagSettingSlider = ({
-  sliderValueChangeHandle,
   className,
 }: VmagSettingSliderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -21,17 +20,28 @@ const VmagSettingSlider = ({
   const [bottomThumbDragging, setBottomThumbDragging] =
     useState<boolean>(false);
   const [topThumbDragging, setTopThumbDragging] = useState<boolean>(false);
+  const { setVMagRanges } = useStarData();
 
   const min = -1;
   const max = 5;
 
   const changedBottomSliderValue = (n: number) => {
-    setBottomSliderValue(n);
-    sliderValueChangeHandle[0](n);
+    if (n < topSliderValue) {
+      setBottomSliderValue(n);
+    } else {
+      setTopSliderValue(n);
+    }
+
+    setVMagRanges({ min: bottomSliderValue, max: topSliderValue });
   };
   const changedTopSliderValue = (n: number) => {
-    setTopSliderValue(n);
-    sliderValueChangeHandle[1](n);
+    if (n > bottomSliderValue) {
+      setTopSliderValue(n);
+    } else {
+      setBottomSliderValue(n);
+    }
+
+    setVMagRanges({ min: bottomSliderValue, max: topSliderValue });
   };
 
   const getGradient = (

@@ -1,14 +1,14 @@
 "use client"
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { StarData } from "@/type/StarData";
 import { VMagRange } from "@/type/VMagRange";
+import { getStarList } from "@/lib/api/stars";
 
 type StarDataContextType = {
   starData: StarData[];
-  setStarData: (data: StarData[]) => void;
-	vMagRanges: VMagRange[];
-	addVMagRanges: (range: VMagRange) => void;
+  vMagRanges: VMagRange;
+  setVMagRanges: (ranges: VMagRange) => void;
 };
 
 const StarDataContext = createContext<StarDataContextType | undefined>(undefined);
@@ -19,14 +19,20 @@ type Props = {
 
 export const StarDataProvider = ({ children }: Props) => {
   const [starData, setStarData] = useState<StarData[]>([]);
-  const [vMagRanges, setVMagRanges] = useState<VMagRange[]>([]);
+  const [vMagRanges, setVMagRanges] = useState<VMagRange>({ min: -2.0, max: -2.0 });
 
-  const addVMagRanges = (range: VMagRange) => {
-    setVMagRanges(prev => [...prev, range]);
-  };
+  useEffect(() => {
+    (async () => {
+      const data = await getStarList();
+      if (data.success) {
+        setStarData(data.starListData);
+      }
+    })();
+    setVMagRanges({ min: -1.0, max: 3.0 });
+  }, []);
 
   return (
-    <StarDataContext.Provider value={{ starData, setStarData, vMagRanges, addVMagRanges }}>
+    <StarDataContext.Provider value={{ starData, vMagRanges, setVMagRanges }}>
       {children}
     </StarDataContext.Provider>
   );

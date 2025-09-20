@@ -36,7 +36,6 @@ const Observation = () => {
               clickHandle: () => {},
             },
           ]}
-          sliderValueChangeHandle={[(n) => {console.log(`a_${n}`)}, (n) => {console.log(`b_${n}`)}]}
         />
         <StarInformationSheet
           sheetWidth={SHEET_WIDTH}

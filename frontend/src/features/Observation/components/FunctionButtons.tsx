@@ -8,12 +8,10 @@ type ButtonProps = {
 
 type FunctionButtonsProps = {
   icons: ButtonProps[];
-  sliderValueChangeHandle: ((n: number) => void)[];
 };
 
 const FunctionButtons = ({
   icons,
-  sliderValueChangeHandle,
 }: FunctionButtonsProps) => {
   return (
     <>
@@ -28,7 +26,6 @@ const FunctionButtons = ({
           />
         ))}
         <VmagSettingSlider
-          sliderValueChangeHandle={sliderValueChangeHandle}
           className="w-full flex-1"
         />
       </div>
