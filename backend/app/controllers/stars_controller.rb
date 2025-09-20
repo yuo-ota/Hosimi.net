@@ -40,8 +40,8 @@ class StarsController < ApplicationController
             result = stars.map do |star|
             {
                 starId: star.id.to_s,
-                declination: star.declination,
-                rightAscension: star.right_ascension,
+                declination: star.declination.to_f,
+                rightAscension: star.right_ascension.to_f,
                 vMag: star.v_mag
             }
             end

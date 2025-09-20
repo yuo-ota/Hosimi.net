@@ -7,7 +7,6 @@ export const getStarList = async (minVMag: number, maxVmag: number) => {
     try {
         const response = await fetch(`${API_ORIGIN}/api/stars?minVMag=${minVMag}&maxVMag=${maxVmag}`);
         const data = await response.json();
-
         if (response.ok) {
             if (!isStarDataArray(data)) {
                 throw new Error("不正な形式が返ってきました。");

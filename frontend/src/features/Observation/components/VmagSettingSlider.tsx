@@ -31,7 +31,7 @@ const VmagSettingSlider = ({
   };
   const changedTopSliderValue = (n: number) => {
     setTopSliderValue(n);
-    sliderValueChangeHandle[0](n);
+    sliderValueChangeHandle[1](n);
   };
 
   const getGradient = (

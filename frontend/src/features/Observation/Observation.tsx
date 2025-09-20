@@ -8,7 +8,7 @@ import StarInformationSheet from "./components/StarInformationSheet";
 import { useState } from "react";
 
 const Observation = () => {
-  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(true);
+  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
   const SHEET_WIDTH = 500;
   const SHEET_HEIGHT = 500;
 
@@ -16,9 +16,10 @@ const Observation = () => {
     <>
       <div className="flex w-full h-full relative overflow-hidden">
         <SkyView
+          sheetWidth={SHEET_WIDTH}
           className={`absolute -left-[${
             SHEET_WIDTH / 2
-          }px] w-[calc(100%+${SHEET_WIDTH}px)] h-full z-0`}
+          }px] h-full z-0`}
         />
         <FunctionButtons
           icons={[
@@ -35,17 +36,21 @@ const Observation = () => {
               clickHandle: () => {},
             },
           ]}
-          sliderValueChangeHandle={[(n) => {}, (n) => {}]}
+          sliderValueChangeHandle={[(n) => {console.log(`a_${n}`)}, (n) => {console.log(`b_${n}`)}]}
         />
         <StarInformationSheet
           sheetWidth={SHEET_WIDTH}
           sheetHeight={SHEET_HEIGHT}
-          starData={{
-            name: "NAME LMC",
+          starDetailInfo={{
+            starName: "NAME LMC",
             category: "銀河",
+            distance: "5"
+          }}
+          starData={{
+            starId: "1",
+            declination: 35,
+            rightAscension: 135,
             vMag: 0.4,
-            rightAscension: "5時23分34.6秒",
-            declination: "-69度45分22秒",
           }}
           isOpenSheet={isOpenSheet}
           setIsOpenSheet={setIsOpenSheet}

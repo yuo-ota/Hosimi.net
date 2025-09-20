@@ -1,7 +1,7 @@
 export type StarData = {
 	starId: string;
-	declination: string;
-	rightAscension: string;
+	declination: number;
+	rightAscension: number;
 	vMag: number;
 };
 

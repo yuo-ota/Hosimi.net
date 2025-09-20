@@ -2,10 +2,13 @@
 
 import { useEffect, useState } from "react";
 import ArrowIcon from "../assets/arrow.svg";
+import { StarDetailInfo } from "@/type/StarDetailInfo";
+import { StarData } from "@/type/StarData";
 
 type StarInformationSheetProps = {
   sheetWidth: number;
   sheetHeight: number;
+  starDetailInfo: StarDetailInfo;
   starData: StarData;
   isOpenSheet: boolean;
   setIsOpenSheet: (isOpenSheet: boolean) => void;
@@ -15,6 +18,7 @@ type StarInformationSheetProps = {
 const StarInformationSheet = ({
   sheetWidth,
   sheetHeight,
+  starDetailInfo,
   starData,
   isOpenSheet,
   setIsOpenSheet,
@@ -26,25 +30,23 @@ const StarInformationSheet = ({
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js";
+      "https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.min.js";
     script.async = true;
     script.onload = () => {
       if (typeof window !== "undefined" && (window as any).A) {
-        (window as any).A.init.then(() => {
-          (window as any).A.aladin("#aladin-lite-div", {
-            fov: 1,
-            target: "M81",
-            showReticle: false,
-            showProjectionControl: false,
-            showZoomControl: false,
-            showFullscreenControl: false,
-            showLayersControl: false,
-            showGotoControl: false,
-            showFrame: false,
-          });
+        (window as any).A.aladin("#aladin-lite-div", {
+          fov: 1,
+          target: "M81",
+          showReticle: false,
+          showProjectionControl: false,
+          showZoomControl: false,
+          showFullscreenControl: false,
+          showLayersControl: false,
+          showGotoControl: false,
+          showFrame: false,
         });
+        setIsAladinLoaded(true);
       }
-      setIsAladinLoaded(true);
     };
     document.body.appendChild(script);
 
@@ -105,10 +107,10 @@ const StarInformationSheet = ({
 
           <div className="flex flex-col flex-none">
             <span className="font-title text-4xl text-foreground">
-              {starData.name}
+              {starDetailInfo.starName}
             </span>
             <span className="font-title text-2xl text-foreground">
-              {starData.category}
+              {starDetailInfo.category}
             </span>
             <div className="flex flex-col mt-8 gap-y-2">
               <div className="flex gap-x-2">
