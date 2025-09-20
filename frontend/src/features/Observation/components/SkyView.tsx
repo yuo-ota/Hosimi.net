@@ -1,8 +1,9 @@
 import Reticle from "../assets/reticle.svg";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import CameraMoveControls from "./CameraMoveControls";
 import StarField from "./StarField";
+import { DeviceOrientationControls, OrbitControls } from "@react-three/drei";
 
 type SkyViewProps = {
   sheetWidth: number;
@@ -26,9 +27,9 @@ const SkyView = ({ sheetWidth, className = "" }: SkyViewProps) => {
         />
         {/* Three.js 描画領域 */}
         <div className="absolute w-full h-full z-0">
-          <Canvas>
+          <Canvas camera={{ position: [0, 0, 0], fov: 75 }}>
             {/* カメラ操作 */}
-            <OrbitControls />
+            <DeviceOrientationControls />
 
             {/* ライト */}
             <ambientLight intensity={0.5} />

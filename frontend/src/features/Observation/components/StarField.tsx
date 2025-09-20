@@ -45,7 +45,7 @@ const StarField = () => {
       <mesh
         geometry={geometry}
         material={material}
-        position={[0, 0, 0]}
+        position={[0, -5, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
       />
     );
@@ -53,7 +53,8 @@ const StarField = () => {
 
   useEffect(() => {
     (async () => {
-      if (!pointsRef.current || starData.length === 0) return;
+      // if (!pointsRef.current || starData.length === 0) return;
+      if (!pointsRef.current) return;
 
       const positions: number[] = [];
       const sizes: number[] = [];
@@ -70,6 +71,9 @@ const StarField = () => {
         positions.push(x, y, z);
         sizes.push(Math.max(0.1, 5 - star.vMag));
       });
+
+      positions.push(0, 5, -10);
+      
 
       const geometry = new THREE.BufferGeometry();
       geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
@@ -90,8 +94,8 @@ const StarField = () => {
 
   return (
     <>
-      <points ref={pointsRef} />
       {plane}
+      <points ref={pointsRef} />
     </>
   );
 };
