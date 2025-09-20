@@ -76,7 +76,7 @@ const VmagSettingSlider = ({
   return (
     <>
       <div
-        className={`${className} bg-foreground rounded-full flex flex-col justify-between items-center`}
+        className={`${className} bg-foreground rounded-full flex flex-col justify-between items-center touch-pan-x`}
       >
         <IconButton
           icon={{ path: StarIcon.src, alt: "低等級アイコン" }}

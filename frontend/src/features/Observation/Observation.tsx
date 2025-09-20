@@ -13,7 +13,7 @@ import { StarData } from "@/type/StarData";
 import { StarDetailInfo } from "@/type/StarDetailInfo";
 
 const Observation = () => {
-  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(true);
+  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
   const [closestStar, setClosestStar] = useState<StarData | null>(null);
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
