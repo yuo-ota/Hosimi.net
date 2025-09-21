@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ArrowIcon from "../assets/arrow.svg";
+import { StarDetailInfo } from "@/type/StarDetailInfo";
+import { StarData } from "@/type/StarData";
 
 type StarInformationSheetProps = {
   sheetWidth: number;
   sheetHeight: number;
+  starDetailInfo: StarDetailInfo;
   starData: StarData;
   isOpenSheet: boolean;
   setIsOpenSheet: (isOpenSheet: boolean) => void;
@@ -15,6 +18,7 @@ type StarInformationSheetProps = {
 const StarInformationSheet = ({
   sheetWidth,
   sheetHeight,
+  starDetailInfo,
   starData,
   isOpenSheet,
   setIsOpenSheet,
@@ -22,36 +26,56 @@ const StarInformationSheet = ({
 }: StarInformationSheetProps) => {
   const [isLg, setIsLg] = useState(false);
   const [isAladinLoaded, setIsAladinLoaded] = useState(false);
+  const aladinRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js";
-    script.async = true;
-    script.onload = () => {
-      if (typeof window !== "undefined" && (window as any).A) {
-        (window as any).A.init.then(() => {
-          (window as any).A.aladin("#aladin-lite-div", {
-            fov: 1,
-            target: "M81",
-            showReticle: false,
-            showProjectionControl: false,
-            showZoomControl: false,
-            showFullscreenControl: false,
-            showLayersControl: false,
-            showGotoControl: false,
-            showFrame: false,
-          });
-        });
-      }
-      setIsAladinLoaded(true);
+    if (!isOpenSheet) {
+      setIsAladinLoaded(false);
     };
-    document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
+    const loadAladin = async () => {
+      const existingScript = document.querySelector('script[src*="aladin.js"]');
+
+      if (!existingScript) {
+        const script = document.createElement("script");
+        script.src = "https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js";
+        script.type = "text/javascript";
+        script.async = true;
+
+        const scriptPromise = new Promise((resolve, reject) => {
+          script.onload = resolve;
+          script.onerror = reject;
+        });
+
+        document.head.appendChild(script);
+        await scriptPromise;
+      }
+
+      // 少し待ってからAladin初期化
+      setTimeout(() => {
+        if ((window as any).A && aladinRef.current) {
+          try {
+            const aladin = (window as any).A.aladin(aladinRef.current, {
+              fov: 1,
+              target: starDetailInfo.starName,
+              showReticle: false,
+              showProjectionControl: false,
+              showZoomControl: false,
+              showFullscreenControl: false,
+              showLayersControl: false,
+              showGotoControl: false,
+              showFrame: false,
+            });
+            setIsAladinLoaded(true);
+          } catch (err) {
+            console.error("Aladin Lite initialization failed:", err);
+          }
+        }
+      }, 1000); // 1秒待機
     };
-  }, []);
+
+    loadAladin();
+  }, [isOpenSheet]);
 
   useEffect(() => {
     const updateSize = () => {
@@ -94,21 +118,23 @@ const StarInformationSheet = ({
         <div
           className={`overflow-y-auto lg:flex-1 flex flex-col w-full p-10 gap-y-10 border lg:rounded-bl-lg backdrop-blur-lg bg-foreground/30 shadow-lg border-foreground/30`}
         >
-          {isAladinLoaded ? (
             <div
-              id="aladin-lite-div"
-              className="w-full aspect-[1.3333] rounded-md flex-none pointer-events-none"
-            />
-          ) : (
-            <div className="w-full aspect-[1.3333] rounded-md flex-none animate-pulse bg-base/30"></div>
-          )}
+              ref={aladinRef}
+              className="w-full aspect-[1.3333] rounded-md flex-none relative pointer-events-none"
+            >
+              {!isAladinLoaded && (
+                <div className="absolute inset-0 animate-pulse bg-base/30 rounded-md flex items-center justify-center">
+                  <span className="text-foreground">読み込み中...</span>
+                </div>
+              )}
+            </div>
 
           <div className="flex flex-col flex-none">
             <span className="font-title text-4xl text-foreground">
-              {starData.name}
+              {starDetailInfo.starName}
             </span>
             <span className="font-title text-2xl text-foreground">
-              {starData.category}
+              {starDetailInfo.category}
             </span>
             <div className="flex flex-col mt-8 gap-y-2">
               <div className="flex gap-x-2">

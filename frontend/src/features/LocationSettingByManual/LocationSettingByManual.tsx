@@ -2,17 +2,33 @@
 
 import DualButton from "@/components/DualButton";
 import LocationInput from "./components/LocationInput";
+import { Geolocation } from "@/type/Geolocation";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useUserPosition } from "@/context/UserPositionContext";
 
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const LocationSettingByManual = () => {
+  const router = useRouter();
+  const { setPosition } = useUserPosition();
+  const [userPosition, setUserPosition] = useState<Geolocation>({ latitude: 35.68132693484021, longitude: 139.76719496924264 })
+
+  const clickBackLocationSettingButton = () => {
+    router.push("/location-settings");
+  }
+  const clickConfirmPositionButton = () => {
+    setPosition(userPosition);
+    router.push("/observation");
+  }
+
   return (
     <>
       <div className="mb-10 lg:mb-30 w-full h-2/3 lg:h-[500px] flex flex-col lg:grid lg:grid-flow-row lg:grid-rows-[auto_1fr] lg:grid-cols-2 gap-8">
-        <LocationInput className="w-full lg:w-auto lg:row-span-1"></LocationInput>
+        <LocationInput setUserPosition={setUserPosition} className="w-full lg:w-auto lg:row-span-1"></LocationInput>
         <Map
-          userPosition={{ latitude: 35, longitude: 135 }}
+          userPosition={userPosition}
           className="flex-1 lg:col-span-1 w-full lg:w-auto lg:row-span-2"
         />
         <DualButton
@@ -26,14 +42,14 @@ const LocationSettingByManual = () => {
                   <span className="text-base lg:text-2xl">戻る</span>
                 </>
               ),
-              handleClick: () => console.log("戻るボタン"),
+              handleClick: clickBackLocationSettingButton,
               isActive: true,
               className: "flex-1 w-full lg:px-4 py-2",
             },
             {
               isPriority: false,
               children: "確認",
-              handleClick: () => console.log("確認ボタン"),
+              handleClick: clickConfirmPositionButton,
               isActive: true,
               className: "flex-1 w-full lg:px-4 py-2 text-base lg:text-2xl",
             },

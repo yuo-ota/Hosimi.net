@@ -1,0 +1,1 @@
+export type VMagRange = { min: number; max: number };

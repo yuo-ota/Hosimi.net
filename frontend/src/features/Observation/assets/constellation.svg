@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="55" viewBox="0 0 54 55">
+  <g id="グループ_13" data-name="グループ 13" transform="translate(0.481 0.28)">
+    <g id="グループ_7" data-name="グループ 7" transform="translate(-1.79 19.675) rotate(-30)">
+      <ellipse id="楕円形_8" data-name="楕円形 8" cx="1.948" cy="1.948" rx="1.948" ry="1.948" transform="translate(27.761)" fill="#333"/>
+      <circle id="楕円形_9" data-name="楕円形 9" cx="1.948" cy="1.948" r="1.948" transform="translate(35.224 14.137)" fill="#333"/>
+      <circle id="楕円形_10" data-name="楕円形 10" cx="1.948" cy="1.948" r="1.948" transform="translate(14.171 16.367)" fill="#333"/>
+      <circle id="楕円形_11" data-name="楕円形 11" cx="1.948" cy="1.948" r="1.948" transform="translate(18.531 19.458)" fill="#333"/>
+      <ellipse id="楕円形_12" data-name="楕円形 12" cx="1.948" cy="1.948" rx="1.948" ry="1.948" transform="translate(23.407 22.824)" fill="#333"/>
+      <circle id="楕円形_13" data-name="楕円形 13" cx="1.948" cy="1.948" r="1.948" transform="translate(0 23.779)" fill="#333"/>
+      <circle id="楕円形_14" data-name="楕円形 14" cx="1.948" cy="1.948" r="1.948" transform="translate(12.397 36.571)" fill="#333"/>
+      <line id="線_14" data-name="線 14" y1="16.865" x2="12.911" transform="translate(16.586 1.72)" fill="none" stroke="#333" stroke-width="2"/>
+      <line id="線_15" data-name="線 15" x1="7.674" y1="14.365" transform="translate(29.497 1.72)" fill="none" stroke="#333" stroke-width="2"/>
+      <line id="線_16" data-name="線 16" y1="8.699" x2="11.794" transform="translate(25.377 16.085)" fill="none" stroke="#333" stroke-width="2"/>
+      <line id="線_17" data-name="線 17" y1="13.734" x2="11.032" transform="translate(14.345 24.785)" fill="none" stroke="#333" stroke-width="2"/>
+      <line id="線_18" data-name="線 18" x2="12.397" y2="12.791" transform="translate(1.948 25.727)" fill="none" stroke="#333" stroke-width="2"/>
+      <line id="線_19" data-name="線 19" x1="14.638" y2="7.143" transform="translate(1.948 18.585)" fill="none" stroke="#333" stroke-width="2"/>
+    </g>
+    <rect id="長方形_22" data-name="長方形 22" width="54" height="55" transform="translate(-0.481 -0.28)" fill="none"/>
+  </g>
+</svg>

@@ -4,8 +4,20 @@ import LocationSettingButton from "@/components/LocationSettingButton";
 import GPSIcon from "@/assets/location.svg";
 import ManualIcon from "@/assets/touch.svg";
 import CheckGPSDialog from "./components/CheckGPSDialog";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const LocationSetting = () => {
+  const router = useRouter();
+  const [isOpenDialog, setIsOpenDialog] = useState(false)
+
+  const clickGPSSettingButton = () => {
+    setIsOpenDialog(true);
+  }
+  const clickManualSettingButton = () => {
+    router.push("/location-settings/manual");
+  }
+
   return (
     <>
       <div className="my-10 lg:my-30 w-full h-[500px] flex justify-center gap-5 lg:gap-10 flex-col lg:flex-row items-center">
@@ -19,7 +31,7 @@ const LocationSetting = () => {
               GPSを許可する必要があります。
             </span>
           }
-          handleClick={() => console.log("clicked!")}
+          handleClick={clickGPSSettingButton}
           className="w-9/10 lg:w-9/20 h-full"
         />
         <LocationSettingButton
@@ -32,11 +44,11 @@ const LocationSetting = () => {
               希望に沿わない可能性もあります。
             </span>
           }
-          handleClick={() => console.log("clicked!")}
+          handleClick={clickManualSettingButton}
           className="w-9/10 lg:w-9/20 h-full"
         />
       </div>
-      <CheckGPSDialog isOpenDialog={false} />
+      <CheckGPSDialog isOpenDialog={isOpenDialog} setIsOpenDialog={setIsOpenDialog} />
     </>
   );
 };

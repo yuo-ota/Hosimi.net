@@ -22,6 +22,7 @@ class StarDistanceCalculator
     def self.extract_parallax(info)
         tr = StarParser.extract_tr_by_text(info, 'Parallaxes (mas)')
         tt_texts = StarParser.extract_tt_texts(tr)
+        puts(tt_texts)
         parallax = tt_texts.first.split(" ").first
 
         parallax

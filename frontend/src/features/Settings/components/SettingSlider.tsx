@@ -5,6 +5,7 @@ type SliderData = {
   min: number;
   max: number;
   step: number;
+  defaultValue: number;
   valueHandle: (value: number) => void;
 };
 
@@ -45,6 +46,8 @@ const SettingSlider = ({ sliders, className = "" }: SettingSliderProps) => {
                 min={slider.min}
                 max={slider.max}
                 step={slider.step}
+                defaultValue={slider.defaultValue}
+                onChange={(e) => slider.valueHandle(Number(e.target.value))}
                 className="h-[2px] lg:h-[3px] bg-foreground appearance-none cursor-pointer rounded-full
 								[&::-webkit-slider-thumb]:appearance-none
 								[&::-webkit-slider-thumb]:h-6
