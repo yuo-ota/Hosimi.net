@@ -1,13 +1,16 @@
 import * as THREE from "three";
 import { useRef, useEffect, useMemo } from "react";
 import { useStarData } from "@/context/StarDataContext";
-import { getStarList } from "@/lib/api/stars";
-import { StarData } from "@/type/StarData";
 import { useSetting } from "@/context/SettingContext";
+import ConstellationView from "./ConstellationView";
 
-const StarField = () => {
+interface StarFieldProps {
+  isVisibleConstellationLines: boolean;
+}
+
+const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
-  const { starData, vMagRanges } = useStarData();
+  const { starData, vMagRanges, constellationLines } = useStarData();
   const { contrastValue, starSizeValue } = useSetting();
 
   const generateCircleTexture = () => {
@@ -109,6 +112,9 @@ const StarField = () => {
     <>
       {plane}
       <points ref={pointsRef} />
+      {isVisibleConstellationLines && (
+        <ConstellationView　/>
+      )}
     </>
   );
 };

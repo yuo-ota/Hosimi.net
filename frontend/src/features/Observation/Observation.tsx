@@ -5,6 +5,7 @@ import SkyView from "./components/SkyView";
 
 import settingIcon from "./assets/settings.svg";
 import searchIcon from "./assets/search.svg";
+import constellationIcon from "./assets/constellation.svg";
 import StarInformationSheet from "./components/StarInformationSheet";
 import { useRef, useState } from "react";
 import * as THREE from "three";
@@ -16,10 +17,11 @@ import IconButton from "./components/IconButton";
 
 const Observation = () => {
   const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
+  const [isVisibleConstellationLines, setIsVisibleConstellationLines] = useState<boolean>(false);
   const [closestStar, setClosestStar] = useState<StarData | null>(null);
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
-  const { starData } = useStarData();
+  const { starData, vMagRanges } = useStarData();
   const SHEET_WIDTH = 500;
   const SHEET_HEIGHT = 500;
 
@@ -33,7 +35,9 @@ const Observation = () => {
     let closestStar: StarData = starData[0];
     let minAngle = Infinity;
 
-    starData.forEach((star) => {
+    starData.filter(
+      star => star.vMag >= vMagRanges.min && star.vMag <= vMagRanges.max
+    ).forEach((star) => {
       // 星の赤経・赤緯から3D座標に変換
       const dec = (star.declination * Math.PI) / 180;
       const ra = (star.rightAscension * Math.PI) / 180;
@@ -90,6 +94,7 @@ const Observation = () => {
         <SkyView
           sheetWidth={SHEET_WIDTH}
           setTargetVector={handleDirectionChange}
+          isVisibleConstellationLines={isVisibleConstellationLines}
           className={`absolute -left-[${
             SHEET_WIDTH / 2
           }px] h-full z-0`}
@@ -105,8 +110,8 @@ const Observation = () => {
             //   clickHandle: () => {},
             // },
             {
-              icon: { path: settingIcon.src, alt: "設定ボタン" },
-              clickHandle: () => {},
+              icon: { path: constellationIcon.src, alt: "星座表示ボタン" },
+              clickHandle: () => {setIsVisibleConstellationLines(!isVisibleConstellationLines);},
             },
           ]}
         />

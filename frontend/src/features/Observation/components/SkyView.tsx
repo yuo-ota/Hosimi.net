@@ -9,10 +9,11 @@ import CameraDirectionTracker from "./CameraDirectionTracker";
 type SkyViewProps = {
   sheetWidth: number;
   setTargetVector: (vector: THREE.Vector3) => void;
+  isVisibleConstellationLines: boolean;
   className?: string;
 };
 
-const SkyView = ({ sheetWidth, setTargetVector, className = "" }: SkyViewProps) => {
+const SkyView = ({ sheetWidth, setTargetVector, isVisibleConstellationLines, className = "" }: SkyViewProps) => {
   return (
     <>
       <div
@@ -41,7 +42,7 @@ const SkyView = ({ sheetWidth, setTargetVector, className = "" }: SkyViewProps) 
             <directionalLight position={[5, 5, 5]} />
 
             {/* 星 */}
-            <StarField />
+            <StarField isVisibleConstellationLines={isVisibleConstellationLines} />
           </Canvas>
         </div>
       </div>
