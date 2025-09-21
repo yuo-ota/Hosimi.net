@@ -6,12 +6,28 @@ import GPSIcon from "@/assets/location.svg";
 import ManualIcon from "@/assets/touch.svg";
 import DualButton from "@/components/DualButton";
 import ViewSetting from "./components/ViewSetting";
+import { use, useEffect, useState } from "react";
+import { useSetting } from "@/context/SettingContext";
 
 const Setting = () => {
+  const { contrastValue, starSizeValue, setContrastValue, setStarSizeValue } = useSetting();
+  const [preContrastValue, setPreContrastValue] = useState<number>(contrastValue);
+  const [preStarSizeValue, setPreStarSizeValue] = useState<number>(starSizeValue);
+
+  const handleConfirmButton = () => {
+    if (preContrastValue < 0 || preStarSizeValue < 0) return;
+    setContrastValue(preContrastValue);
+    setStarSizeValue(preStarSizeValue);
+  }
+
+  const handlePrevPageButtonClick = () => {
+    window.location.href = "/observation";
+  };
+
   return (
     <>
       <div className="mb-10 lg:mb-30 w-full flex justify-start gap-5 lg:gap-10 flex-col items-start">
-        <SettingElement title="観測値設定" className="w-full">
+        {/* <SettingElement title="観測値設定" className="w-full">
           <div className="flex gap-5 w-full lg:h-[350px] mt-5 flex-col lg:flex-row">
             <LocationSettingButton
               icon={{ path: GPSIcon.src, alt: "GPSアイコン" }}
@@ -40,9 +56,14 @@ const Setting = () => {
               className="w-full lg:w-3/10 h-[200px] lg:h-full"
             />
           </div>
-        </SettingElement>
+        </SettingElement> */}
         <SettingElement title="視認性設定" className="w-full">
-          <ViewSetting />
+          <ViewSetting
+            preContrastValue={preContrastValue}
+            preStarSizeValue={preStarSizeValue}
+            setPreContrastValue={setPreContrastValue}
+            setPreStarSizeValue={setPreStarSizeValue}
+          />
         </SettingElement>
         <DualButton
           key={"aa"}
@@ -54,14 +75,14 @@ const Setting = () => {
                   <span className="text-base lg:text-2xl">変更を適用する</span>
                 </>
               ),
-              handleClick: () => console.log("適用ボタン"),
+              handleClick: () => handleConfirmButton(),
               isActive: true,
               className: "flex-1 w-full lg:px-4 py-2",
             },
             {
               isPriority: false,
               children: "戻る",
-              handleClick: () => console.log("戻るボタン"),
+              handleClick: () => handlePrevPageButtonClick(),
               isActive: true,
               className: "flex-1 w-full lg:px-4 py-2 text-base lg:text-2xl",
             },

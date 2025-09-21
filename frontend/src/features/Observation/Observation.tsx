@@ -4,6 +4,7 @@ import FunctionButtons from "./components/FunctionButtons";
 import SkyView from "./components/SkyView";
 
 import settingIcon from "./assets/settings.svg";
+import searchIcon from "./assets/search.svg";
 import StarInformationSheet from "./components/StarInformationSheet";
 import { useRef, useState } from "react";
 import * as THREE from "three";
@@ -11,6 +12,7 @@ import { useStarData } from "@/context/StarDataContext";
 import { getStarDetailInfo } from "@/lib/api/stars";
 import { StarData } from "@/type/StarData";
 import { StarDetailInfo } from "@/type/StarDetailInfo";
+import IconButton from "./components/IconButton";
 
 const Observation = () => {
   const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
@@ -25,7 +27,7 @@ const Observation = () => {
     currentDirectionRef.current = direction.clone();
   };
 
-  const handleButtonClick = () => {
+  const handleSearchButtonClick = () => {
     const cameraDirection = currentDirectionRef.current;
     
     let closestStar: StarData = starData[0];
@@ -78,6 +80,10 @@ const Observation = () => {
     setClosestStarDetailInfo(data.starDetailInfoData);
   };
 
+  const handleSettingButtonClick = () => {
+    window.location.href = "/settings";
+  };
+
   return (
     <>
       <div className="flex w-full h-full relative overflow-hidden">
@@ -92,18 +98,26 @@ const Observation = () => {
           icons={[
             {
               icon: { path: settingIcon.src, alt: "設定ボタン" },
-              clickHandle: () => {handleButtonClick();},
+              clickHandle: () => {handleSettingButtonClick();},
             },
-            {
-              icon: { path: settingIcon.src, alt: "設定ボタン" },
-              clickHandle: () => {},
-            },
+            // {
+            //   icon: { path: settingIcon.src, alt: "設定ボタン" },
+            //   clickHandle: () => {},
+            // },
             {
               icon: { path: settingIcon.src, alt: "設定ボタン" },
               clickHandle: () => {},
             },
           ]}
         />
+        <div className="flex h-full items-end absolute w-15 py-5 mr-5 right-0 bottom-0">
+          <IconButton
+            icon={{ path: searchIcon.src, alt: "検索" }}
+            isActive={true}
+            clickHandle={() => {handleSearchButtonClick();}}
+            className="absolute"
+          />
+        </div>
         {(closestStar && closestStarDetailInfo) && (
           <StarInformationSheet
             sheetWidth={SHEET_WIDTH}

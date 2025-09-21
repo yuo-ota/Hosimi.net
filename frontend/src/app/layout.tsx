@@ -3,6 +3,7 @@ import "./globals.css";
 import TypekitLoader from "@/utils/TypekitLoader";
 import { UserPositionProvider } from "@/context/UserPositionContext";
 import { StarDataProvider } from "@/context/StarDataContext";
+import { SettingProvider } from "@/context/SettingContext";
 
 export const metadata: Metadata = {
   title: "Astronom",
@@ -19,8 +20,10 @@ export default function RootLayout({
       <body className="antialiased">
         <UserPositionProvider>
           <StarDataProvider>
-            <TypekitLoader />
-            <body className={`antialiased`}>{children}</body>
+            <SettingProvider>
+              <TypekitLoader />
+              {children}
+            </SettingProvider>
           </StarDataProvider>
         </UserPositionProvider>
       </body>

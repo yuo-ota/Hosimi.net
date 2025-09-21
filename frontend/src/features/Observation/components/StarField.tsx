@@ -3,10 +3,12 @@ import { useRef, useEffect, useMemo } from "react";
 import { useStarData } from "@/context/StarDataContext";
 import { getStarList } from "@/lib/api/stars";
 import { StarData } from "@/type/StarData";
+import { useSetting } from "@/context/SettingContext";
 
 const StarField = () => {
   const pointsRef = useRef<THREE.Points>(null);
   const { starData, vMagRanges } = useStarData();
+  const { contrastValue, starSizeValue } = useSetting();
 
   const generateCircleTexture = () => {
     const size = 128;
@@ -15,10 +17,22 @@ const StarField = () => {
     canvas.height = size;
 
     const ctx = canvas.getContext("2d")!;
-    ctx.fillStyle = "white";
+	
+    // 放射状グラデーションを作成（中心から外側に透明度を上げる）
+    const gradient = ctx.createRadialGradient(
+      size / 2, size / 2, 0,        // 内側の円（中心点、半径0）
+      size / 2, size / 2, size / 2  // 外側の円（中心点、半径は画像の半分）
+    );
+    gradient.addColorStop(0, "rgba(255, 255, 255, 1)");     // 中心：完全に不透明
+    gradient.addColorStop(contrastValue * 0.5 + 0.5, "rgba(255, 255, 255, 0.8)"); // 70%地点：少し透明
+    gradient.addColorStop(1, "rgba(255, 255, 255, 0)");     // 外側：完全に透明
+    
+    ctx.fillStyle = gradient;
     ctx.beginPath();
     ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
     ctx.fill();
+
+    console.log(starSizeValue,  contrastValue);
 
     const texture = new THREE.CanvasTexture(canvas);
     return texture;
@@ -26,7 +40,7 @@ const StarField = () => {
 
   const material = new THREE.PointsMaterial({
     color: 0xffffff,
-    size: 0.08,
+    size: starSizeValue * 0.02 + 0.08,
     sizeAttenuation: true,
     map: generateCircleTexture(),
     alphaTest: 0.5,
