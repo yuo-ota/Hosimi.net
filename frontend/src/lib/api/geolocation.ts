@@ -1,5 +1,5 @@
-import { isGeolocation } from "@/type/Geolocation";
 import { isAPIError } from "@/type/APIError";
+import { isGeolocation } from "@/type/GeoLocation";
 const API_ORIGIN = process.env.NEXT_PUBLIC_API_ORIGIN;
 
 
