@@ -1,24 +1,19 @@
 import { useStarData } from "@/context/StarDataContext";
 import { useMemo, useRef, useEffect } from "react";
 import * as THREE from "three";
+import { EquatorialCoords } from "@/type/EquatorialCoords";
+import { calcViewCoords } from "@/utils/coordinateUtils";
 
-const ConstellationView = () => {
+interface ConstellationViewProps {
+  userEquatorialCoord: EquatorialCoords | null;
+}
+
+const ConstellationView = ({ userEquatorialCoord }: ConstellationViewProps) => {
   const { starData, constellationLines } = useStarData();
   const linesRef = useRef<THREE.Group>(null!);
 
-	const calcXYZ = (ra: number, dec: number) => {
-		const radius = 10;
-		const radDec = (dec * Math.PI) / 180;
-		const radRa = (ra * Math.PI) / 180;
-		const x = radius * Math.cos(radDec) * Math.cos(radRa);
-		const y = radius * Math.sin(radDec);
-		const z = radius * Math.cos(radDec) * Math.sin(radRa);
-		return new THREE.Vector3(x, y, z);
-	};
-
   // 星座線のgeometryとmaterialを作成
   const { geometry, material } = useMemo(() => {
-		console.log("aaa");
     if (!starData.length || !constellationLines.length) {
       return { geometry: null, material: null };
     }
@@ -33,18 +28,23 @@ const ConstellationView = () => {
         const startStar = starMap.get(line.startStarId);
         const endStar = starMap.get(line.endStarId);
 
-        if (startStar && endStar) {
-					const dec = (startStar.declination * Math.PI) / 180;
-					const ra = (startStar.rightAscension * Math.PI) / 180;
-					const radius = 10;
-					const x = radius * Math.cos(dec) * Math.cos(ra);
-					const y = radius * Math.sin(dec);
-					const z = radius * Math.cos(dec) * Math.sin(ra);
-          // 各線につき2つの点を追加（開始点と終了点）
-          points.push(
-            calcXYZ(startStar.rightAscension, startStar.declination),
-            calcXYZ(endStar.rightAscension, endStar.declination)
+        if (startStar && endStar && userEquatorialCoord) {
+          // ユーザーの位置を基準とした座標変換を適用
+          const startPos = calcViewCoords(
+            startStar.rightAscension,
+            startStar.declination,
+            userEquatorialCoord,
+            10
           );
+          const endPos = calcViewCoords(
+            endStar.rightAscension,
+            endStar.declination,
+            userEquatorialCoord,
+            10
+          );
+
+          // 各線につき2つの点を追加（開始点と終了点）
+          points.push(startPos, endPos);
         }
       });
     });
@@ -57,7 +57,7 @@ const ConstellationView = () => {
     });
 
     return { geometry, material };
-  }, [starData, constellationLines]);
+  }, [starData, constellationLines, userEquatorialCoord]);
 
   // Three.jsのlineオブジェクトを更新
   useEffect(() => {

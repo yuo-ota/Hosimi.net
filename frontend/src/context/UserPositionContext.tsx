@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Geolocation } from "@/type/Geolocation";
+import { Geolocation } from "@/type/GeoLocation";
 
 // Context の型
 type UserPositionContextType = {
@@ -17,10 +17,25 @@ type UserPositionProviderProps = {
 };
 
 export const UserPositionProvider = ({ children }: UserPositionProviderProps) => {
-  const [position, setPosition] = useState<Geolocation | null>(null);
+  // localStorageから初期値を取得
+  const [position, setPosition] = useState<Geolocation | null>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('userPosition');
+      return saved ? JSON.parse(saved) : null;
+    }
+    return null;
+  });
+
+  // 位置情報を更新する関数（localStorageにも保存）
+  const updatePosition = (pos: Geolocation) => {
+    setPosition(pos);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('userPosition', JSON.stringify(pos));
+    }
+  };
 
   return (
-    <UserPositionContext.Provider value={{ position, setPosition }}>
+    <UserPositionContext.Provider value={{ position, setPosition: updatePosition }}>
       {children}
     </UserPositionContext.Provider>
   );

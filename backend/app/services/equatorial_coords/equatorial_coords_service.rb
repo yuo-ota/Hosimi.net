@@ -7,8 +7,8 @@ require 'json'
 class EquatorialCoordsService
     HORIZON_MAX_REQUESTS = 10
     HORIZON_ACCESS_MANAGE_BASE_TIME = 30
-    MOON_HORIZONTAL_API_MAX_REQUESTS = 1
-    MOON_HORIZONTAL_API_ACCESS_MANAGE_BASE_TIME = 3
+    MOON_HORIZONTAL_API_MAX_REQUESTS = 10
+    MOON_HORIZONTAL_API_ACCESS_MANAGE_BASE_TIME = 30
 
     @horizon_access_manager = AccessManager.new(
         max_requests: HORIZON_MAX_REQUESTS,
@@ -71,7 +71,7 @@ class EquatorialCoordsService
     # jsonの作成
     def self.build_location_json(right_ascension, declination)
         location_hash = {
-            right_ascension: right_ascension,
+            rightAscension: right_ascension,
             declination: declination
         }
 

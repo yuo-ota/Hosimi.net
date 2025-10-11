@@ -5,15 +5,19 @@ import StarField from "./StarField";
 import { DeviceOrientationControls } from "@react-three/drei";
 import * as THREE from "three";
 import CameraDirectionTracker from "./CameraDirectionTracker";
+import { EquatorialCoords } from "@/type/EquatorialCoords";
+import { useMemo } from "react";
 
 type SkyViewProps = {
   sheetWidth: number;
   setTargetVector: (vector: THREE.Vector3) => void;
   isVisibleConstellationLines: boolean;
+  userEquatorialCoord: EquatorialCoords | null;
   className?: string;
 };
 
-const SkyView = ({ sheetWidth, setTargetVector, isVisibleConstellationLines, className = "" }: SkyViewProps) => {
+const SkyView = ({ sheetWidth, setTargetVector, isVisibleConstellationLines, userEquatorialCoord, className = "" }: SkyViewProps) => {
+  
   return (
     <>
       <div
@@ -30,7 +34,10 @@ const SkyView = ({ sheetWidth, setTargetVector, isVisibleConstellationLines, cla
         />
         {/* Three.js 描画領域 */}
         <div className="absolute w-full h-full z-0">
-          <Canvas camera={{ position: [0, 0, 0], fov: 75 }}>
+          <Canvas camera={{ 
+            position: [0, 0, 0],
+            fov: 75
+          }}>
             {/* カメラ操作 */}
             <DeviceOrientationControls />
             
@@ -40,9 +47,11 @@ const SkyView = ({ sheetWidth, setTargetVector, isVisibleConstellationLines, cla
             {/* ライト */}
             <ambientLight intensity={0.5} />
             <directionalLight position={[5, 5, 5]} />
-
             {/* 星 */}
-            <StarField isVisibleConstellationLines={isVisibleConstellationLines} />
+            <StarField 
+              isVisibleConstellationLines={isVisibleConstellationLines}
+              userEquatorialCoord={userEquatorialCoord}
+            />
           </Canvas>
         </div>
       </div>

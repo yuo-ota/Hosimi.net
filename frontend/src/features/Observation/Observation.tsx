@@ -7,23 +7,47 @@ import settingIcon from "./assets/settings.svg";
 import searchIcon from "./assets/search.svg";
 import constellationIcon from "./assets/constellation.svg";
 import StarInformationSheet from "./components/StarInformationSheet";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { useStarData } from "@/context/StarDataContext";
 import { getStarDetailInfo } from "@/lib/api/stars";
 import { StarData } from "@/type/StarData";
 import { StarDetailInfo } from "@/type/StarDetailInfo";
 import IconButton from "./components/IconButton";
+import { getEquatorialCoords } from "@/lib/api/equatorial";
+import { useUserPosition } from "@/context/UserPositionContext";
+import { EquatorialCoords } from "@/type/EquatorialCoords";
 
 const Observation = () => {
   const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
   const [isVisibleConstellationLines, setIsVisibleConstellationLines] = useState<boolean>(false);
   const [closestStar, setClosestStar] = useState<StarData | null>(null);
+  const [userEquatorialCoord, setUserEquatorialCoord] = useState<EquatorialCoords | null>(null);
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
   const { starData, vMagRanges } = useStarData();
+  const { position } = useUserPosition();
   const SHEET_WIDTH = 500;
   const SHEET_HEIGHT = 500;
+
+  useEffect(() => {
+    (async () => {
+      const [latitude, longitude] = [position?.latitude, position?.longitude];
+      if (latitude == null || longitude == null) {
+        console.warn("User position is not available.");
+        return;
+      }
+
+      const userEquatorialCoordResult = await getEquatorialCoords(latitude, longitude);
+      console.log("Equatorial Coordinates Result:", userEquatorialCoordResult);
+      if (!userEquatorialCoordResult.success) {
+        console.error("Failed to get equatorial coordinates:", userEquatorialCoordResult.error);
+        return;
+      }
+
+      setUserEquatorialCoord(userEquatorialCoordResult.equatorialCoordsData);
+    })();
+  }, [position]);
 
   const handleDirectionChange = (direction: THREE.Vector3) => {
     currentDirectionRef.current = direction.clone();
@@ -95,6 +119,7 @@ const Observation = () => {
           sheetWidth={SHEET_WIDTH}
           setTargetVector={handleDirectionChange}
           isVisibleConstellationLines={isVisibleConstellationLines}
+          userEquatorialCoord={userEquatorialCoord}
           className={`absolute -left-[${
             SHEET_WIDTH / 2
           }px] h-full z-0`}

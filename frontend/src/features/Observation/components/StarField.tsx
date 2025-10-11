@@ -3,14 +3,17 @@ import { useRef, useEffect, useMemo } from "react";
 import { useStarData } from "@/context/StarDataContext";
 import { useSetting } from "@/context/SettingContext";
 import ConstellationView from "./ConstellationView";
+import { EquatorialCoords } from "@/type/EquatorialCoords";
+import { calcViewCoords } from "@/utils/coordinateUtils";
 
 interface StarFieldProps {
   isVisibleConstellationLines: boolean;
+  userEquatorialCoord: EquatorialCoords | null;
 }
 
-const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
+const StarField = ({ isVisibleConstellationLines, userEquatorialCoord }: StarFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
-  const { starData, vMagRanges, constellationLines } = useStarData();
+  const { starData, vMagRanges } = useStarData();
   const { contrastValue, starSizeValue } = useSetting();
 
   const generateCircleTexture = () => {
@@ -35,8 +38,6 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
     ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
     ctx.fill();
 
-    console.log(starSizeValue,  contrastValue);
-
     const texture = new THREE.CanvasTexture(canvas);
     return texture;
   }
@@ -50,6 +51,7 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
     transparent: true
   });
 
+  // 天頂ベクトルに対して直交する軸で地平面を計算
   const plane = useMemo(() => {
     const geometry = new THREE.PlaneGeometry(1000, 1000);
     const material = new THREE.MeshBasicMaterial({
@@ -70,23 +72,41 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
 
   useEffect(() => {
     (async () => {
-      if (!pointsRef.current || starData.length === 0) return;
+      if (!pointsRef.current || starData.length === 0 || !userEquatorialCoord) return;
 
       const positions: number[] = [];
       const sizes: number[] = [];
 
+      // ユーザーの天頂ベクトルを計算（変換後の座標系で）
+      let zenithVector: THREE.Vector3;
+      if (userEquatorialCoord) {
+        // 変換後の座標系では、ユーザーの天頂方向はY軸正方向
+        zenithVector = new THREE.Vector3(0, 1, 0);
+      } else {
+        // デフォルトは天頂をY軸正方向とする
+        zenithVector = new THREE.Vector3(0, 1, 0);
+      }
+
       starData.filter(
         star => star.vMag >= vMagRanges.min && star.vMag <= vMagRanges.max
       ).forEach((star) => {
-        const dec = (star.declination * Math.PI) / 180;
-        const ra = (star.rightAscension * Math.PI) / 180;
         const radius = 10;
-        const x = radius * Math.cos(dec) * Math.cos(ra);
-        const y = radius * Math.sin(dec);
-        const z = radius * Math.cos(dec) * Math.sin(ra);
+        if (!userEquatorialCoord) {
 
-        if (y > 0) {
-          positions.push(x, y, z);
+          return;
+        }
+        
+        const starVector = calcViewCoords(
+          star.rightAscension,
+          star.declination,
+          userEquatorialCoord,
+          radius
+        );
+        // 天頂ベクトルとの内積を計算（0以上なら地平線より上）
+        const dotProduct = starVector.dot(zenithVector);
+        
+        if (true || dotProduct >= 0) {
+          positions.push(starVector.x, starVector.y, starVector.z);
           sizes.push(Math.max(0.1, 5 - star.vMag));
         }
       });
@@ -106,14 +126,94 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
       pointsRef.current.geometry = geometry;
       pointsRef.current.material = material;
     })();
-  }, [vMagRanges, starData]);
+  }, [vMagRanges, starData, userEquatorialCoord]);
+
+  // 天頂に赤いポイントを配置（検証用：ユーザーの座標を星の変換処理と同じように処理）
+  const zenithPoint = useMemo(() => {
+    if (!userEquatorialCoord) {
+      // デフォルトは天頂方向（Y軸正方向）に配置
+      return (
+        <mesh position={[0, 10, 0]}>
+          <sphereGeometry args={[0.2, 16, 16]} />
+          <meshBasicMaterial color="blue" />
+        </mesh>
+      );
+    }
+    const rotatedPosition = calcViewCoords(
+      userEquatorialCoord.rightAscension,
+      userEquatorialCoord.declination,
+      userEquatorialCoord,
+      10
+    );
+
+    return (
+      <mesh position={rotatedPosition}>
+        <sphereGeometry args={[0.2, 16, 16]} />
+        <meshBasicMaterial color="red" />
+      </mesh>
+    );
+  }, [userEquatorialCoord]);
+
+  
+  const zenith1Point = useMemo(() => {
+    if (!userEquatorialCoord) {
+      // デフォルトは天頂方向（Y軸正方向）に配置
+      return (
+        <mesh position={[0, 10, 0]}>
+          <sphereGeometry args={[0.2, 16, 16]} />
+          <meshBasicMaterial color="blue" />
+        </mesh>
+      );
+    }
+
+    const rotatedPosition = calcViewCoords(
+      userEquatorialCoord.rightAscension + 30,
+      45,
+      userEquatorialCoord,
+      10
+    );
+
+    return (
+      <mesh position={rotatedPosition}>
+        <sphereGeometry args={[0.2, 16, 16]} />
+        <meshBasicMaterial color="green" />
+      </mesh>
+    );
+  }, [userEquatorialCoord]);
+
+  const zenith2Point = useMemo(() => {
+    if (!userEquatorialCoord) {
+      // デフォルトは天頂方向（Y軸正方向）に配置
+      return (
+        <mesh position={[0, 10, 0]}>
+          <sphereGeometry args={[0.2, 16, 16]} />
+          <meshBasicMaterial color="blue" />
+        </mesh>
+      );
+    }
+
+    const rotatedPosition = calcViewCoords(
+      0,
+      45,
+      userEquatorialCoord,
+      10
+    );
+
+    return (
+      <mesh position={rotatedPosition}>
+        <sphereGeometry args={[0.2, 16, 16]} />
+        <meshBasicMaterial color="yellow" />
+      </mesh>
+    );
+  }, [userEquatorialCoord]);
 
   return (
     <>
-      {plane}
+      {/* 地平面は星座の回転とは独立して配置 */}
+      {/* {plane} */}
       <points ref={pointsRef} />
       {isVisibleConstellationLines && (
-        <ConstellationView　/>
+        <ConstellationView userEquatorialCoord={userEquatorialCoord} />
       )}
     </>
   );
