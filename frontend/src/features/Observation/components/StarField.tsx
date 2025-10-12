@@ -92,7 +92,6 @@ const StarField = ({ isVisibleConstellationLines, userEquatorialCoord }: StarFie
       ).forEach((star) => {
         const radius = 10;
         if (!userEquatorialCoord) {
-
           return;
         }
         
@@ -105,7 +104,7 @@ const StarField = ({ isVisibleConstellationLines, userEquatorialCoord }: StarFie
         // 天頂ベクトルとの内積を計算（0以上なら地平線より上）
         const dotProduct = starVector.dot(zenithVector);
         
-        if (true || dotProduct >= 0) {
+        if (starVector.y >= 0) {
           positions.push(starVector.x, starVector.y, starVector.z);
           sizes.push(Math.max(0.1, 5 - star.vMag));
         }
@@ -154,63 +153,10 @@ const StarField = ({ isVisibleConstellationLines, userEquatorialCoord }: StarFie
     );
   }, [userEquatorialCoord]);
 
-  
-  const zenith1Point = useMemo(() => {
-    if (!userEquatorialCoord) {
-      // デフォルトは天頂方向（Y軸正方向）に配置
-      return (
-        <mesh position={[0, 10, 0]}>
-          <sphereGeometry args={[0.2, 16, 16]} />
-          <meshBasicMaterial color="blue" />
-        </mesh>
-      );
-    }
-
-    const rotatedPosition = calcViewCoords(
-      userEquatorialCoord.rightAscension + 30,
-      45,
-      userEquatorialCoord,
-      10
-    );
-
-    return (
-      <mesh position={rotatedPosition}>
-        <sphereGeometry args={[0.2, 16, 16]} />
-        <meshBasicMaterial color="green" />
-      </mesh>
-    );
-  }, [userEquatorialCoord]);
-
-  const zenith2Point = useMemo(() => {
-    if (!userEquatorialCoord) {
-      // デフォルトは天頂方向（Y軸正方向）に配置
-      return (
-        <mesh position={[0, 10, 0]}>
-          <sphereGeometry args={[0.2, 16, 16]} />
-          <meshBasicMaterial color="blue" />
-        </mesh>
-      );
-    }
-
-    const rotatedPosition = calcViewCoords(
-      0,
-      45,
-      userEquatorialCoord,
-      10
-    );
-
-    return (
-      <mesh position={rotatedPosition}>
-        <sphereGeometry args={[0.2, 16, 16]} />
-        <meshBasicMaterial color="yellow" />
-      </mesh>
-    );
-  }, [userEquatorialCoord]);
-
   return (
     <>
       {/* 地平面は星座の回転とは独立して配置 */}
-      {/* {plane} */}
+      {plane}
       <points ref={pointsRef} />
       {isVisibleConstellationLines && (
         <ConstellationView userEquatorialCoord={userEquatorialCoord} />

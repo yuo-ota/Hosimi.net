@@ -23,14 +23,14 @@ export function calcViewCoords(
   // -------------------------------
   // 1️⃣ 星の初期座標（天球座標系）
   // -------------------------------
-  let x = radius * Math.cos(starDec) * Math.cos(starRa);
-  let y = radius * Math.cos(starDec) * Math.sin(starRa);
+  let x = radius * Math.cos(starDec) * Math.sin(starRa);
+  let y = radius * Math.cos(starDec) * Math.cos(starRa);
   let z = radius * Math.sin(starDec);
 
   // -------------------------------
   // 2️⃣ Z軸回転：ユーザーの赤経を基準に回転
   // -------------------------------
-  const rotZ = -userRa; // ユーザーの赤経分だけ逆回転
+  const rotZ = userRa; // ユーザーの赤経分だけ逆回転
   {
     const cosTheta = Math.cos(rotZ);
     const sinTheta = Math.sin(rotZ);
@@ -43,7 +43,7 @@ export function calcViewCoords(
   // -------------------------------
   // 3️⃣ X軸回転：ユーザーの天頂をY軸正方向に
   // -------------------------------
-  const rotX = -Math.PI / 2 + userDec;
+  const rotX = -userDec;
   {
     const cosPhi = Math.cos(rotX);
     const sinPhi = Math.sin(rotX);
@@ -53,5 +53,5 @@ export function calcViewCoords(
     z = newZ;
   }
 
-  return new THREE.Vector3(x, y, z);
+  return new THREE.Vector3(x, y, -z);
 }
