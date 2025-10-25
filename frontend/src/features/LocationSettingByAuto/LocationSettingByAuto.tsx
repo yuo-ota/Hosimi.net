@@ -7,11 +7,13 @@ import { useState } from "react";
 import { useUserPosition } from "@/context/UserPositionContext";
 import CheckMap from "./components/CheckMap";
 import DecorateBorder from "@/components/DecorateBorder";
+import { useTransitionNavigation } from "@/utils/trantision";
 
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const LocationSettingByAuto = () => {
   const router = useRouter();
+  const transition = useTransitionNavigation();
   const { setPosition } = useUserPosition();
   const [userPosition, setUserPosition] = useState<GeoLocation>({ latitude: 35.68132693484021, longitude: 139.76719496924264 });
   const [activeConfirmButton, setActiveConfirmButton] = useState(false);
@@ -31,7 +33,7 @@ const LocationSettingByAuto = () => {
   const clickConfirmPositionButton = () => {
     if (!activeConfirmButton) return;
     setPosition(userPosition);
-    router.push("/observation");
+    transition("/observation", "top_to_bottom");
   }
 
   return (

@@ -1,5 +1,7 @@
 import Headline from "@/components/Headline";
-import LocationSettingByManual from "@/features/LocationSettingByManual/LocationSettingByManual";
+import { lazy, Suspense } from "react";
+
+const LocationSettingByManual = lazy(() => import("@/features/LocationSettingByManual/LocationSettingByManual"));
 
 export default function LocationSettingByManualPage() {
   return (
@@ -12,7 +14,9 @@ export default function LocationSettingByManualPage() {
             description="検索欄から任意の地点を<br>入力して下さい。"
             className="mt-10 lg:mt-30 mb-10 lg:mb-20"
           />
-          <LocationSettingByManual />
+          <Suspense fallback={<div className="text-foreground">読み込み中...</div>}>
+            <LocationSettingByManual />
+          </Suspense>
         </div>
       </div>
     </>

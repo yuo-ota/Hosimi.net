@@ -3,22 +3,22 @@
 import DecorateBorder from "@/components/DecorateBorder";
 import ArrowIcon from "@/assets/arrow.svg";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useTransitionNavigation } from "@/utils/trantision";
 
 const LocationSetting = () => {
-  const router = useRouter();
-  const [isOpenDialog, setIsOpenDialog] = useState(false)
+  const transition = useTransitionNavigation();
 
   const clickGPSSettingButton = () => {
-    router.push("/location-settings/auto");
-  }
+    transition("/location-settings/auto", "top_to_bottom");
+  };
+
   const clickManualSettingButton = () => {
-    router.push("/location-settings/manual");
-  }
+    transition("/location-settings/manual", "top_to_bottom");
+  };
 
   return (
     <>
-      <div className="my-10 lg:my-30 w-full h-[500px] flex justify-center gap-5 lg:gap-10 flex-col lg:flex-row items-start">
+      <div className="my-10 lg:my-30 w-full h-[500px] flex justify-center gap-5 lg:gap-10 flex-col lg:flex-row items-center">
         <DecorateBorder
           isBorderPutX={true}
           className="w-9/10 lg:w-7/20 p-4 lg:p-8 bg-foreground/30"

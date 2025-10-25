@@ -14,8 +14,10 @@ import { getStarDetailInfo } from "@/lib/api/stars";
 import { StarData } from "@/type/StarData";
 import { StarDetailInfo } from "@/type/StarDetailInfo";
 import IconButton from "./components/IconButton";
+import { useTransitionNavigation } from "@/utils/trantision";
 
 const Observation = () => {
+  const transition = useTransitionNavigation();
   const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
   const [isVisibleConstellationLines, setIsVisibleConstellationLines] = useState<boolean>(false);
   const [closestStar, setClosestStar] = useState<StarData | null>(null);
@@ -85,7 +87,7 @@ const Observation = () => {
   };
 
   const handleSettingButtonClick = () => {
-    window.location.href = "/settings";
+    transition("/settings", "top_to_bottom");
   };
 
   return (

@@ -5,8 +5,10 @@ import ViewSetting from "./components/ViewSetting";
 import { useState } from "react";
 import { useSetting } from "@/context/SettingContext";
 import DecorateBorder from "@/components/DecorateBorder";
+import { useTransitionNavigation } from "@/utils/trantision";
 
 const Setting = () => {
+  const transition = useTransitionNavigation();
   const { contrastValue, starSizeValue, setContrastValue, setStarSizeValue } = useSetting();
   const [preContrastValue, setPreContrastValue] = useState<number>(contrastValue);
   const [preStarSizeValue, setPreStarSizeValue] = useState<number>(starSizeValue);
@@ -18,7 +20,7 @@ const Setting = () => {
   }
 
   const handlePrevPageButtonClick = () => {
-    window.location.href = "/observation";
+    transition("/observation", "bottom_to_top");
   };
 
   return (

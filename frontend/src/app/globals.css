@@ -71,3 +71,69 @@ body {
     radial-gradient(circle var(--dot-radius) at calc(100% - var(--dot-radius)) calc(100% - var(--dot-radius)), var(--foreground) 0 var(--dot-radius), transparent var(--dot-radius));
   background-repeat: no-repeat;
 }
+
+/* デフォルトは無効 */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+/* 上→下パターン */
+:root[data-transition="top_to_bottom"]::view-transition-old(root) {
+  animation: slide-out-down 1.5s ease forwards;
+}
+:root[data-transition="top_to_bottom"]::view-transition-new(root) {
+  animation: slide-in-down 1.5s ease forwards;
+}
+
+/* 下→上パターン */
+:root[data-transition="bottom_to_top"]::view-transition-old(root) {
+  animation: slide-out-up 1.5s ease forwards;
+}
+:root[data-transition="bottom_to_top"]::view-transition-new(root) {
+  animation: slide-in-up 1.5s ease forwards;
+}
+
+@keyframes slide-out-down {
+  from {
+    transform: translateY(0);
+    z-index: 10;
+  }
+  to {
+    transform: translateY(100dvh);
+    z-index: 10;
+  }
+}
+
+@keyframes slide-in-down {
+  from {
+    transform: translateY(-100dvh);
+    z-index: 0;
+  }
+  to {
+    transform: translateY(0);
+    z-index: 0;
+  }
+}
+
+@keyframes slide-out-up {
+  from {
+    transform: translateY(0);
+    z-index: 0;
+  }
+  to {
+    transform: translateY(-100dvh);
+    z-index: 0;
+  }
+}
+
+@keyframes slide-in-up {
+  from {
+    transform: translateY(100dvh);
+    z-index: 10;
+  }
+  to {
+    transform: translateY(0);
+    z-index: 10;
+  }
+}

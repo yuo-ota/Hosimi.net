@@ -1,5 +1,7 @@
 import Headline from "@/components/Headline";
-import LocationSettingByAuto from "@/features/LocationSettingByAuto/LocationSettingByAuto";
+import { Suspense, lazy } from "react";
+
+const LocationSettingByAuto = lazy(() => import("@/features/LocationSettingByAuto/LocationSettingByAuto"));
 
 export default function LocationSettingByAutoPage() {
   return (
@@ -12,7 +14,9 @@ export default function LocationSettingByAutoPage() {
             description="GPSの値に誤りがないか<br>確認して下さい。"
             className="mt-10 lg:mt-30 mb-10 lg:mb-20"
           />
-          <LocationSettingByAuto />
+          <Suspense fallback={<div className="text-foreground">読み込み中...</div>}>
+            <LocationSettingByAuto />
+          </Suspense>
         </div>
       </div>
     </>

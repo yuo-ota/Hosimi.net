@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="jp">
-      <body className="antialiased">
+      <body className="antialiased overflow-hidden">
         <UserPositionProvider>
           <StarDataProvider>
             <SettingProvider>
