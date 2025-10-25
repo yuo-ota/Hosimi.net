@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import LocationSettingButton from "@/components/LocationSettingButton";
+import LocationSettingButton from "@/components/LocationSettingElement";
 import ExampleIcon from "@/stories/assets/github.svg";
 
 const meta: Meta<typeof LocationSettingButton> = {
