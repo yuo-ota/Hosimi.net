@@ -4,7 +4,7 @@ import Setting from "@/features/Settings/Setting";
 export default function SettingPage() {
   return (
     <>
-      <div className="overflow-y-scroll w-dvw h-dvh flex justify-center">
+      <div className="overflow-y-scroll w-dvw h-dvh flex justify-center bg-gradient-to-t from-[var(--midnight-col)] to-[var(--galaxy-col)]">
         <div className="flex flex-col w-17/20">
           <Headline
             preferSmall={false}

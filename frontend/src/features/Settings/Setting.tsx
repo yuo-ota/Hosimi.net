@@ -1,13 +1,10 @@
 "use client";
 
-import LocationSettingButton from "@/components/DecorateBorder";
 import SettingElement from "./components/SettingElement";
-import GPSIcon from "@/assets/location.svg";
-import ManualIcon from "@/assets/touch.svg";
-import DualButton from "@/components/DualButton";
 import ViewSetting from "./components/ViewSetting";
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
 import { useSetting } from "@/context/SettingContext";
+import DecorateBorder from "@/components/DecorateBorder";
 
 const Setting = () => {
   const { contrastValue, starSizeValue, setContrastValue, setStarSizeValue } = useSetting();
@@ -65,30 +62,20 @@ const Setting = () => {
             setPreStarSizeValue={setPreStarSizeValue}
           />
         </SettingElement>
-        <DualButton
-          key={"aa"}
-          buttons={[
-            {
-              isPriority: true,
-              children: (
-                <>
-                  <span className="text-base lg:text-2xl">変更を適用する</span>
-                </>
-              ),
-              handleClick: () => handleConfirmButton(),
-              isActive: true,
-              className: "flex-1 w-full lg:px-4 py-2",
-            },
-            {
-              isPriority: false,
-              children: "戻る",
-              handleClick: () => handlePrevPageButtonClick(),
-              isActive: true,
-              className: "flex-1 w-full lg:px-4 py-2 text-base lg:text-2xl",
-            },
-          ]}
-          className="h-[50px] lg:h-[70px] lg:row-span-1 w-full lg:w-[800px] flex justify-between  gap-x-5 gap-y-3 flex-col lg:flex-row mb-25"
-        />
+        <div className="w-full flex justify-center items-center mt-16 lg:mt-32">
+          <div className="w-full max-w-[800px] flex flex-col lg:flex-row justify-center items-center gap-3">
+            <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">
+              <button onClick={handleConfirmButton} className="w-full h-full hover:bg-background/20">
+                <span className="text-sm lg:text-2xl">保存する</span>
+              </button>
+            </DecorateBorder>
+            <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">
+              <button onClick={handlePrevPageButtonClick} className="w-full h-full hover:bg-background/20">
+                <span className="text-sm lg:text-2xl align-middle">戻る</span>
+              </button>
+            </DecorateBorder>
+          </div>
+        </div>
       </div>
     </>
   );

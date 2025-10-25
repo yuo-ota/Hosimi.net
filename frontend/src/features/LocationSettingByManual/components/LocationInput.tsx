@@ -51,7 +51,7 @@ const LocationInput = ({ setUserPosition, className = "" }: LocationInputProps) 
     <>
       <div className={`${className} flex flex-col`}>
         <div className="w-full flex items-center">
-          <DecorateBorder isBorderPutX={true} className="w-[calc(100%-48px)]">
+          <DecorateBorder isBorderPutX={true} className="w-[calc(100%-48px)] bg-foreground/30">
             <input
               type="text"
               placeholder="例) 新宿, ニューヨーク, シドニー"
@@ -61,7 +61,7 @@ const LocationInput = ({ setUserPosition, className = "" }: LocationInputProps) 
               onKeyDown={handleKeyDown}
             />
           </DecorateBorder>
-          <DecorateBorder isBorderPutX={true}>
+          <DecorateBorder isBorderPutX={true} className="bg-foreground/30">
             <button
               className="aspect-square flex justify-center items-center h-12 lg:h-16 bg-foreground/30"
               onClick={handleSearch}

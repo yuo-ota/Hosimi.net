@@ -21,7 +21,7 @@ const LocationSetting = () => {
       <div className="my-10 lg:my-30 w-full h-[500px] flex justify-center gap-5 lg:gap-10 flex-col lg:flex-row items-start">
         <DecorateBorder
           isBorderPutX={true}
-          className="w-9/10 lg:w-7/20 p-4 lg:p-8"
+          className="w-9/10 lg:w-7/20 p-4 lg:p-8 bg-foreground/30"
         >
           <div className="flex flex-col justify-center w-full h-full">
             <span className="font-body text-2xl lg:text-4xl text-left mb-2 lg:mb-3">GPSから設定</span>
@@ -36,7 +36,7 @@ const LocationSetting = () => {
         </DecorateBorder>
         <DecorateBorder
           isBorderPutX={true}
-          className="w-9/10 lg:w-7/20 p-4 lg:p-8"
+          className="w-9/10 lg:w-7/20 p-4 lg:p-8 bg-foreground/30"
         >
           <div className="flex flex-col justify-center w-full h-full">
             <span className="font-body text-2xl lg:text-4xl text-left mb-2 lg:mb-3">手動で設定</span>
