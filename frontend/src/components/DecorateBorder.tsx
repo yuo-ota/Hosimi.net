@@ -6,7 +6,7 @@ type LocationSettingButtonProps = {
   className?: string;
 };
 
-const LocationSettingElement = ({
+const DecorateBorder = ({
   children,
   isBorderPutX = true,
   className = "",
@@ -14,7 +14,7 @@ const LocationSettingElement = ({
   return (
     <>
       <div
-        className={`${className} corner-dots flex items-center justify-center p-4 lg:p-8 bg-foreground/30 backdrop-blur-lg
+        className={`${className} corner-dots flex items-center justify-center bg-foreground/30 backdrop-blur-lg
     ${isBorderPutX ? "border-l border-r" : "border-t border-b"} border-foreground shadow-lg overflow-visible`}
       >
         {children}
@@ -23,4 +23,4 @@ const LocationSettingElement = ({
   );
 };
 
-export default LocationSettingElement;
+export default DecorateBorder;

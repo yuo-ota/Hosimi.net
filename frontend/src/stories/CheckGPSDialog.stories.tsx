@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CheckGPSDialog from "@/features/LocationSetting/components/CheckGPSDialog";
+import CheckGPSDialog from "@/features/LocationSetting/components/CheckGPS";
 
 const meta: Meta<typeof CheckGPSDialog> = {
   title: "Components/Dialogs/CheckGPSDialog",

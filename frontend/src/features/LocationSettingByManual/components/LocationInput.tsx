@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SearchIcon from "../assets/search.svg";
-import { Geolocation } from "@/type/Geolocation";
+import { Geolocation } from "@/type/GeoLocation";
 import { getCoordsByLocationName } from "@/lib/api/geolocation";
 
 type LocationInputProps = {

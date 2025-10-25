@@ -1,6 +1,6 @@
 "use client";
 
-import LocationSettingButton from "@/components/LocationSettingElement";
+import LocationSettingButton from "@/components/DecorateBorder";
 import SettingElement from "./components/SettingElement";
 import GPSIcon from "@/assets/location.svg";
 import ManualIcon from "@/assets/touch.svg";

@@ -2,7 +2,7 @@
 
 import DualButton from "@/components/DualButton";
 import LocationInput from "./components/LocationInput";
-import { Geolocation } from "@/type/Geolocation";
+import { Geolocation } from "@/type/GeoLocation";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
