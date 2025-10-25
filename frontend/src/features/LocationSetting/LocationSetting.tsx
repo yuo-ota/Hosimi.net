@@ -18,7 +18,7 @@ const LocationSetting = () => {
 
   return (
     <>
-      <div className="my-10 lg:my-30 w-full h-[500px] flex justify-center gap-5 lg:gap-10 flex-col lg:flex-row items-center">
+      <div className="my-10 lg:my-30 w-full h-[500px] flex justify-center gap-5 lg:gap-10 flex-col lg:flex-row items-start">
         <DecorateBorder
           isBorderPutX={true}
           className="w-9/10 lg:w-7/20 p-4 lg:p-8"

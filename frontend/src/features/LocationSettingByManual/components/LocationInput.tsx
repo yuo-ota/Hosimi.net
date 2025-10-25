@@ -1,10 +1,11 @@
 import { useState } from "react";
 import SearchIcon from "../assets/search.svg";
-import { Geolocation } from "@/type/GeoLocation";
+import { GeoLocation } from "@/type/GeoLocation";
 import { getCoordsByLocationName } from "@/lib/api/geolocation";
+import DecorateBorder from "@/components/DecorateBorder";
 
 type LocationInputProps = {
-  setUserPosition: (userPosition: Geolocation) => void;
+  setUserPosition: (userPosition: GeoLocation) => void;
   className?: string;
 };
 
@@ -20,7 +21,7 @@ const LocationInput = ({ setUserPosition, className = "" }: LocationInputProps) 
     const result = await getCoordsByLocationName(query);
 
     if (result.success) {
-      const coords: Geolocation = result.geolocationData;
+      const coords: GeoLocation = result.geolocationData;
       setUserPosition(coords)
     } else {
       console.error(result.error);
@@ -50,27 +51,31 @@ const LocationInput = ({ setUserPosition, className = "" }: LocationInputProps) 
     <>
       <div className={`${className} flex flex-col`}>
         <div className="w-full flex items-center">
-          <input
-            type="text"
-            placeholder="例) 新宿, ニューヨーク, シドニー"
-            className="flex-1 bg-foreground rounded-l-md text-base h-12 px-2 focus:outline-none focus:ring-0"
-            value={query}
-            onChange={(e) => handleInputField(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-          <button
-            className="aspect-square rounded-r-md bg-base flex justify-center items-center h-12"
-            onClick={handleSearch}
-          >
-            <img
-              src={SearchIcon.src}
-              alt="検索アイコン"
-              className="aspect-square h-6/10"
+          <DecorateBorder isBorderPutX={true} className="w-[calc(100%-48px)]">
+            <input
+              type="text"
+              placeholder="例) 新宿, ニューヨーク, シドニー"
+              className="flex-1 text-lg lg:text-xl text-foreground h-12 lg:h-16 px-2 focus:outline-none focus:ring-0"
+              value={query}
+              onChange={(e) => handleInputField(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
-          </button>
+          </DecorateBorder>
+          <DecorateBorder isBorderPutX={true}>
+            <button
+              className="aspect-square flex justify-center items-center h-12 lg:h-16 bg-foreground/30"
+              onClick={handleSearch}
+            >
+              <img
+                src={SearchIcon.src}
+                alt="検索アイコン"
+                className="aspect-square h-6/10"
+              />
+            </button>
+          </DecorateBorder>
         </div>
         {isInvalidQuery ? (
-          <div className="h-5 text-attention">{queryErrorMessage}</div>
+          <div className="h-5 text-attention lg:text-lg">{queryErrorMessage}</div>
         ) : (
           <div className="h-5" />
         )}

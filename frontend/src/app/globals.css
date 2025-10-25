@@ -33,7 +33,7 @@
   --evening-col: oklch(34% 0.078 230.52754015165624);
   --midnight-col: oklch(15% 0.061 234.46232220802563);
 
-  --dot-radius: 3px;
+  --dot-radius: 1.5px;
 }
 
 @media (prefers-color-scheme: dark) {
