@@ -8,6 +8,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Senobi Gothic';
+  src: url('../assets/Senobi-Gothic-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --background: #00163b;
@@ -26,7 +33,7 @@
 
   --font-title: 'Senobi Gothic', sans-serif;
   --font-body: 'Senobi Gothic', sans-serif;
-  --font-num: 'Senobi Gothic', sans-serif;
+  --font-num: hiragino-kaku-gothic-pron, sans-serif;
 
   --sunset-col: oklch(44% 0.115 33.69006752597977);
   --sunset-evening-mid-col: oklch(0.3881 0.0951 310);

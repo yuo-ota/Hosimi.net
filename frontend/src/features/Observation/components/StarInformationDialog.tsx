@@ -1,35 +1,34 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import ArrowIcon from "../assets/arrow.svg";
 import { StarDetailInfo } from "@/type/StarDetailInfo";
 import { StarData } from "@/type/StarData";
+import DecorateBorder from "@/components/DecorateBorder";
 
-type StarInformationSheetProps = {
-  sheetWidth: number;
-  sheetHeight: number;
+type StarInformationDialogProps = {
   starDetailInfo: StarDetailInfo;
   starData: StarData;
-  isOpenSheet: boolean;
-  setIsOpenSheet: (isOpenSheet: boolean) => void;
+  isOpenDialog: boolean;
+  setIsOpenDialog: (isOpenDialog: boolean) => void;
   className?: string;
 };
 
-const StarInformationSheet = ({
-  sheetWidth,
-  sheetHeight,
+const StarInformationDialog = ({
   starDetailInfo,
   starData,
-  isOpenSheet,
-  setIsOpenSheet,
+  isOpenDialog,
+  setIsOpenDialog,
   className = "",
-}: StarInformationSheetProps) => {
-  const [isLg, setIsLg] = useState(false);
+}: StarInformationDialogProps) => {
   const [isAladinLoaded, setIsAladinLoaded] = useState(false);
   const aladinRef = useRef<HTMLDivElement>(null);
 
+  const handleCloseDialog = () => {
+    setIsOpenDialog(false);
+  }
+
   useEffect(() => {
-    if (!isOpenSheet) {
+    if (!isOpenDialog) {
       setIsAladinLoaded(false);
     };
 
@@ -55,7 +54,7 @@ const StarInformationSheet = ({
       setTimeout(() => {
         if ((window as any).A && aladinRef.current) {
           try {
-            const aladin = (window as any).A.aladin(aladinRef.current, {
+            (window as any).A.aladin(aladinRef.current, {
               fov: 1,
               target: starDetailInfo.starName,
               showReticle: false,
@@ -71,93 +70,64 @@ const StarInformationSheet = ({
             console.error("Aladin Lite initialization failed:", err);
           }
         }
-      }, 1000); // 1秒待機
+      }, 1000);
     };
 
     loadAladin();
-  }, [isOpenSheet]);
+  }, [isOpenDialog]);
 
-  useEffect(() => {
-    const updateSize = () => {
-      setIsLg(window.innerWidth >= 1024);
-    };
-    window.addEventListener("resize", updateSize);
-    updateSize();
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
-
-  return (
+  return isOpenDialog && (
     <>
-      <div
-        className={`${className} flex flex-col lg:min-h-dvh`}
-        style={
-          isLg
-            ? {
-                right: isOpenSheet ? 0 : sheetWidth * -1,
-                width: sheetWidth,
-                height: "100%",
-              }
-            : {
-                bottom: isOpenSheet ? 0 : sheetHeight * -1,
-                width: "100%",
-                height: sheetHeight,
-              }
-        }
-      >
-        <button
-          className="flex-none w-full h-[80px] border rounded-t-lg lg:rounded-tl-lg backdrop-blur-lg bg-foreground/30 shadow-lg border-foreground/30 px-10 flex items-center justify-center lg:justify-start"
-          onClick={() => setIsOpenSheet(false)}
+      <div className={`${className} flex justify-center items-center bg-background/40`}>
+        <DecorateBorder
+          className={`w-8/10 max-w-[500px] lg:flex-1 flex flex-col bg-foreground/50 p-10 gap-y-10 justify-center items-start`}
+          isBorderPutX={false}
         >
-          <img
-            src={ArrowIcon.src}
-            alt="戻るボタン"
-            className="h-2/5 rotate-90 lg:rotate-0"
-          />
-        </button>
-
-        <div
-          className={`overflow-y-auto lg:flex-1 flex flex-col w-full p-10 gap-y-10 border lg:rounded-bl-lg backdrop-blur-lg bg-foreground/30 shadow-lg border-foreground/30`}
-        >
-            <div
-              ref={aladinRef}
-              className="w-full aspect-[1.3333] rounded-md flex-none relative pointer-events-none"
-            >
-              {!isAladinLoaded && (
-                <div className="absolute inset-0 animate-pulse bg-base/30 rounded-md flex items-center justify-center">
-                  <span className="text-foreground">読み込み中...</span>
-                </div>
-              )}
-            </div>
+          <div
+            ref={aladinRef}
+            className="w-full aspect-[1.3333] rounded-md flex-none relative pointer-events-none"
+          >
+            {!isAladinLoaded && (
+              <div className="absolute inset-0 animate-pulse bg-base/30 rounded-md flex items-center justify-center">
+                <span className="text-foreground">読み込み中...</span>
+              </div>
+            )}
+          </div>
 
           <div className="flex flex-col flex-none">
-            <span className="font-title text-4xl text-foreground">
+            <span className="font-title font-bold [word-spacing:-0.3em] text-4xl text-foreground">
               {starDetailInfo.starName}
             </span>
-            <span className="font-title text-2xl text-foreground">
+            <span className="font-title font-bold text-2xl text-foreground">
               {starDetailInfo.category}
             </span>
             <div className="flex flex-col mt-8 gap-y-2">
-              <div className="flex gap-x-2">
+              <div className="flex gap-x-2 items-end">
                 <span className="text-md text-foreground">等級:</span>
                 <span className="font-num text-xl text-foreground">
                   {starData.vMag}
                 </span>
               </div>
-              <div className="flex gap-x-2">
+              <div className="flex gap-x-2 items-end">
                 <span className="text-md text-foreground">赤経:</span>
                 <span className="font-num text-xl text-foreground">
-                  {starData.rightAscension}
+                  {starData.rightAscension}°
                 </span>
               </div>
-              <div className="flex gap-x-2">
+              <div className="flex gap-x-2 items-end">
                 <span className="text-md text-foreground">赤緯:</span>
                 <span className="font-num text-xl text-foreground">
-                  {starData.declination}
+                  {starData.declination}°
                 </span>
               </div>
             </div>
           </div>
-        </div>
+          <button
+            className="w-full h-8 lg:h-12 bg-foreground rounded-full flex justify-center items-center px-4 lg:px-6"
+            onClick={handleCloseDialog}>
+            <span className="text-background text-sm lg:text-xl">閉じる</span>
+          </button>
+        </DecorateBorder>
       </div>
       <style jsx global>{`
         .aladin-horizontal-list {
@@ -168,4 +138,4 @@ const StarInformationSheet = ({
   );
 };
 
-export default StarInformationSheet;
+export default StarInformationDialog;

@@ -6,7 +6,7 @@ import SkyView from "./components/SkyView";
 import settingIcon from "./assets/settings.svg";
 import searchIcon from "./assets/search.svg";
 import constellationIcon from "./assets/constellation.svg";
-import StarInformationSheet from "./components/StarInformationSheet";
+import StarInformationDialog from "./components/StarInformationDialog";
 import { useRef, useState } from "react";
 import * as THREE from "three";
 import { useStarData } from "@/context/StarDataContext";
@@ -18,7 +18,7 @@ import { useTransitionNavigation } from "@/utils/trantision";
 
 const Observation = () => {
   const transition = useTransitionNavigation();
-  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
+  const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
   const [isVisibleConstellationLines, setIsVisibleConstellationLines] = useState<boolean>(false);
   const [closestStar, setClosestStar] = useState<StarData | null>(null);
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
@@ -70,7 +70,7 @@ const Observation = () => {
         return;
       }
 
-      setIsOpenSheet(true);
+      setIsOpenDialog(true);
     }
   };
 
@@ -94,12 +94,9 @@ const Observation = () => {
     <>
       <div className="flex w-full h-full relative overflow-hidden">
         <SkyView
-          sheetWidth={SHEET_WIDTH}
           setTargetVector={handleDirectionChange}
           isVisibleConstellationLines={isVisibleConstellationLines}
-          className={`absolute -left-[${
-            SHEET_WIDTH / 2
-          }px] h-full z-0`}
+          className={`w-full h-full z-0`}
         />
         <FunctionButtons
           icons={[
@@ -126,14 +123,12 @@ const Observation = () => {
           />
         </div>
         {(closestStar && closestStarDetailInfo) && (
-          <StarInformationSheet
-            sheetWidth={SHEET_WIDTH}
-            sheetHeight={SHEET_HEIGHT}
+          <StarInformationDialog
             starDetailInfo={closestStarDetailInfo}
             starData={closestStar}
-            isOpenSheet={isOpenSheet}
-            setIsOpenSheet={setIsOpenSheet}
-            className={`absolute z-30`}
+            isOpenDialog={isOpenDialog}
+            setIsOpenDialog={setIsOpenDialog}
+            className={`absolute z-30 w-full h-full`}
           />
         )}
       </div>

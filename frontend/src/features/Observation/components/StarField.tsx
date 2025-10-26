@@ -35,8 +35,6 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
     ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
     ctx.fill();
 
-    console.log(starSizeValue,  contrastValue);
-
     const texture = new THREE.CanvasTexture(canvas);
     return texture;
   }
