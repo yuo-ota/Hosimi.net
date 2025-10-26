@@ -3,6 +3,7 @@
 import FunctionButtons from "./components/FunctionButtons";
 import SkyView from "./components/SkyView";
 
+import backArrowIcon from "./assets/back_arrow.svg";
 import settingIcon from "./assets/settings.svg";
 import searchIcon from "./assets/search.svg";
 import constellationIcon from "./assets/constellation.svg";
@@ -16,7 +17,11 @@ import { StarDetailInfo } from "@/type/StarDetailInfo";
 import IconButton from "./components/IconButton";
 import { useTransitionNavigation } from "@/utils/trantision";
 
-const Observation = () => {
+type ObservationProps = {
+  setPhase: (phase: "idle" | "transitioning") => void;
+};
+
+const Observation = ({ setPhase }: ObservationProps) => {
   const transition = useTransitionNavigation();
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
   const [isVisibleConstellationLines, setIsVisibleConstellationLines] = useState<boolean>(false);
@@ -24,8 +29,6 @@ const Observation = () => {
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
   const { starData, vMagRanges } = useStarData();
-  const SHEET_WIDTH = 500;
-  const SHEET_HEIGHT = 500;
 
   const handleDirectionChange = (direction: THREE.Vector3) => {
     currentDirectionRef.current = direction.clone();
@@ -86,6 +89,24 @@ const Observation = () => {
     setClosestStarDetailInfo(data.starDetailInfoData);
   };
 
+  const handleBackButtonClick = () => {
+    if (!document.startViewTransition) {
+      transition("/location-settings", "bottom_to_top_ease_out");
+      return;
+    }
+
+    document.documentElement.dataset.transition = "bottom_to_top_ease_in";
+
+    document.startViewTransition(async() => {
+      await Promise.resolve(setPhase("transitioning"));
+    });
+    
+    // アニメーション完了後（1.5秒後）に遷移を実行
+    setTimeout(() => {
+      transition("/location-settings", "bottom_to_top_ease_out");
+    }, 750);
+  };
+
   const handleSettingButtonClick = () => {
     transition("/settings", "top_to_bottom");
   };
@@ -100,6 +121,10 @@ const Observation = () => {
         />
         <FunctionButtons
           icons={[
+            {
+              icon: { path: backArrowIcon.src, alt: "戻るボタン" },
+              clickHandle: () => {handleBackButtonClick();},
+            },
             {
               icon: { path: settingIcon.src, alt: "設定ボタン" },
               clickHandle: () => {handleSettingButtonClick();},

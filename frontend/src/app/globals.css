@@ -101,6 +101,23 @@ body {
   animation: slide-in-up 1.5s ease forwards;
 }
 
+/* 下→上パターン イーズイン */
+:root[data-transition="bottom_to_top_ease_in"]::view-transition-old(root) {
+  animation: slide-out-up 0.75s ease-in forwards;
+}
+:root[data-transition="bottom_to_top_ease_in"]::view-transition-new(root) {
+  animation: slide-in-up 0.75s ease-in forwards;
+}
+
+/* 下→上パターン イーズアウト */
+:root[data-transition="bottom_to_top_ease_out"]::view-transition-old(root) {
+  animation: slide-out-up 0.75s ease-out forwards;
+}
+:root[data-transition="bottom_to_top_ease_out"]::view-transition-new(root) {
+  animation: slide-in-up 0.75s ease-out forwards;
+}
+
+
 @keyframes slide-out-down {
   from {
     transform: translateY(0);
