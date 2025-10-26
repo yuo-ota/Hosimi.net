@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { GeoLocation } from "@/type/GeoLocation";
 
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
@@ -11,10 +12,7 @@ type CheckMapProps = {
 };
 
 const CheckMap = ({ handleGPSChenge, className }: CheckMapProps) => {
-  const [location, setLocation] = useState<GeoLocation>({
-    latitude: null,
-    longitude: null,
-  });
+  const [location, setLocation] = useState<GeoLocation | null>(null);
 
   const [secondsLeft, setSecondsLeft] = useState(10);
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
@@ -39,14 +37,7 @@ const CheckMap = ({ handleGPSChenge, className }: CheckMapProps) => {
           });
         },
         (error: GeolocationPositionError) => {
-          setLocation({
-            latitude: null,
-            longitude: null,
-          });
-          handleGPSChenge({
-            latitude: null,
-            longitude: null,
-          });
+          setLocation(null);
         }
       );
     }
@@ -86,14 +77,16 @@ const CheckMap = ({ handleGPSChenge, className }: CheckMapProps) => {
             位置更新まであと{secondsLeft}秒
           </div>
         </div>
-        {location.latitude === null || location.longitude === null ? (
+        {!location ? (
           <div className="flex w-full flex-1 border-3 bg-attention/20 border-attention rounded-lg p-10">
             GPS情報が取得できません。
             <br />
             ブラウザの設定を確認するか、手動設定に切り替えてください
           </div>
         ) : (
-          <Map userPosition={location} />
+          <>
+            <Map userPosition={location} />
+          </>
         )}
       </div>
     </>

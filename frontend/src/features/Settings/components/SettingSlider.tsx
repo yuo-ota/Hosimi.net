@@ -27,9 +27,7 @@ const SettingSlider = ({ sliders, className = "" }: SettingSliderProps) => {
   return (
     <>
       <div
-        className={`${className} lg:flex-1 max-w-[500px] shrink grid grid-flow-row grid-cols-[auto_1fr] ${getGridRowsClass(
-          sliders.length + 1
-        )} gap-y-4 gap-x-5 items-center mt-1`}
+        className={`${className} w-full grid grid-cols-[auto_1fr] gap-y-4 gap-x-5 items-center`}
       >
         <>
           {sliders.map((slider, index) => (
@@ -72,7 +70,6 @@ const SettingSlider = ({ sliders, className = "" }: SettingSliderProps) => {
               />
             </React.Fragment>
           ))}
-          <div></div>
         </>
       </div>
     </>

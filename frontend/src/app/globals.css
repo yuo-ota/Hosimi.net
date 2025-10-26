@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Local font: Senobi Gothic */
+@font-face {
+  font-family: 'Senobi Gothic';
+  src: url('../assets/Senobi-Gothic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Senobi Gothic';
+  src: url('../assets/Senobi-Gothic-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #00163b;
   --foreground: #ffffff;
@@ -12,12 +28,21 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent-color);
-  --color-base: var(--base-color);
+  --color-base-color: var(--base-color);
   --color-attention: var(--attention-color);
 
-  --font-title: ten-mincho-text, serif;
-  --font-body: fot-tsukumin-pr6n, sans-serif;
+  --font-title: 'Senobi Gothic', sans-serif;
+  --font-body: 'Senobi Gothic', sans-serif;
   --font-num: hiragino-kaku-gothic-pron, sans-serif;
+
+  --noon-col: oklch(56% 0.147 35.21759296819272);
+  --sunset-col: oklch(44% 0.115 33.69006752597977);
+  --sunset-evening-mid-col: oklch(0.3881 0.0951 310);
+  --evening-col: oklch(34% 0.078 230.52754015165624);
+  --midnight-col: oklch(15% 0.061 234.46232220802563);
+  --galaxy-col: oklch(48% 0.147 285.3762512488262);
+
+  --dot-radius: 1.5px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,7 +60,105 @@ html.wf-active {
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body);
+}
+
+.corner-dots {
+  position: relative;
+}
+.corner-dots::after {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--dot-radius));
+  pointer-events: none;
+  background:
+    radial-gradient(circle var(--dot-radius) at var(--dot-radius) var(--dot-radius), var(--foreground) 0 var(--dot-radius), transparent var(--dot-radius)),
+    radial-gradient(circle var(--dot-radius) at calc(100% - var(--dot-radius)) var(--dot-radius), var(--foreground) 0 var(--dot-radius), transparent var(--dot-radius)),
+    radial-gradient(circle var(--dot-radius) at var(--dot-radius) calc(100% - var(--dot-radius)), var(--foreground) 0 var(--dot-radius), transparent var(--dot-radius)),
+    radial-gradient(circle var(--dot-radius) at calc(100% - var(--dot-radius)) calc(100% - var(--dot-radius)), var(--foreground) 0 var(--dot-radius), transparent var(--dot-radius));
+  background-repeat: no-repeat;
+}
+
+/* デフォルトは無効 */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+/* 上→下パターン */
+:root[data-transition="top_to_bottom"]::view-transition-old(root) {
+  animation: slide-out-down 1.5s ease forwards;
+}
+:root[data-transition="top_to_bottom"]::view-transition-new(root) {
+  animation: slide-in-down 1.5s ease forwards;
+}
+
+/* 下→上パターン */
+:root[data-transition="bottom_to_top"]::view-transition-old(root) {
+  animation: slide-out-up 1.5s ease forwards;
+}
+:root[data-transition="bottom_to_top"]::view-transition-new(root) {
+  animation: slide-in-up 1.5s ease forwards;
+}
+
+/* 下→上パターン イーズイン */
+:root[data-transition="bottom_to_top_ease_in"]::view-transition-old(root) {
+  animation: slide-out-up 0.75s ease-in forwards;
+}
+:root[data-transition="bottom_to_top_ease_in"]::view-transition-new(root) {
+  animation: slide-in-up 0.75s ease-in forwards;
+}
+
+/* 下→上パターン イーズアウト */
+:root[data-transition="bottom_to_top_ease_out"]::view-transition-old(root) {
+  animation: slide-out-up 0.75s ease-out forwards;
+}
+:root[data-transition="bottom_to_top_ease_out"]::view-transition-new(root) {
+  animation: slide-in-up 0.75s ease-out forwards;
+}
+
+
+@keyframes slide-out-down {
+  from {
+    transform: translateY(0);
+    z-index: 10;
+  }
+  to {
+    transform: translateY(100dvh);
+    z-index: 10;
+  }
+}
+
+@keyframes slide-in-down {
+  from {
+    transform: translateY(-100dvh);
+    z-index: 0;
+  }
+  to {
+    transform: translateY(0);
+    z-index: 0;
+  }
+}
+
+@keyframes slide-out-up {
+  from {
+    transform: translateY(0);
+    z-index: 0;
+  }
+  to {
+    transform: translateY(-100dvh);
+    z-index: 0;
+  }
+}
+
+@keyframes slide-in-up {
+  from {
+    transform: translateY(100dvh);
+    z-index: 10;
+  }
+  to {
+    transform: translateY(0);
+    z-index: 10;
+  }
 }

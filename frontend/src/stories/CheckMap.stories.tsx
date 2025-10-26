@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CheckMap from "@/features/LocationSetting/components/CheckMap";
+import CheckMap from "@/features/LocationSettingByAuto/components/CheckMap";
 
 const meta: Meta<typeof CheckMap> = {
   title: "Components/CheckMap",

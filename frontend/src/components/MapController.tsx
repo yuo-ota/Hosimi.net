@@ -2,6 +2,7 @@
 
 import { useMap } from "react-leaflet";
 import { useState } from "react";
+import { GeoLocation } from "@/type/GeoLocation";
 
 type MapContainerProps = {
   userPosition: GeoLocation;

@@ -1,3 +1,5 @@
+import React from "react";
+
 type HeadlineProps = {
   preferSmall: boolean;
   title: string;
@@ -13,24 +15,25 @@ const Headline = ({
 }: HeadlineProps) => {
   return (
     <>
-      <div className={`${className} flex gap-x-2 items-stretch`}>
-        <div className="w-[3px] bg-accent" />
-        <div className="flex flex-col gap-y-1 py-[2px]">
+      <div className={`flex flex-col items-center justify-centertext-center ${className}`}>
           <span
             className={`font-title text-foreground ${
-              preferSmall ? "text-2xl lg:text-4xl" : "text-3xl lg:text-6xl"
+              preferSmall ? "text-3xl lg:text-4xl" : "text-3xl lg:text-6xl"
             }`}
           >
             {title}
           </span>
           <span
-            className={`text-foreground ${
+            className={`flex flex-col items-center text-foreground ${
               preferSmall ? "text-sm lg:text-xl" : "text-sm lg:text-2xl"
             }`}
           >
-            {description}
+            {description.split("<br>").map((line, index) => (
+              <div key={index}>
+                {line}
+              </div>
+            ))}
           </span>
-        </div>
       </div>
     </>
   );

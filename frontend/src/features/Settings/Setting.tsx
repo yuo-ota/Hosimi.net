@@ -1,32 +1,36 @@
 "use client";
 
-import LocationSettingButton from "@/components/LocationSettingButton";
 import SettingElement from "./components/SettingElement";
-import GPSIcon from "@/assets/location.svg";
-import ManualIcon from "@/assets/touch.svg";
-import DualButton from "@/components/DualButton";
 import ViewSetting from "./components/ViewSetting";
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
 import { useSetting } from "@/context/SettingContext";
+import DecorateBorder from "@/components/DecorateBorder";
+import { useTransitionNavigation } from "@/utils/trantision";
 
 const Setting = () => {
+  const transition = useTransitionNavigation();
   const { contrastValue, starSizeValue, setContrastValue, setStarSizeValue } = useSetting();
   const [preContrastValue, setPreContrastValue] = useState<number>(contrastValue);
   const [preStarSizeValue, setPreStarSizeValue] = useState<number>(starSizeValue);
 
   const handleConfirmButton = () => {
-    if (preContrastValue < 0 || preStarSizeValue < 0) return;
+    if (preContrastValue < 0 || preStarSizeValue < 0) {
+      handlePrevPageButtonClick();
+      return;
+    }
+    
     setContrastValue(preContrastValue);
     setStarSizeValue(preStarSizeValue);
+    handlePrevPageButtonClick();
   }
 
   const handlePrevPageButtonClick = () => {
-    window.location.href = "/observation";
+    transition("/observation", "bottom_to_top");
   };
 
   return (
     <>
-      <div className="mb-10 lg:mb-30 w-full flex justify-start gap-5 lg:gap-10 flex-col items-start">
+      <div className="w-full max-w-[800px] flex justify-start gap-5 lg:gap-10 flex-col items-start">
         {/* <SettingElement title="観測値設定" className="w-full">
           <div className="flex gap-5 w-full lg:h-[350px] mt-5 flex-col lg:flex-row">
             <LocationSettingButton
@@ -65,30 +69,20 @@ const Setting = () => {
             setPreStarSizeValue={setPreStarSizeValue}
           />
         </SettingElement>
-        <DualButton
-          key={"aa"}
-          buttons={[
-            {
-              isPriority: true,
-              children: (
-                <>
-                  <span className="text-base lg:text-2xl">変更を適用する</span>
-                </>
-              ),
-              handleClick: () => handleConfirmButton(),
-              isActive: true,
-              className: "flex-1 w-full lg:px-4 py-2",
-            },
-            {
-              isPriority: false,
-              children: "戻る",
-              handleClick: () => handlePrevPageButtonClick(),
-              isActive: true,
-              className: "flex-1 w-full lg:px-4 py-2 text-base lg:text-2xl",
-            },
-          ]}
-          className="h-[50px] lg:h-[70px] lg:row-span-1 w-full lg:w-[800px] flex justify-between  gap-x-5 gap-y-3 flex-col lg:flex-row mb-25"
-        />
+        <div className="w-full flex justify-center items-center mt-14 lg:mt-24">
+          <div className="w-full max-w-[800px] flex flex-col lg:flex-row justify-center items-center gap-3 mb-10 lg:mb-30">
+            <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
+              <button onClick={handleConfirmButton} className="w-full h-full hover:bg-background/20">
+                <span className="text-lg lg:text-2xl">保存して戻る</span>
+              </button>
+            </DecorateBorder>
+            <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
+              <button onClick={handlePrevPageButtonClick} className="w-full h-full hover:bg-background/20">
+                <span className="text-lg lg:text-2xl align-middle">戻る</span>
+              </button>
+            </DecorateBorder>
+          </div>
+        </div>
       </div>
     </>
   );

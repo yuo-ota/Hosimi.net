@@ -1,44 +1,52 @@
 "use client";
 
-import DualButton from "@/components/DualButton";
-import LocationInput from "./components/LocationInput";
 import { GeoLocation } from "@/type/GeoLocation";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserPosition } from "@/context/UserPositionContext";
+import CheckMap from "./components/CheckMap";
 import DecorateBorder from "@/components/DecorateBorder";
 import { useTransitionNavigation } from "@/utils/trantision";
 
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
-const LocationSettingByManual = () => {
+const LocationSettingByAuto = () => {
   const router = useRouter();
   const transition = useTransitionNavigation();
   const { setPosition } = useUserPosition();
   const [userPosition, setUserPosition] = useState<GeoLocation>({ latitude: 35.68132693484021, longitude: 139.76719496924264 });
+  const [activeConfirmButton, setActiveConfirmButton] = useState(false);
 
-  const clickBackLocationSettingButton = () => {
-    transition("/location-settings", "bottom_to_top");
+  const handleGPSChenge = (userPosition: GeoLocation) => {
+    if (!userPosition) {
+      setActiveConfirmButton(false);
+      return;
+    }
+    setUserPosition(userPosition);
+    setActiveConfirmButton(true);
+  };
+
+  const clickMoveManualButton = () => {
+    router.push("/location-settings/manual");
   }
   const clickConfirmPositionButton = () => {
+    if (!activeConfirmButton) return;
     setPosition(userPosition);
     transition("/observation", "top_to_bottom");
   }
 
   return (
     <>
-      <div className="mb-10 lg:mb-30 w-full h-2/3 lg:h-[500px] flex flex-col lg:grid lg:grid-flow-row lg:grid-rows-[auto_1fr] lg:grid-cols-2 gap-8">
-        <LocationInput setUserPosition={setUserPosition} className="w-full lg:w-auto lg:row-span-1"></LocationInput>
-        <Map
-          userPosition={userPosition}
-          className="flex-1 lg:col-span-1 w-full lg:w-auto lg:row-span-2 min-h-[250px]"
+      <div className="mb-10 lg:mb-30 w-full max-w-[800px] flex flex-col gap-8 lg:gap-4 items-center">
+        <CheckMap
+          handleGPSChenge={handleGPSChenge}
+          className="flex-1 w-full mb-5 lg:mb-10 min-h-[300px] max-h-1/2"
         />
-        
-        <div className="w-full flex flex-col lg:flex-row justify-center items-center lg:items-start gap-3">
+        <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-3">
           <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
-            <button onClick={clickBackLocationSettingButton} className="w-full h-full hover:bg-background/20">
-              <span className="text-lg lg:text-2xl">地点設定方法選択画面へ戻る</span>
+            <button onClick={clickMoveManualButton} className="w-full h-full hover:bg-background/20">
+              <span className="text-lg lg:text-2xl">手動設定に切り替える</span>
             </button>
           </DecorateBorder>
           <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
@@ -52,4 +60,4 @@ const LocationSettingByManual = () => {
   );
 };
 
-export default LocationSettingByManual;
+export default LocationSettingByAuto;
