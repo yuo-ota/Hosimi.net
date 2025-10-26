@@ -57,7 +57,7 @@ const VmagSettingSlider = ({
 
     const color = isBottom ? "var(--accent-color)" : "var(--base-color)";
     const rightColor = isBottom ? "var(--base-color)" : "rgba(0, 0, 0, 0)";
-    return `linear-gradient(90deg, ${color} ${ratio}%, ${rightColor} ${ratio}%)`;
+    return `linear-gradient(180deg, ${color} ${ratio}%, ${rightColor} ${ratio}%)`;
   };
 
   const getZIndex = (
@@ -92,26 +92,26 @@ const VmagSettingSlider = ({
             min={min}
             max={max}
             step={0.1}
-            className="absolute top-1/2 h-[2px] lg:h-[3px] w-full bg-base appearance-none cursor-pointer rounded-full rotate-90
+            className="absolute left-[calc(50%-2.5px)] w-[5px] lg:w-[3px] h-full appearance-none cursor-pointer rounded-full
 								[&::-webkit-slider-thumb]:appearance-none
-								[&::-webkit-slider-thumb]:h-5
-								[&::-webkit-slider-thumb]:w-5
-								lg:[&::-webkit-slider-thumb]:h-7
-								lg:[&::-webkit-slider-thumb]:w-2.5
+								[&::-webkit-slider-thumb]:h-6
+								[&::-webkit-slider-thumb]:w-6
+								lg:[&::-webkit-slider-thumb]:w-7
+								lg:[&::-webkit-slider-thumb]:h-2.5
 								[&::-webkit-slider-thumb]:rounded-full
 								[&::-webkit-slider-thumb]:bg-foreground
-								[&::-webkit-slider-thumb]:border-2
+								[&::-webkit-slider-thumb]:border-3
 								lg:[&::-webkit-slider-thumb]:border-3
 								[&::-webkit-slider-thumb]:border-base
 								[&::-webkit-slider-thumb]:pointer-events-auto
 
-								[&::-moz-range-thumb]:h-5
-								[&::-moz-range-thumb]:w-5
-								lg:[&::-moz-range-thumb]:h-7
-								lg:[&::-moz-range-thumb]:w-5
+								[&::-moz-range-thumb]:h-6
+								[&::-moz-range-thumb]:w-6
+								lg:[&::-moz-range-thumb]:w-7
+								lg:[&::-moz-range-thumb]:h-2.5
 								[&::-moz-range-thumb]:rounded-full
 								[&::-moz-range-thumb]:bg-foreground
-								[&::-moz-range-thumb]:border-2
+								[&::-moz-range-thumb]:border-3
 								lg:[&::-moz-range-thumb]:border-3
 								[&::-moz-range-thumb]:border-base
 								[&::-moz-range-thumb]:pointer-events-auto"
@@ -128,6 +128,7 @@ const VmagSettingSlider = ({
             style={{
               background: getGradient(bottomSliderValue, topSliderValue, true),
               zIndex: getZIndex(bottomSliderValue, topSliderValue, true),
+              writingMode: "vertical-lr",
             }}
           />
           <input
@@ -135,26 +136,26 @@ const VmagSettingSlider = ({
             min={min}
             max={max}
             step={0.1}
-            className="absolute top-1/2 h-[2px] lg:h-[3px] w-full appearance-none cursor-pointer rounded-full rotate-90
+            className="absolute left-[calc(50%-2.5px)] w-[5px] lg:w-[3px] h-full appearance-none cursor-pointer rounded-full
 								[&::-webkit-slider-thumb]:appearance-none
-								[&::-webkit-slider-thumb]:h-5
-								[&::-webkit-slider-thumb]:w-5
-								lg:[&::-webkit-slider-thumb]:h-7
-								lg:[&::-webkit-slider-thumb]:w-2.5
+								[&::-webkit-slider-thumb]:h-6
+								[&::-webkit-slider-thumb]:w-6
+								lg:[&::-webkit-slider-thumb]:w-7
+								lg:[&::-webkit-slider-thumb]:h-2.5
 								[&::-webkit-slider-thumb]:rounded-full
 								[&::-webkit-slider-thumb]:bg-foreground
-								[&::-webkit-slider-thumb]:border-2
+								[&::-webkit-slider-thumb]:border-3
 								lg:[&::-webkit-slider-thumb]:border-3
 								[&::-webkit-slider-thumb]:border-base
 								[&::-webkit-slider-thumb]:pointer-events-auto
 
-								[&::-moz-range-thumb]:h-5
-								[&::-moz-range-thumb]:w-5
-								lg:[&::-moz-range-thumb]:h-7
-								lg:[&::-moz-range-thumb]:w-2.5
+								[&::-moz-range-thumb]:h-6
+								[&::-moz-range-thumb]:w-6
+								lg:[&::-moz-range-thumb]:w-7
+								lg:[&::-moz-range-thumb]:h-2.5
 								[&::-moz-range-thumb]:rounded-full
 								[&::-moz-range-thumb]:bg-foreground
-								[&::-moz-range-thumb]:border-2
+								[&::-moz-range-thumb]:border-3
 								lg:[&::-moz-range-thumb]:border-3
 								[&::-moz-range-thumb]:border-base
 								[&::-moz-range-thumb]:pointer-events-auto"
@@ -169,6 +170,7 @@ const VmagSettingSlider = ({
             style={{
               background: getGradient(bottomSliderValue, topSliderValue, false),
               zIndex: getZIndex(bottomSliderValue, topSliderValue, false),
+              writingMode: "vertical-lr",
             }}
           />
           <div className="relative w-full h-[calc(100%-6px)] mt-[3px] lg:h-[calc(100%-10px)] lg:mt-[5px]">
