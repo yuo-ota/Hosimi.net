@@ -14,9 +14,14 @@ const Setting = () => {
   const [preStarSizeValue, setPreStarSizeValue] = useState<number>(starSizeValue);
 
   const handleConfirmButton = () => {
-    if (preContrastValue < 0 || preStarSizeValue < 0) return;
+    if (preContrastValue < 0 || preStarSizeValue < 0) {
+      handlePrevPageButtonClick();
+      return;
+    }
+    
     setContrastValue(preContrastValue);
     setStarSizeValue(preStarSizeValue);
+    handlePrevPageButtonClick();
   }
 
   const handlePrevPageButtonClick = () => {
@@ -68,7 +73,7 @@ const Setting = () => {
           <div className="w-full max-w-[800px] flex flex-col lg:flex-row justify-center items-center gap-3">
             <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">
               <button onClick={handleConfirmButton} className="w-full h-full hover:bg-background/20">
-                <span className="text-sm lg:text-2xl">保存する</span>
+                <span className="text-sm lg:text-2xl">保存して戻る</span>
               </button>
             </DecorateBorder>
             <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">
