@@ -7,22 +7,15 @@ import * as THREE from "three";
 import CameraDirectionTracker from "./CameraDirectionTracker";
 
 type SkyViewProps = {
-  sheetWidth: number;
   setTargetVector: (vector: THREE.Vector3) => void;
   isVisibleConstellationLines: boolean;
   className?: string;
 };
 
-const SkyView = ({ sheetWidth, setTargetVector, isVisibleConstellationLines, className = "" }: SkyViewProps) => {
+const SkyView = ({setTargetVector, isVisibleConstellationLines, className = "" }: SkyViewProps) => {
   return (
     <>
-      <div
-        className={`${className}`}
-        style={{
-          width: `calc(100% + ${sheetWidth}px)`,
-          left: `${-sheetWidth / 2}px`
-        }}
-      >
+      <div className={`${className}`} >
         <img
           src={Reticle.src}
           alt="照準"

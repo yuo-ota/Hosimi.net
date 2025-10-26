@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Geolocation } from "@/type/Geolocation";
+import { Geolocation } from "@/type/GeoLocation";
 
 // Context の型
 type UserPositionContextType = {

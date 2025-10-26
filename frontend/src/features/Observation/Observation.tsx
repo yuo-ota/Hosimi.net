@@ -3,31 +3,43 @@
 import FunctionButtons from "./components/FunctionButtons";
 import SkyView from "./components/SkyView";
 
+import backArrowIcon from "./assets/back_arrow.svg";
 import settingIcon from "./assets/settings.svg";
 import searchIcon from "./assets/search.svg";
 import constellationIcon from "./assets/constellation.svg";
-import StarInformationSheet from "./components/StarInformationSheet";
-import { useRef, useState } from "react";
+import StarInformationDialog from "./components/StarInformationDialog";
+import { useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { useStarData } from "@/context/StarDataContext";
 import { getStarDetailInfo } from "@/lib/api/stars";
 import { StarData } from "@/type/StarData";
 import { StarDetailInfo } from "@/type/StarDetailInfo";
 import IconButton from "./components/IconButton";
+import { useTransitionNavigation } from "@/utils/trantision";
 
-const Observation = () => {
-  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
+type ObservationProps = {
+  setPhase: (phase: "idle" | "transitioning") => void;
+};
+
+const Observation = ({ setPhase }: ObservationProps) => {
+  const transition = useTransitionNavigation();
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
   const [isVisibleConstellationLines, setIsVisibleConstellationLines] = useState<boolean>(false);
   const [closestStar, setClosestStar] = useState<StarData | null>(null);
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
   const { starData, vMagRanges } = useStarData();
-  const SHEET_WIDTH = 500;
-  const SHEET_HEIGHT = 500;
 
   const handleDirectionChange = (direction: THREE.Vector3) => {
     currentDirectionRef.current = direction.clone();
   };
+
+  useEffect(() => {
+    setShowPopup(true);
+    const timer = setTimeout(() => setShowPopup(false), 4000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSearchButtonClick = () => {
     const cameraDirection = currentDirectionRef.current;
@@ -68,7 +80,7 @@ const Observation = () => {
         return;
       }
 
-      setIsOpenSheet(true);
+      setIsOpenDialog(true);
     }
   };
 
@@ -84,23 +96,41 @@ const Observation = () => {
     setClosestStarDetailInfo(data.starDetailInfoData);
   };
 
+  const handleBackButtonClick = () => {
+    if (!document.startViewTransition) {
+      transition("/location-settings", "bottom_to_top_ease_out");
+      return;
+    }
+
+    document.documentElement.dataset.transition = "bottom_to_top_ease_in";
+
+    document.startViewTransition(async() => {
+      await Promise.resolve(setPhase("transitioning"));
+    });
+    
+    setTimeout(() => {
+      transition("/location-settings", "bottom_to_top_ease_out");
+    }, 750);
+  };
+
   const handleSettingButtonClick = () => {
-    window.location.href = "/settings";
+    transition("/settings", "top_to_bottom");
   };
 
   return (
     <>
       <div className="flex w-full h-full relative overflow-hidden">
         <SkyView
-          sheetWidth={SHEET_WIDTH}
           setTargetVector={handleDirectionChange}
           isVisibleConstellationLines={isVisibleConstellationLines}
-          className={`absolute -left-[${
-            SHEET_WIDTH / 2
-          }px] h-full z-0`}
+          className={`w-full h-full z-0`}
         />
         <FunctionButtons
           icons={[
+            {
+              icon: { path: backArrowIcon.src, alt: "戻るボタン" },
+              clickHandle: () => {handleBackButtonClick();},
+            },
             {
               icon: { path: settingIcon.src, alt: "設定ボタン" },
               clickHandle: () => {handleSettingButtonClick();},
@@ -123,15 +153,21 @@ const Observation = () => {
             className="absolute"
           />
         </div>
+        {showPopup && (
+          <div className="bg-background/40 fixed inset-0 flex items-center justify-center z-40 pointer-events-none">
+            <div className="bg-white/95 text-black px-6 py-4 rounded-lg shadow-lg max-w-xs text-center pointer-events-auto">
+              <div className="text-2xl">スマホを上に向けて星を観察します。</div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">周囲に物がないか注意してください。</div>
+            </div>
+          </div>
+        )}
         {(closestStar && closestStarDetailInfo) && (
-          <StarInformationSheet
-            sheetWidth={SHEET_WIDTH}
-            sheetHeight={SHEET_HEIGHT}
+          <StarInformationDialog
             starDetailInfo={closestStarDetailInfo}
             starData={closestStar}
-            isOpenSheet={isOpenSheet}
-            setIsOpenSheet={setIsOpenSheet}
-            className={`absolute z-30`}
+            isOpenDialog={isOpenDialog}
+            setIsOpenDialog={setIsOpenDialog}
+            className={`absolute z-30 w-full h-full`}
           />
         )}
       </div>

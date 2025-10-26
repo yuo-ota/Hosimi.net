@@ -1,4 +1,4 @@
-import { isGeolocation } from "@/type/Geolocation";
+import { isGeoLocation } from "@/type/GeoLocation";
 import { isAPIError } from "@/type/APIError";
 const API_ORIGIN = process.env.NEXT_PUBLIC_API_ORIGIN;
 
@@ -9,7 +9,7 @@ export const getCoordsByLocationName = async (location: string) => {
         const data = await response.json();
 
         if (response.ok) {
-            if (!isGeolocation(data)) {
+            if (!isGeoLocation(data)) {
                 throw new Error("不正な形式が返ってきました。");
             }
             return { success: true, geolocationData: data };

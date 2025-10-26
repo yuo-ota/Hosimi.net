@@ -4,7 +4,7 @@ import DualButton from "@/components/DualButton";
 import Headline from "@/components/Headline";
 import CloseIcon from "@/features/LocationSetting/assets/close.svg";
 import CheckMap from "./CheckMap";
-import { Geolocation } from "@/type/Geolocation";
+import { Geolocation } from "@/type/GeoLocation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserPosition } from "@/context/UserPositionContext";

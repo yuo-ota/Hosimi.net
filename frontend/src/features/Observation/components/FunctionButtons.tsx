@@ -15,7 +15,7 @@ const FunctionButtons = ({
 }: FunctionButtonsProps) => {
   return (
     <>
-      <div className="absolute flex flex-col py-5 gap-y-3 h-full ml-5 w-9">
+      <div className="absolute flex flex-col py-5 gap-y-3 h-full ml-5 w-12 lg:w-9">
         {icons.map((elem, index) => (
           <IconButton
             key={index}

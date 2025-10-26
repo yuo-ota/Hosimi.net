@@ -1,9 +1,9 @@
-export type Geolocation = {
+export type GeoLocation = {
 	latitude: number;
 	longitude: number;
 };
 
-export const isGeolocation = (data: any) => {
+export const isGeoLocation = (data: any) => {
 	return (
 		data !== null &&
 		typeof data === "object" &&
