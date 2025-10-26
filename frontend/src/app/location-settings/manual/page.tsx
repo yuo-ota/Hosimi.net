@@ -6,7 +6,7 @@ const LocationSettingByManual = lazy(() => import("@/features/LocationSettingByM
 export default function LocationSettingByManualPage() {
   return (
     <>
-      <div className="w-dvw h-dvh flex justify-center bg-gradient-to-t from-[var(--evening-col)] to-[var(--midnight-col)]">
+      <div className="w-dvw min-h-dvh flex justify-center bg-gradient-to-t from-[var(--evening-col)] to-[var(--midnight-col)]">
         <div className="flex flex-col w-17/20">
           <Headline
             preferSmall={false}

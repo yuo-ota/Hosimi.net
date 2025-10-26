@@ -1,19 +1,19 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import Headline from "@/components/Headline";
+import Root from "@/features/Root/Root";
 
 export default function HomePage() {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push("/location-settings");
-  }
 
   return (
-    <div className="font-title grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <button className="w-64 h-15 bg-white rounded-full text-black" onClick={handleClick}>
-        設定へ移動
-      </button>
+    <div className="w-dvw min-h-dvh flex justify-center bg-gradient-to-t from-[var(--noon-col)] to-[var(--sunset-col)]">
+        <div className="flex justify-start flex-col items-center w-17/20">
+          <Headline
+            preferSmall={false}
+            title="Astronomへようこそ"
+            description="天体観測をさらに楽しく。<br>場所も時間も気にせずに空へ。"
+            className="mt-10 lg:mt-30 mb-10 lg:mb-20"
+          />
+          <Root />
+        </div>
     </div>
   );
 }

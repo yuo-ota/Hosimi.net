@@ -4,7 +4,7 @@ import LocationSetting from "@/features/LocationSetting/LocationSetting";
 export default function LocationSettingPage() {
   return (
     <>
-      <div className="w-dvw h-dvh flex justify-center bg-gradient-to-t from-[var(--sunset-col)] via-[var(--sunset-evening-mid-col)] to-[var(--evening-col)]">
+      <div className="w-dvw min-h-dvh flex justify-center bg-gradient-to-t from-[var(--sunset-col)] via-[var(--sunset-evening-mid-col)] to-[var(--evening-col)]">
         <div className="w-17/20">
           <Headline
             preferSmall={false}

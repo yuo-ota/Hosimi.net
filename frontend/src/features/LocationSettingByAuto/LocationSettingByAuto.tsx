@@ -38,10 +38,10 @@ const LocationSettingByAuto = () => {
 
   return (
     <>
-      <div className="mb-10 lg:mb-30 w-full max-w-[800px] h-[500px] lg:h-[700px] flex flex-col gap-8 lg:gap-4 items-center">
+      <div className="mb-10 lg:mb-30 w-full max-w-[800px] flex flex-col gap-8 lg:gap-4 items-center">
         <CheckMap
           handleGPSChenge={handleGPSChenge}
-          className="flex-1 w-full mb-5 lg:mb-10"
+          className="flex-1 w-full mb-5 lg:mb-10 min-h-[300px] max-h-1/2"
         />
         <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-3">
           <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">

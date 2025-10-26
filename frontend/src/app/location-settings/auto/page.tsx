@@ -6,7 +6,7 @@ const LocationSettingByAuto = lazy(() => import("@/features/LocationSettingByAut
 export default function LocationSettingByAutoPage() {
   return (
     <>
-      <div className="w-dvw h-dvh flex justify-center bg-gradient-to-t from-[var(--evening-col)] to-[var(--midnight-col)]">
+      <div className="w-dvw min-h-dvh flex justify-center bg-gradient-to-t from-[var(--evening-col)] to-[var(--midnight-col)]">
         <div className="flex flex-col w-17/20 items-center">
           <Headline
             preferSmall={false}

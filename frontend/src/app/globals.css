@@ -35,6 +35,7 @@
   --font-body: 'Senobi Gothic', sans-serif;
   --font-num: hiragino-kaku-gothic-pron, sans-serif;
 
+  --noon-col: oklch(56% 0.147 35.21759296819272);
   --sunset-col: oklch(44% 0.115 33.69006752597977);
   --sunset-evening-mid-col: oklch(0.3881 0.0951 310);
   --evening-col: oklch(34% 0.078 230.52754015165624);

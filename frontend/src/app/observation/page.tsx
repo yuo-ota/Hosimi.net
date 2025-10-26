@@ -12,7 +12,7 @@ export default function ObservationPage() {
     <>
       {phase == "transitioning" && <BackPageAnimation />}
       {phase =="idle" && (
-        <div className="w-dvw h-dvh flex justify-center bg-[var(--midnight-col)]">
+        <div className="w-dvw h-dvh flex justify-center bg-[var(--midnight-col)] overflow-y-auto">
           <Suspense fallback={<div className="text-foreground">読み込み中...</div>}>
             <Observation setPhase={setPhase} />
           </Suspense>

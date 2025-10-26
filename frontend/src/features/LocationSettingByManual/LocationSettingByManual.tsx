@@ -32,7 +32,7 @@ const LocationSettingByManual = () => {
         <LocationInput setUserPosition={setUserPosition} className="w-full lg:w-auto lg:row-span-1"></LocationInput>
         <Map
           userPosition={userPosition}
-          className="flex-1 lg:col-span-1 w-full lg:w-auto lg:row-span-2"
+          className="flex-1 lg:col-span-1 w-full lg:w-auto lg:row-span-2 min-h-[250px]"
         />
         
         <div className="w-full flex flex-col lg:flex-row justify-center items-center lg:items-start gap-3">

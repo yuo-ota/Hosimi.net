@@ -30,7 +30,7 @@ const Setting = () => {
 
   return (
     <>
-      <div className="mb-10 lg:mb-30 w-full flex justify-start gap-5 lg:gap-10 flex-col items-start">
+      <div className="w-full max-w-[800px] flex justify-start gap-5 lg:gap-10 flex-col items-start">
         {/* <SettingElement title="観測値設定" className="w-full">
           <div className="flex gap-5 w-full lg:h-[350px] mt-5 flex-col lg:flex-row">
             <LocationSettingButton
@@ -69,8 +69,8 @@ const Setting = () => {
             setPreStarSizeValue={setPreStarSizeValue}
           />
         </SettingElement>
-        <div className="w-full flex justify-center items-center mt-16 lg:mt-32">
-          <div className="w-full max-w-[800px] flex flex-col lg:flex-row justify-center items-center gap-3">
+        <div className="w-full flex justify-center items-center mt-14 lg:mt-24">
+          <div className="w-full max-w-[800px] flex flex-col lg:flex-row justify-center items-center gap-3 mb-10 lg:mb-30">
             <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">
               <button onClick={handleConfirmButton} className="w-full h-full hover:bg-background/20">
                 <span className="text-sm lg:text-2xl">保存して戻る</span>
