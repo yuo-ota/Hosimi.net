@@ -8,7 +8,7 @@ import settingIcon from "./assets/settings.svg";
 import searchIcon from "./assets/search.svg";
 import constellationIcon from "./assets/constellation.svg";
 import StarInformationDialog from "./components/StarInformationDialog";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { useStarData } from "@/context/StarDataContext";
 import { getStarDetailInfo } from "@/lib/api/stars";
@@ -23,6 +23,7 @@ type ObservationProps = {
 
 const Observation = ({ setPhase }: ObservationProps) => {
   const transition = useTransitionNavigation();
+  const [showPopup, setShowPopup] = useState<boolean>(false);
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
   const [isVisibleConstellationLines, setIsVisibleConstellationLines] = useState<boolean>(false);
   const [closestStar, setClosestStar] = useState<StarData | null>(null);
@@ -33,6 +34,12 @@ const Observation = ({ setPhase }: ObservationProps) => {
   const handleDirectionChange = (direction: THREE.Vector3) => {
     currentDirectionRef.current = direction.clone();
   };
+
+  useEffect(() => {
+    setShowPopup(true);
+    const timer = setTimeout(() => setShowPopup(false), 4000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSearchButtonClick = () => {
     const cameraDirection = currentDirectionRef.current;
@@ -101,7 +108,6 @@ const Observation = ({ setPhase }: ObservationProps) => {
       await Promise.resolve(setPhase("transitioning"));
     });
     
-    // アニメーション完了後（1.5秒後）に遷移を実行
     setTimeout(() => {
       transition("/location-settings", "bottom_to_top_ease_out");
     }, 750);
@@ -147,6 +153,14 @@ const Observation = ({ setPhase }: ObservationProps) => {
             className="absolute"
           />
         </div>
+        {showPopup && (
+          <div className="bg-background/40 fixed inset-0 flex items-center justify-center z-40 pointer-events-none">
+            <div className="bg-white/95 text-black px-6 py-4 rounded-lg shadow-lg max-w-xs text-center pointer-events-auto">
+              <div className="text-2xl">スマホを上に向けて星を観察します。</div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">周囲に物がないか注意してください。</div>
+            </div>
+          </div>
+        )}
         {(closestStar && closestStarDetailInfo) && (
           <StarInformationDialog
             starDetailInfo={closestStarDetailInfo}
