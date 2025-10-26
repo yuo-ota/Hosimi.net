@@ -44,14 +44,14 @@ const LocationSettingByAuto = () => {
           className="flex-1 w-full mb-5 lg:mb-10 min-h-[300px] max-h-1/2"
         />
         <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-3">
-          <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">
+          <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
             <button onClick={clickMoveManualButton} className="w-full h-full hover:bg-background/20">
-              <span className="text-sm lg:text-2xl">手動設定に切り替える</span>
+              <span className="text-lg lg:text-2xl">手動設定に切り替える</span>
             </button>
           </DecorateBorder>
-          <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">
+          <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
             <button onClick={clickConfirmPositionButton} className="w-full h-full hover:bg-background/20">
-              <span className="text-sm lg:text-2xl align-middle">確認</span>
+              <span className="text-lg lg:text-2xl align-middle">確認</span>
             </button>
           </DecorateBorder>
         </div>

@@ -104,7 +104,7 @@ const VmagSettingSlider = ({
 								[&::-webkit-slider-thumb]:bg-foreground
 								[&::-webkit-slider-thumb]:border-3
 								lg:[&::-webkit-slider-thumb]:border-3
-								[&::-webkit-slider-thumb]:border-base
+								[&::-webkit-slider-thumb]:border-base-color
 								[&::-webkit-slider-thumb]:pointer-events-auto
 
 								[&::-moz-range-thumb]:h-6
@@ -115,7 +115,7 @@ const VmagSettingSlider = ({
 								[&::-moz-range-thumb]:bg-foreground
 								[&::-moz-range-thumb]:border-3
 								lg:[&::-moz-range-thumb]:border-3
-								[&::-moz-range-thumb]:border-base
+								[&::-moz-range-thumb]:border-base-color
 								[&::-moz-range-thumb]:pointer-events-auto"
             onChange={(e) =>
               changedBottomSliderValue(parseFloat(e.target.value))
@@ -148,7 +148,7 @@ const VmagSettingSlider = ({
 								[&::-webkit-slider-thumb]:bg-foreground
 								[&::-webkit-slider-thumb]:border-3
 								lg:[&::-webkit-slider-thumb]:border-3
-								[&::-webkit-slider-thumb]:border-base
+								[&::-webkit-slider-thumb]:border-base-color
 								[&::-webkit-slider-thumb]:pointer-events-auto
 
 								[&::-moz-range-thumb]:h-6
@@ -159,7 +159,7 @@ const VmagSettingSlider = ({
 								[&::-moz-range-thumb]:bg-foreground
 								[&::-moz-range-thumb]:border-3
 								lg:[&::-moz-range-thumb]:border-3
-								[&::-moz-range-thumb]:border-base
+								[&::-moz-range-thumb]:border-base-color
 								[&::-moz-range-thumb]:pointer-events-auto"
             onChange={(e) => changedTopSliderValue(parseFloat(e.target.value))}
             onMouseDown={() => setTopThumbDragging(true)}

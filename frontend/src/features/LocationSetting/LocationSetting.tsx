@@ -25,11 +25,11 @@ const LocationSetting = () => {
         >
           <div className="flex flex-col justify-center w-full h-full">
             <span className="font-body text-2xl lg:text-4xl text-left mb-2 lg:mb-3">GPSから設定</span>
-            <span className="text-sm lg:text-xl text-left mb-4 lg:mb-8">GPS情報をもとに自動で設定します。<br />(非対応端末では利用できません。)</span>
+            <span className="text-base lg:text-xl text-left mb-4 lg:mb-8">GPS情報をもとに自動で設定します。<br />(非対応端末では利用できません。)</span>
             <button
-              className="w-full h-8 lg:h-12 bg-foreground rounded-full flex justify-between items-center px-4 lg:px-6"
+              className="w-full h-10 lg:h-12 bg-foreground rounded-full flex justify-between items-center px-4 lg:px-6"
               onClick={clickGPSSettingButton}>
-              <span className="text-background text-sm lg:text-xl">ここから</span>
+              <span className="text-background text-lg lg:text-xl">ここから</span>
               <img src={ArrowIcon.src} alt="矢印アイコン" className="h-2/5" />
             </button>
           </div>
@@ -40,15 +40,15 @@ const LocationSetting = () => {
         >
           <div className="flex flex-col justify-center w-full h-full">
             <span className="font-body text-2xl lg:text-4xl text-left mb-2 lg:mb-3">手動で設定</span>
-            <span className="text-sm lg:text-xl text-left mb-4 lg:mb-8">
+            <span className="text-base lg:text-xl text-left mb-4 lg:mb-8">
               地名を自身で入力して設定します。
               <br />
               希望に沿わない可能性もあります。
             </span>
             <button
-              className="w-full h-8 lg:h-12 bg-foreground rounded-full flex justify-between items-center px-4 lg:px-6"
+              className="w-full h-10 lg:h-12 bg-foreground rounded-full flex justify-between items-center px-4 lg:px-6"
               onClick={clickManualSettingButton}>
-              <span className="text-background text-sm lg:text-xl">ここから</span>
+              <span className="text-background text-lg lg:text-xl">ここから</span>
               <img src={ArrowIcon.src} alt="矢印アイコン" className="h-2/5" />
             </button>
           </div>

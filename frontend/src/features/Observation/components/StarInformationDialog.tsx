@@ -123,9 +123,9 @@ const StarInformationDialog = ({
             </div>
           </div>
           <button
-            className="w-full h-8 lg:h-12 bg-foreground rounded-full flex justify-center items-center px-4 lg:px-6"
+            className="w-full h-11 lg:h-12 bg-foreground rounded-full flex justify-center items-center px-4 lg:px-6"
             onClick={handleCloseDialog}>
-            <span className="text-background text-sm lg:text-xl">閉じる</span>
+            <span className="text-background text-lg lg:text-xl">閉じる</span>
           </button>
         </DecorateBorder>
       </div>

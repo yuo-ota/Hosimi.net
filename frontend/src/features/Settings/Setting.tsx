@@ -71,14 +71,14 @@ const Setting = () => {
         </SettingElement>
         <div className="w-full flex justify-center items-center mt-14 lg:mt-24">
           <div className="w-full max-w-[800px] flex flex-col lg:flex-row justify-center items-center gap-3 mb-10 lg:mb-30">
-            <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">
+            <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
               <button onClick={handleConfirmButton} className="w-full h-full hover:bg-background/20">
-                <span className="text-sm lg:text-2xl">保存して戻る</span>
+                <span className="text-lg lg:text-2xl">保存して戻る</span>
               </button>
             </DecorateBorder>
-            <DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30">
+            <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
               <button onClick={handlePrevPageButtonClick} className="w-full h-full hover:bg-background/20">
-                <span className="text-sm lg:text-2xl align-middle">戻る</span>
+                <span className="text-lg lg:text-2xl align-middle">戻る</span>
               </button>
             </DecorateBorder>
           </div>

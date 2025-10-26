@@ -55,7 +55,7 @@ const LocationInput = ({ setUserPosition, className = "" }: LocationInputProps) 
             <input
               type="text"
               placeholder="例) 新宿, ニューヨーク, シドニー"
-              className="flex-1 text-lg lg:text-xl text-foreground h-12 lg:h-16 px-2 focus:outline-none focus:ring-0"
+              className="flex-1 text-lg lg:text-xl text-foreground h-15 lg:h-16 px-2 focus:outline-none focus:ring-0"
               value={query}
               onChange={(e) => handleInputField(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -63,7 +63,7 @@ const LocationInput = ({ setUserPosition, className = "" }: LocationInputProps) 
           </DecorateBorder>
           <DecorateBorder isBorderPutX={true} className="bg-foreground/30">
             <button
-              className="aspect-square flex justify-center items-center h-12 lg:h-16 bg-foreground/30"
+              className="aspect-square flex justify-center items-center h-15 lg:h-16 bg-foreground/30"
               onClick={handleSearch}
             >
               <img

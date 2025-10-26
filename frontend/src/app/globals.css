@@ -28,7 +28,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent-color);
-  --color-base: var(--base-color);
+  --color-base-color: var(--base-color);
   --color-attention: var(--attention-color);
 
   --font-title: 'Senobi Gothic', sans-serif;

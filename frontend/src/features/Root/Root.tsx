@@ -21,11 +21,15 @@ const Root = () => {
 				</div>
 				そんな知的好奇心をスマホ1つで満たすことができるアプリになります。<br />
 				<span className="underline decoration-accent text-xl lg:text-3xl my-3 inline-block break-all">星座早見表もコンパスも必要なし。</span><br />
-				位置を入力してスマホを空に向ければ星の名前も星の詳細な見た目もわかります。
+				位置を入力して
+				<span className="underline decoration-accent text-xl lg:text-3xl my-3 inline-block break-all">
+					スマホを空に向ければ
+				</span>
+				星の名前も星の詳細な見た目もわかります。
 			</div>
-			<DecorateBorder isBorderPutX={true} className="w-full h-11 lg:h-20 bg-foreground/30 lg:max-w-[300px] mt-10 lg:mt-20 mb-10 lg:mb-30">
+			<DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30 lg:max-w-[300px] mt-10 lg:mt-20 mb-10 lg:mb-30">
 				<button onClick={handleClick} className="w-full h-full hover:bg-background/20">
-					<span className="text-sm lg:text-2xl align-middle">天体観測へ行く</span>
+					<span className="text-lg lg:text-2xl align-middle">天体観測へ行く</span>
 				</button>
 			</DecorateBorder>
 		</>
