@@ -30,6 +30,7 @@ const VmagSettingSlider = ({
       setBottomSliderValue(n);
     } else {
       setTopSliderValue(n);
+      setBottomSliderValue(n);
     }
 
     setVMagRanges({ min: bottomSliderValue, max: topSliderValue });
@@ -39,6 +40,7 @@ const VmagSettingSlider = ({
       setTopSliderValue(n);
     } else {
       setBottomSliderValue(n);
+      setTopSliderValue(n);
     }
 
     setVMagRanges({ min: bottomSliderValue, max: topSliderValue });
