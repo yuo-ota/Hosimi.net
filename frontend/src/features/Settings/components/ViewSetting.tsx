@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import SettingSlider from "./SettingSlider";
 import StarCheckWindow from "./StarCheckWindow";

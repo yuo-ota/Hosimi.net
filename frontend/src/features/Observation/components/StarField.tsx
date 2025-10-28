@@ -10,7 +10,7 @@ interface StarFieldProps {
 
 const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
-  const { starData, vMagRanges, constellationLines } = useStarData();
+  const { starData, vMagRanges } = useStarData();
   const { contrastValue, starSizeValue } = useSetting();
 
   const generateCircleTexture = () => {
@@ -39,15 +39,6 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
     return texture;
   }
 
-  const material = new THREE.PointsMaterial({
-    color: 0xffffff,
-    size: starSizeValue * 0.02 + 0.08,
-    sizeAttenuation: true,
-    map: generateCircleTexture(),
-    alphaTest: 0.5,
-    transparent: true
-  });
-
   const plane = useMemo(() => {
     const geometry = new THREE.PlaneGeometry(1000, 1000);
     const material = new THREE.MeshBasicMaterial({
@@ -72,6 +63,14 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
 
       const positions: number[] = [];
       const sizes: number[] = [];
+      const material = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: starSizeValue * 0.02 + 0.08,
+        sizeAttenuation: true,
+        map: generateCircleTexture(),
+        alphaTest: 0.5,
+        transparent: true
+      });
 
       starData.filter(
         star => star.vMag >= vMagRanges.min && star.vMag <= vMagRanges.max

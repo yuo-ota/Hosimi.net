@@ -18,8 +18,8 @@ export const getEquatorialCoords = async (latitude: number, longitude: number) =
         }
         return { success: false, error: `${response.status}: ${data.error}` };
     }
-    } catch (error: any) {
+    } catch (error: unknown) {
         // fetch失敗や予期せぬ例外
-        return { success: false, error: error.message ?? "予期せぬエラーが発生しました。" };
+        return { success: false, error: (error as Error).message ?? "予期せぬエラーが発生しました。" };
     }
 };

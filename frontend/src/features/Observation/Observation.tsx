@@ -6,7 +6,7 @@ import SkyView from "./components/SkyView";
 import backArrowIcon from "./assets/back_arrow.svg";
 import settingIcon from "./assets/settings.svg";
 import searchIcon from "./assets/search.svg";
-import constellationIcon from "./assets/constellation.svg";
+// import constellationIcon from "./assets/constellation.svg";
 import StarInformationDialog from "./components/StarInformationDialog";
 import { useRef, useState, useEffect } from "react";
 import * as THREE from "three";
@@ -139,10 +139,10 @@ const Observation = ({ setPhase }: ObservationProps) => {
             //   icon: { path: settingIcon.src, alt: "設定ボタン" },
             //   clickHandle: () => {},
             // },
-            {
-              icon: { path: constellationIcon.src, alt: "星座表示ボタン" },
-              clickHandle: () => {setIsVisibleConstellationLines(!isVisibleConstellationLines);},
-            },
+            // {
+            //   icon: { path: constellationIcon.src, alt: "星座表示ボタン" },
+            //   clickHandle: () => {setIsVisibleConstellationLines(!isVisibleConstellationLines);},
+            // },
           ]}
         />
         <div className="flex h-full items-end absolute w-15 py-5 mr-5 right-0 bottom-0">

@@ -2,7 +2,7 @@ export type APIError = {
 	error: string;
 };
 
-export const isAPIError = (data: any) => {
+export const isAPIError = (data: unknown): data is APIError => {
 	return (
 		data !== null &&
 		typeof data === "object" &&

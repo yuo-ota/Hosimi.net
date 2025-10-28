@@ -5,6 +5,7 @@ import StarField from "./StarField";
 import { DeviceOrientationControls } from "@react-three/drei";
 import * as THREE from "three";
 import CameraDirectionTracker from "./CameraDirectionTracker";
+import Image from "next/image";
 
 type SkyViewProps = {
   setTargetVector: (vector: THREE.Vector3) => void;
@@ -16,9 +17,11 @@ const SkyView = ({setTargetVector, isVisibleConstellationLines, className = "" }
   return (
     <>
       <div className={`${className}`} >
-        <img
+        <Image
           src={Reticle.src}
           alt="照準"
+          width={24}
+          height={24}
           className="absolute top-1/2 left-1/2 aspect-square w-[30px] transform -translate-x-1/2 -translate-y-1/2 z-20"
         />
         {/* Three.js 描画領域 */}

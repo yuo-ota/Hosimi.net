@@ -5,6 +5,7 @@ import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import MapController from "./MapController";
 import "leaflet/dist/leaflet.css";
 import "@/utils/initLeaflet";
+import { GeoLocation } from "@/type/GeoLocation";
 
 type MapProps = {
   userPosition: GeoLocation;

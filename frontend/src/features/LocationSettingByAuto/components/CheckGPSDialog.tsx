@@ -4,10 +4,11 @@ import DualButton from "@/components/DualButton";
 import Headline from "@/components/Headline";
 import CloseIcon from "@/features/LocationSetting/assets/close.svg";
 import CheckMap from "./CheckMap";
-import { Geolocation } from "@/type/GeoLocation";
+import { GeoLocation } from "@/type/GeoLocation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserPosition } from "@/context/UserPositionContext";
+import Image from "next/image";
 
 type CheckGPSDialogProps = {
   isOpenDialog: boolean;
@@ -17,10 +18,10 @@ type CheckGPSDialogProps = {
 const CheckGPSDialog = ({ isOpenDialog, setIsOpenDialog }: CheckGPSDialogProps) => {
   const router = useRouter();
   const { setPosition } = useUserPosition();
-  const [userPosition, setUserPosition] = useState<Geolocation | null>(null)
+  const [userPosition, setUserPosition] = useState<GeoLocation | null>(null)
   const [activeConfirmButton, setActiveConfirmButton] = useState(false);
 
-  const handleGPSChenge = (userPosition: Geolocation) => {
+  const handleGPSChenge = (userPosition: GeoLocation) => {
     if (userPosition.latitude === null || userPosition.longitude === null) {
       setActiveConfirmButton(false);
       return;
@@ -63,7 +64,7 @@ const CheckGPSDialog = ({ isOpenDialog, setIsOpenDialog }: CheckGPSDialogProps) 
                 className="mb-5 lg:mb-10"
               />
               <button className="aspect-square h-full max-h-[60px]" onClick={clickCloseDialogButton}>
-                <img
+                <Image
                   src={`${CloseIcon.src}`}
                   alt="閉じるボタン"
                   className="w-full h-full"

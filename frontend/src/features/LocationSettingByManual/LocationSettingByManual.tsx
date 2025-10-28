@@ -1,10 +1,8 @@
 "use client";
 
-import DualButton from "@/components/DualButton";
 import LocationInput from "./components/LocationInput";
 import { GeoLocation } from "@/type/GeoLocation";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserPosition } from "@/context/UserPositionContext";
 import DecorateBorder from "@/components/DecorateBorder";
@@ -13,7 +11,6 @@ import { useTransitionNavigation } from "@/utils/trantision";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const LocationSettingByManual = () => {
-  const router = useRouter();
   const transition = useTransitionNavigation();
   const { setPosition } = useUserPosition();
   const [userPosition, setUserPosition] = useState<GeoLocation>({ latitude: 35.68132693484021, longitude: 139.76719496924264 });
