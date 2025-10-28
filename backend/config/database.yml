@@ -3,19 +3,37 @@ default: &default
   encoding: unicode
   username: <%= ENV['PG_USERNAME'] %>
   password: <%= ENV['PG_PASSWORD'] %>
-  host: 127.0.0.1
+  host: db
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: astronom_development
+  database: hosimi_development
 
 test:
   <<: *default
-  database: astronom_test
+  database: hosimi_test
 
 production:
   <<: *default
-  database: astronom_production
-  username: <%= ENV['ASTRONOM_DATABASE_USERNAME'] %>
-  password: <%= ENV['ASTRONOM_DATABASE_PASSWORD'] %>
+  database: hosimi_production
+  username: <%= ENV['HOSIMI_DATABASE_USERNAME'] %>
+  password: <%= ENV['HOSIMI_DATABASE_PASSWORD'] %>
+
+cable:
+  <<: *default
+  database: hosimi_production
+  username: <%= ENV['HOSIMI_DATABASE_USERNAME'] %>
+  password: <%= ENV['HOSIMI_DATABASE_PASSWORD'] %>
+
+queue:
+  <<: *default
+  database: hosimi_production
+  username: <%= ENV['HOSIMI_DATABASE_USERNAME'] %>
+  password: <%= ENV['HOSIMI_DATABASE_PASSWORD'] %>
+
+cache:
+  <<: *default
+  database: hosimi_production
+  username: <%= ENV['HOSIMI_DATABASE_USERNAME'] %>
+  password: <%= ENV['HOSIMI_DATABASE_PASSWORD'] %>

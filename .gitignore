@@ -3,3 +3,5 @@ design_doc/ER.svg
 
 .history/
 .vscode/
+
+docker-compose.yml

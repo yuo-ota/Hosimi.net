@@ -1,81 +1,83 @@
 require_relative '../access_manager'
-require_relative './horizon_API_manager'
-require_relative './moon_horizontal_coords_API_manager'
+require_relative './horizon_api_manager'
+require_relative './moon_horizontal_coords_api_manager'
 
 require 'json'
 
-class EquatorialCoordsService
-    HORIZON_MAX_REQUESTS = 10
-    HORIZON_ACCESS_MANAGE_BASE_TIME = 30
-    MOON_HORIZONTAL_API_MAX_REQUESTS = 1
-    MOON_HORIZONTAL_API_ACCESS_MANAGE_BASE_TIME = 3
+module EquatorialCoords
+    class EquatorialCoordsService
+        HORIZON_MAX_REQUESTS = 10
+        HORIZON_ACCESS_MANAGE_BASE_TIME = 30
+        MOON_HORIZONTAL_API_MAX_REQUESTS = 1
+        MOON_HORIZONTAL_API_ACCESS_MANAGE_BASE_TIME = 3
 
-    @horizon_access_manager = AccessManager.new(
-        max_requests: HORIZON_MAX_REQUESTS,
-        access_manage_base_time: HORIZON_ACCESS_MANAGE_BASE_TIME
-    )
-    @moon_horizontal_API_access_manager = AccessManager.new(
-        max_requests: MOON_HORIZONTAL_API_MAX_REQUESTS,
-        access_manage_base_time: MOON_HORIZONTAL_API_ACCESS_MANAGE_BASE_TIME
-    )
+        @horizon_access_manager = AccessManager.new(
+            max_requests: HORIZON_MAX_REQUESTS,
+            access_manage_base_time: HORIZON_ACCESS_MANAGE_BASE_TIME
+        )
+        @moon_horizontal_API_access_manager = AccessManager.new(
+            max_requests: MOON_HORIZONTAL_API_MAX_REQUESTS,
+            access_manage_base_time: MOON_HORIZONTAL_API_ACCESS_MANAGE_BASE_TIME
+        )
 
-    class << self
-        attr_reader :horizon_access_manager, :moon_horizontal_API_access_manager
-    end
-
-
-    # -----------------------
-    # 公開メソッド（外部から呼ぶ）
-    # -----------------------
-
-    def self.calc_equatorial_coords_by_user(latitude, longitude)
-        moon_right_ascension = get_equatorial_coords_of_moon[:right_ascension]
-        moon_azimuth = get_azimuth_by_horizontal_coords_of_moon
-
-        correction_deg = calc_azimuth_right_ascension_diff(moon_azimuth, moon_right_ascension)
-
-        right_ascension = calc_user_right_ascension(longitude, correction_deg)
-        declination = latitude
-
-        build_location_json(right_ascension, declination)
-    end
+        class << self
+            attr_reader :horizon_access_manager, :moon_horizontal_API_access_manager
+        end
 
 
-    # -----------------------
-    # privateメソッド（内部処理用）
-    # -----------------------
-    private
+        # -----------------------
+        # 公開メソッド（外部から呼ぶ）
+        # -----------------------
 
-    def self.get_equatorial_coords_of_moon
-        status = EquatorialCoordsService.horizon_access_manager.check_request
+        def self.calc_equatorial_coords_by_user(latitude, longitude)
+            moon_right_ascension = get_equatorial_coords_of_moon[:right_ascension]
+            moon_azimuth = get_azimuth_by_horizontal_coords_of_moon
 
-        equatorial_coord = HorizonAPIManager.get_moon_equatorial_coords
-        equatorial_coord
-    end
+            correction_deg = calc_azimuth_right_ascension_diff(moon_azimuth, moon_right_ascension)
 
-    def self.get_azimuth_by_horizontal_coords_of_moon
-        status = EquatorialCoordsService.moon_horizontal_API_access_manager.check_request
+            right_ascension = calc_user_right_ascension(longitude, correction_deg)
+            declination = latitude
 
-        moon_azimuth = MoonHorizontalCoordsAPIManager.get_moon_azimuth
-        moon_azimuth
-    end
+            build_location_json(right_ascension, declination)
+        end
 
-    def self.calc_azimuth_right_ascension_diff(moon_azimuth, moon_right_ascension)
-        moon_azimuth - moon_right_ascension
-    end
 
-    def self.calc_user_right_ascension(longitude, correction_deg)
-        longitude + correction_deg
-    end
+        # -----------------------
+        # privateメソッド（内部処理用）
+        # -----------------------
+        private
 
-    # jsonの作成
-    def self.build_location_json(right_ascension, declination)
-        location_hash = {
-            right_ascension: right_ascension,
-            declination: declination
-        }
+        def self.get_equatorial_coords_of_moon
+            status = EquatorialCoordsService.horizon_access_manager.check_request
 
-        location_hash
+            equatorial_coord = HorizonAPIManager.get_moon_equatorial_coords
+            equatorial_coord
+        end
+
+        def self.get_azimuth_by_horizontal_coords_of_moon
+            status = EquatorialCoordsService.moon_horizontal_API_access_manager.check_request
+
+            moon_azimuth = MoonHorizontalCoordsAPIManager.get_moon_azimuth
+            moon_azimuth
+        end
+
+        def self.calc_azimuth_right_ascension_diff(moon_azimuth, moon_right_ascension)
+            moon_azimuth - moon_right_ascension
+        end
+
+        def self.calc_user_right_ascension(longitude, correction_deg)
+            longitude + correction_deg
+        end
+
+        # jsonの作成
+        def self.build_location_json(right_ascension, declination)
+            location_hash = {
+                right_ascension: right_ascension,
+                declination: declination
+            }
+
+            location_hash
+        end
     end
 end
 
