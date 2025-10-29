@@ -8,5 +8,5 @@ COPY . .
 # すでにビルド済みの場合は .next をコピー
 COPY .next .next
 
-EXPOSE 3001
+EXPOSE 3000
 CMD ["npm", "run", "start"]
