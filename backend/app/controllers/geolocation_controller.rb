@@ -6,7 +6,7 @@ class GeolocationController < ApplicationController
         location_name = params[:locationName]
         
         begin
-            data = GeolocationService.search_location(location_name)
+            data = Geolocation::GeolocationService.search_location(location_name)
             render json: data, status: :ok
         rescue TooManyRequestsError => e
             Rails.logger.error e.message

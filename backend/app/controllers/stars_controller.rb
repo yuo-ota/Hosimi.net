@@ -6,7 +6,7 @@ class StarsController < ApplicationController
         star = Star.find(params[:id])
         
         begin
-            data = StarService.research_star(star.simbad_id)
+            data = StarsService::StarService.research_star(star.simbad_id)
             render json: data, status: :ok
         rescue TooManyRequestsError => e
             Rails.logger.error e.message

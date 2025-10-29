@@ -7,7 +7,7 @@ class EquatorialCoordsController < ApplicationController
         longitude = params[:longitude].to_f
         
         begin
-            data = EquatorialCoordsService.calc_equatorial_coords_by_user(latitude, longitude)
+            data = EquatorialCoords::EquatorialCoordsService.calc_equatorial_coords_by_user(latitude, longitude)
             render json: data, status: :ok
         rescue TooManyRequestsError => e
             Rails.logger.error e.message
