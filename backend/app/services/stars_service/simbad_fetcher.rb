@@ -1,6 +1,6 @@
 require_relative '../../utils/scraping_utils'
 
-module StarService
+module StarsService
     class SimbadFetcher
         # -----------------------
         # 公開メソッド（外部から呼ぶ）

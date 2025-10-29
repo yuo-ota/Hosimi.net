@@ -7,7 +7,7 @@ require_relative 'star_distance_calculator'
 require 'nokogiri'
 require 'json'
 
-module StarService
+module StarsService
     class StarService
         MAX_REQUESTS = 30
         ACCESS_MANAGE_BASE_TIME = 60

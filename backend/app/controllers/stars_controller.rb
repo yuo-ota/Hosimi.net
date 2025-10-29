@@ -1,4 +1,4 @@
-require_relative "../services/star_service/star_service"
+require_relative "../services/stars_service/star_service"
 
 class StarsController < ApplicationController
     # GET /api/stars/{id}

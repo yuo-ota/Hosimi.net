@@ -1,4 +1,4 @@
-module StarService
+module StarsService
     class StarParser
         # -----------------------
         # 公開メソッド（外部から呼ぶ）

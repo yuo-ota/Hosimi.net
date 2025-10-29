@@ -1,4 +1,4 @@
-module StarService
+module StarsService
     class StarDistanceCalculator
         LIGHT_YEAR_PER_PARSEC = 3.26156
 

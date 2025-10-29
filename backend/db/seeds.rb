@@ -10,7 +10,7 @@
 
 require_relative '../app/utils/unit_converter'
 
-file_path = "../../simbad.txt"
+file_path = "/rails/simbad.txt"
 
 File.foreach(file_path) do |line|
     # パイプ区切りで分割

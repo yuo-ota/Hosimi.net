@@ -59,6 +59,7 @@ FROM base
 # Copy built artifacts: gems, application
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
+COPY simbad.txt /rails/simbad.txt
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
@@ -71,4 +72,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["bash", "-c", "./bin/rails db:seed && ./bin/thrust ./bin/rails server"]
+CMD ["bash", "-c", "./bin/rails db:create && ./bin/rails db:migrate && ./bin/rails db:seed && ./bin/thrust ./bin/rails server"]
