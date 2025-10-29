@@ -47,7 +47,8 @@ const LocationSettingByAuto = () => {
             </button>
           </DecorateBorder>
           <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
-            <button onClick={clickConfirmPositionButton} className="w-full h-full hover:bg-background/20">
+            <button onClick={clickConfirmPositionButton} className="w-full h-full hover:bg-background/20"
+              style={{ opacity: activeConfirmButton ? 1 : 0.5 }}>
               <span className="text-lg lg:text-2xl align-middle">確認</span>
             </button>
           </DecorateBorder>

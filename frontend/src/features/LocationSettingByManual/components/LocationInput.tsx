@@ -64,7 +64,7 @@ const LocationInput = ({ setUserPosition, className = "" }: LocationInputProps) 
           </DecorateBorder>
           <DecorateBorder isBorderPutX={true} className="bg-foreground/30">
             <button
-              className="aspect-square flex justify-center items-center h-15 lg:h-16 bg-foreground/30"
+              className="aspect-square flex justify-center items-center h-15 lg:h-16 bg-foreground/30 hover:bg-foreground/50 active:bg-foreground/30"
               onClick={handleSearch}
             >
               <Image

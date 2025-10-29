@@ -6,7 +6,7 @@ import { StarDataProvider } from "@/context/StarDataContext";
 import { SettingProvider } from "@/context/SettingContext";
 
 export const metadata: Metadata = {
-  title: "Astronom",
+  title: "hosimi",
   description: "",
 };
 

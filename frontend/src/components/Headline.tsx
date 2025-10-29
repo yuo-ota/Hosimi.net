@@ -18,7 +18,7 @@ const Headline = ({
       <div className={`flex flex-col items-center justify-centertext-center ${className}`}>
           <span
             className={`font-title text-foreground ${
-              preferSmall ? "text-3xl lg:text-4xl" : "text-3xl lg:text-6xl"
+              preferSmall ? "text-4xl lg:text-4xl" : "text-4xl lg:text-6xl"
             }`}
           >
             {title}
