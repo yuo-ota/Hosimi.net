@@ -18,7 +18,6 @@ const ConstellationView = () => {
 
   // 星座線のgeometryとmaterialを作成
   const { geometry, material } = useMemo(() => {
-		console.log("aaa");
     if (!starData.length || !constellationLines.length) {
       return { geometry: null, material: null };
     }

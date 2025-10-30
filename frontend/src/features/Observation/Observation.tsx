@@ -30,12 +30,60 @@ const Observation = ({ setPhase }: ObservationProps) => {
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
   const { starData, vMagRanges } = useStarData();
+  const [permissionGranted, setPermissionGranted] = useState(false);
+  const [openPermissionDialog, setOpenPermissionDialog] = useState(true);
+
+  const handleGrantedClick = () => {
+    const requestPermission = (DeviceOrientationEvent as DeviceOrientationEventConstructor)?.requestPermission;
+    if (typeof requestPermission === "function") {
+      requestPermission()
+        .then((response: "granted" | "denied") => {
+          if (response === 'granted') {
+            window.addEventListener('deviceorientation', () => {});
+            setPermissionGranted(true);
+            setOpenPermissionDialog(false);
+            return;
+          }
+        })
+        .catch(console.error);
+    }
+    setOpenPermissionDialog(false);
+  }
+
+  const handleDeniedClick = () => {
+    setOpenPermissionDialog(false);
+    setPermissionGranted(false);
+  }
 
   const handleDirectionChange = (direction: THREE.Vector3) => {
     currentDirectionRef.current = direction.clone();
   };
 
   useEffect(() => {
+    const requestPermission = (DeviceOrientationEvent as DeviceOrientationEventConstructor)?.requestPermission;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    
+    if (typeof requestPermission !== "function" || !isIOS) {
+      setPermissionGranted(true);
+      const handleOrientation = (event: DeviceOrientationEvent) => {
+        const { alpha, beta, gamma } = event;
+        if (
+          alpha === null ||
+          beta === null ||
+          gamma === null ||
+          isNaN(alpha) ||
+          isNaN(beta) ||
+          isNaN(gamma)
+        ) {
+          setPermissionGranted(false);
+        }
+        window.removeEventListener("deviceorientation", handleOrientation);
+      };
+      window.addEventListener("deviceorientation", handleOrientation, { once: true });
+      
+      setOpenPermissionDialog(false);
+    }
+    
     setShowPopup(true);
     const timer = setTimeout(() => setShowPopup(false), 4000);
     return () => clearTimeout(timer);
@@ -123,6 +171,7 @@ const Observation = ({ setPhase }: ObservationProps) => {
         <SkyView
           setTargetVector={handleDirectionChange}
           isVisibleConstellationLines={isVisibleConstellationLines}
+          permissionGranted={permissionGranted}
           className={`w-full h-full z-0`}
         />
         <FunctionButtons
@@ -161,6 +210,25 @@ const Observation = ({ setPhase }: ObservationProps) => {
             </div>
           </div>
         )}
+        
+        {(!showPopup && openPermissionDialog) && 
+          <div className="bg-background/40 fixed inset-0 flex items-center justify-center z-30 pointer-events-none">
+            <div className="bg-white/95 text-black px-6 py-6 rounded-lg shadow-lg max-w-xs text-center pointer-events-auto">
+              <div className="text-2xl">スマホの傾き取得を</div>
+              <div className="flex justify-center gap-5 mt-4">
+                <button className="h-10 w-30 border border-base-color rounded-md hover:bg-background/10" onClick={handleDeniedClick}>
+                  許可しない
+                </button>
+                <button className="h-10 w-30 border border-base-color rounded-md hover:bg-background/10" onClick={handleGrantedClick}>
+                  許可する
+                </button>
+              </div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+                気持ちの良いhosimi利用のため、<br />「許可する」の選択を推奨します。
+              </div>
+            </div>
+          </div>
+        }
         {(closestStar && closestStarDetailInfo) && (
           <StarInformationDialog
             starDetailInfo={closestStarDetailInfo}

@@ -2,18 +2,25 @@ import Reticle from "../assets/reticle.svg";
 
 import { Canvas } from "@react-three/fiber";
 import StarField from "./StarField";
-import { DeviceOrientationControls } from "@react-three/drei";
+import { OrbitControls, DeviceOrientationControls } from "@react-three/drei";
 import * as THREE from "three";
 import CameraDirectionTracker from "./CameraDirectionTracker";
 import Image from "next/image";
+import { useEffect } from "react";
 
 type SkyViewProps = {
   setTargetVector: (vector: THREE.Vector3) => void;
   isVisibleConstellationLines: boolean;
+  permissionGranted: boolean;
   className?: string;
 };
 
-const SkyView = ({setTargetVector, isVisibleConstellationLines, className = "" }: SkyViewProps) => {
+const SkyView = ({setTargetVector, isVisibleConstellationLines, permissionGranted, className = "" }: SkyViewProps) => {
+  useEffect(() => {
+    console.log("SkyView rendered with permissionGranted:", permissionGranted);
+  }, [permissionGranted]);
+
+
   return (
     <>
       <div className={`${className}`} >
@@ -26,10 +33,10 @@ const SkyView = ({setTargetVector, isVisibleConstellationLines, className = "" }
         />
         {/* Three.js 描画領域 */}
         <div className="absolute w-full h-full z-0">
-          <Canvas camera={{ position: [0, 0, 0], fov: 75 }}>
+          <Canvas>
             {/* カメラ操作 */}
-            <DeviceOrientationControls />
-            
+            {permissionGranted ? <DeviceOrientationControls key="device" /> : <OrbitControls key="orbit" />}
+
             {/* カメラの方向を追跡 */}
             <CameraDirectionTracker onDirectionChange={setTargetVector} />
 

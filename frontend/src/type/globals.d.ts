@@ -21,3 +21,9 @@ interface Window {
 		[key: string]: unknown;
 	};
 }
+
+interface DeviceOrientationEventConstructor {
+  requestPermission?: () => Promise<"granted" | "denied">;
+}
+
+declare var DeviceOrientationEvent: DeviceOrientationEventConstructor;
