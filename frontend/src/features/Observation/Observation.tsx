@@ -61,7 +61,7 @@ const Observation = ({ setPhase }: ObservationProps) => {
 
   useEffect(() => {
     const requestPermission = (DeviceOrientationEvent as DeviceOrientationEventConstructor)?.requestPermission;
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     
     if (typeof requestPermission !== "function" || !isIOS) {
       setPermissionGranted(true);

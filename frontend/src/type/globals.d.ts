@@ -20,10 +20,9 @@ interface Window {
 		load: (config: { async: boolean }) => void;
 		[key: string]: unknown;
 	};
+	MSStream?: unknown;
 }
 
 interface DeviceOrientationEventConstructor {
   requestPermission?: () => Promise<"granted" | "denied">;
 }
-
-declare var DeviceOrientationEvent: DeviceOrientationEventConstructor;
