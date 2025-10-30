@@ -8,8 +8,8 @@ module EquatorialCoords
     class EquatorialCoordsService
         HORIZON_MAX_REQUESTS = 10
         HORIZON_ACCESS_MANAGE_BASE_TIME = 30
-        MOON_HORIZONTAL_API_MAX_REQUESTS = 1
-        MOON_HORIZONTAL_API_ACCESS_MANAGE_BASE_TIME = 3
+        MOON_HORIZONTAL_API_MAX_REQUESTS = 10
+        MOON_HORIZONTAL_API_ACCESS_MANAGE_BASE_TIME = 30
 
         @horizon_access_manager = AccessManager.new(
             max_requests: HORIZON_MAX_REQUESTS,
