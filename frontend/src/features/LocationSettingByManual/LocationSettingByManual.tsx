@@ -13,7 +13,7 @@ const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 const LocationSettingByManual = () => {
   const transition = useTransitionNavigation();
   const { setPosition } = useUserPosition();
-  const [userPosition, setUserPosition] = useState<GeoLocation>({ latitude: 35.68132693484021, longitude: 139.76719496924264 });
+  const [userPosition, setUserPosition] = useState<GeoLocation>({ latitude: 35.74854770684698, longitude: 139.80631888301534 });
 
   const clickBackLocationSettingButton = () => {
     transition("/location-settings", "bottom_to_top");
