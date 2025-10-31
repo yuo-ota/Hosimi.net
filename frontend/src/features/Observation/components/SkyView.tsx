@@ -33,9 +33,19 @@ const SkyView = ({setTargetVector, isVisibleConstellationLines, permissionGrante
         />
         {/* Three.js 描画領域 */}
         <div className="absolute w-full h-full z-0">
-          <Canvas>
+          <Canvas camera={{ fov: 75, near: 0.1, far: 1000, position: [0, 0, 0] }}>
             {/* カメラ操作 */}
-            {permissionGranted ? <DeviceOrientationControls key="device" /> : <OrbitControls key="orbit" />}
+            {permissionGranted ?
+              <DeviceOrientationControls key="device" />
+            :
+              <OrbitControls
+                target={[0.1, 0, 0]}
+                enablePan={false}
+                enableZoom={false}
+                enableRotate={true}
+                key="orbit"
+              />
+            }
 
             {/* カメラの方向を追跡 */}
             <CameraDirectionTracker onDirectionChange={setTargetVector} />
