@@ -1,0 +1,2 @@
+class ConstellationLinesController < ApplicationController
+end

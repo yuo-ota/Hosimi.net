@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+line_one:
+  start_star: star_one
+  end_star: star_two
+  constellation: constellation_one
+
+line_two:
+  start_star: star_two
+  end_star: star_one
+  constellation: constellation_two

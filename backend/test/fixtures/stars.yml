@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+star_one:
+  simbad_id: "STAR_ONE"
+  right_ascension: 10.123456
+  declination: 20.654321
+  v_mag: 1.5
+
+star_two:
+  simbad_id: "STAR_TWO"
+  right_ascension: 30.123456
+  declination: 40.654321
+  v_mag: 2.5

@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  rails:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      HOSIMI_DATABASE_USERNAME: ${DATABASE_USERNAME}
+      HOSIMI_DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      RAILS_ENV: ${RAILS_ENV}
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+
+  nextjs:
+    build: ./frontend
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: ${NODE_ENV}
+
+  nginx:
+    image: nginx:stable
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "8000:80"
+    depends_on:
+      - rails
+      - nextjs
+
+
+volumes:
+  pgdata:

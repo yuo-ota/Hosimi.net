@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+constellation_one:
+  constellation_name_eng: "Orion"
+  constellation_name_jpn: "オリオン座"
+
+constellation_two:
+  constellation_name_eng: "Ursa Major"
+  constellation_name_jpn: "おおぐま座"
