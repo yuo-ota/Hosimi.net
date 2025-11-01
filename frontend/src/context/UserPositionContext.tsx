@@ -1,12 +1,12 @@
 "use client"
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Geolocation } from "@/type/GeoLocation";
+import { GeoLocation } from "@/type/GeoLocation";
 
 // Context の型
 type UserPositionContextType = {
-  position: Geolocation | null;
-  setPosition: (pos: Geolocation) => void;
+  position: GeoLocation | null;
+  setPosition: (pos: GeoLocation) => void;
 };
 
 // Context の初期値は null で型キャスト
@@ -17,7 +17,7 @@ type UserPositionProviderProps = {
 };
 
 export const UserPositionProvider = ({ children }: UserPositionProviderProps) => {
-  const [position, setPosition] = useState<Geolocation | null>(null);
+  const [position, setPosition] = useState<GeoLocation | null>(null);
 
   return (
     <UserPositionContext.Provider value={{ position, setPosition }}>

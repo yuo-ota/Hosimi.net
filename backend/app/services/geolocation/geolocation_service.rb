@@ -3,47 +3,49 @@ require_relative './geocoding_manager'
 
 require 'json'
 
-class GeolocationService
-    MAX_REQUESTS = 1
-    ACCESS_MANAGE_BASE_TIME = 10
-    
-    @geocoding_access_manager = AccessManager.new(
-        max_requests: MAX_REQUESTS,
-        access_manage_base_time: ACCESS_MANAGE_BASE_TIME
-    )
+module Geolocation
+    class GeolocationService
+        MAX_REQUESTS = 1
+        ACCESS_MANAGE_BASE_TIME = 10
+        
+        @geocoding_access_manager = AccessManager.new(
+            max_requests: MAX_REQUESTS,
+            access_manage_base_time: ACCESS_MANAGE_BASE_TIME
+        )
 
-    class << self
-        attr_reader :geocoding_access_manager
-    end
-
-
-    # -----------------------
-    # 公開メソッド（外部から呼ぶ）
-    # -----------------------
-
-    def self.search_location(location_name)
-        status = GeolocationService.geocoding_access_manager.check_request
-
-        data = GeocodingManager.fetch_coords_xml(location_name)
-        location = GeocodingManager.parse_coords_xml(data)
-
-        build_location_json(location[:latitude], location[:longitude])
-    end
+        class << self
+            attr_reader :geocoding_access_manager
+        end
 
 
-    # -----------------------
-    # privateメソッド（内部処理用）
-    # -----------------------
-    private
+        # -----------------------
+        # 公開メソッド（外部から呼ぶ）
+        # -----------------------
 
-    # jsonの作成
-    def self.build_location_json(latitude, longitude)
-        location_hash = {
-            latitude: latitude&.to_f,
-            longitude: longitude&.to_f
-        }
+        def self.search_location(location_name)
+            status = GeolocationService.geocoding_access_manager.check_request
 
-        location_hash
+            data = GeocodingManager.fetch_coords_xml(location_name)
+            location = GeocodingManager.parse_coords_xml(data)
+
+            build_location_json(location[:latitude], location[:longitude])
+        end
+
+
+        # -----------------------
+        # privateメソッド（内部処理用）
+        # -----------------------
+        private
+
+        # jsonの作成
+        def self.build_location_json(latitude, longitude)
+            location_hash = {
+                latitude: latitude&.to_f,
+                longitude: longitude&.to_f
+            }
+
+            location_hash
+        end
     end
 end
 

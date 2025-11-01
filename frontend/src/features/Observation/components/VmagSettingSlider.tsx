@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import IconButton from "./IconButton";
 import StarIcon from "../assets/star.svg";
 import StartShineIcon from "../assets/star_shine.svg";
 import TriangleIcon from "../assets/triangle.svg";
 import { useStarData } from "@/context/StarDataContext";
+import Image from "next/image";
 
 type VmagSettingSliderProps = {
   className?: string;
@@ -188,9 +189,11 @@ const VmagSettingSlider = ({
                 <span className="text-[var(--base-color)] text-sm mx-2 font-num">
                   {bottomSliderValue}
                 </span>
-                <img
+                <Image
                   src={TriangleIcon.src}
                   alt="先端要素"
+                  width={24}
+                  height={24}
                   className="absolute transform origin-top-right left-0 -translate-x-3/4"
                 />
               </div>
@@ -207,9 +210,11 @@ const VmagSettingSlider = ({
                 <span className="text-[var(--base-color)] text-sm mx-2 font-num">
                   {topSliderValue}
                 </span>
-                <img
+                <Image
                   src={TriangleIcon.src}
                   alt="先端要素"
+                  width={24}
+                  height={24}
                   className="absolute transform origin-top-right left-0 -translate-x-3/4"
                 />
               </div>

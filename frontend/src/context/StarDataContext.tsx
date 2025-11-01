@@ -5,7 +5,6 @@ import { StarData } from "@/type/StarData";
 import { Constellation } from "@/type/ConstellationData";
 import { VMagRange } from "@/type/VMagRange";
 import { getStarList } from "@/lib/api/stars";
-import { get } from "http";
 import { getConstellations } from "@/lib/api/constellations";
 
 type StarDataContextType = {

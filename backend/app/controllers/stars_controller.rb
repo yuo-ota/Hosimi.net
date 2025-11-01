@@ -1,4 +1,4 @@
-require_relative "../services/star/star_service"
+require_relative "../services/stars_service/star_service"
 
 class StarsController < ApplicationController
     # GET /api/stars/{id}
@@ -6,7 +6,7 @@ class StarsController < ApplicationController
         star = Star.find(params[:id])
         
         begin
-            data = StarService.research_star(star.simbad_id)
+            data = StarsService::StarService.research_star(star.simbad_id)
             render json: data, status: :ok
         rescue TooManyRequestsError => e
             Rails.logger.error e.message

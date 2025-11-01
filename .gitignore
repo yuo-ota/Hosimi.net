@@ -3,3 +3,6 @@ design_doc/ER.svg
 
 .history/
 .vscode/
+
+.env
+^.env.sample

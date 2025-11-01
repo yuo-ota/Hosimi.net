@@ -5,11 +5,11 @@ export type StarData = {
 	vMag: number;
 };
 
-export const isStarDataArray = (data: any) => {
+export const isStarDataArray = (data: unknown) => {
 	return Array.isArray(data) && data.every(item => isStarData(item));
 }
 
-const isStarData = (data: any) => {
+const isStarData = (data: unknown) => {
 	return (
 		data !== null &&
 		typeof data === "object" &&

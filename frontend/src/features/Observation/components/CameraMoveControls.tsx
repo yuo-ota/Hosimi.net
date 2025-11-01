@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const CameraMoveControls = () => {
   const { camera } = useThree();

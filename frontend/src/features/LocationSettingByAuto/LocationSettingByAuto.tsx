@@ -1,15 +1,12 @@
 "use client";
 
 import { GeoLocation } from "@/type/GeoLocation";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserPosition } from "@/context/UserPositionContext";
 import CheckMap from "./components/CheckMap";
 import DecorateBorder from "@/components/DecorateBorder";
 import { useTransitionNavigation } from "@/utils/trantision";
-
-const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const LocationSettingByAuto = () => {
   const router = useRouter();
@@ -50,7 +47,8 @@ const LocationSettingByAuto = () => {
             </button>
           </DecorateBorder>
           <DecorateBorder isBorderPutX={true} className="w-full h-15 lg:h-20 bg-foreground/30">
-            <button onClick={clickConfirmPositionButton} className="w-full h-full hover:bg-background/20">
+            <button onClick={clickConfirmPositionButton} className="w-full h-full hover:bg-background/20"
+              style={{ opacity: activeConfirmButton ? 1 : 0.5 }}> 
               <span className="text-lg lg:text-2xl align-middle">確認</span>
             </button>
           </DecorateBorder>

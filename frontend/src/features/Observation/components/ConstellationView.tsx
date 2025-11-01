@@ -18,7 +18,6 @@ const ConstellationView = () => {
 
   // 星座線のgeometryとmaterialを作成
   const { geometry, material } = useMemo(() => {
-		console.log("aaa");
     if (!starData.length || !constellationLines.length) {
       return { geometry: null, material: null };
     }
@@ -34,12 +33,6 @@ const ConstellationView = () => {
         const endStar = starMap.get(line.endStarId);
 
         if (startStar && endStar) {
-					const dec = (startStar.declination * Math.PI) / 180;
-					const ra = (startStar.rightAscension * Math.PI) / 180;
-					const radius = 10;
-					const x = radius * Math.cos(dec) * Math.cos(ra);
-					const y = radius * Math.sin(dec);
-					const z = radius * Math.cos(dec) * Math.sin(ra);
           // 各線につき2つの点を追加（開始点と終了点）
           points.push(
             calcXYZ(startStar.rightAscension, startStar.declination),

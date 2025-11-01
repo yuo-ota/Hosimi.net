@@ -4,7 +4,7 @@ export type StarDetailInfo = {
     distance: string | null;
 };
 
-export const isStarDetailInfo = (data: any) => {
+export const isStarDetailInfo = (data: unknown) => {
 	return (
 		data !== null &&
 		typeof data === "object" &&

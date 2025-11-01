@@ -10,7 +10,7 @@ interface StarFieldProps {
 
 const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
-  const { starData, vMagRanges, constellationLines } = useStarData();
+  const { starData, vMagRanges } = useStarData();
   const { contrastValue, starSizeValue } = useSetting();
 
   const generateCircleTexture = () => {
@@ -39,15 +39,6 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
     return texture;
   }
 
-  const material = new THREE.PointsMaterial({
-    color: 0xffffff,
-    size: starSizeValue * 0.02 + 0.08,
-    sizeAttenuation: true,
-    map: generateCircleTexture(),
-    alphaTest: 0.5,
-    transparent: true
-  });
-
   const plane = useMemo(() => {
     const geometry = new THREE.PlaneGeometry(1000, 1000);
     const material = new THREE.MeshBasicMaterial({
@@ -71,7 +62,14 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
       if (!pointsRef.current || starData.length === 0) return;
 
       const positions: number[] = [];
-      const sizes: number[] = [];
+      const material = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: starSizeValue * 0.02 + 0.08,
+        sizeAttenuation: true,
+        map: generateCircleTexture(),
+        alphaTest: 0.5,
+        transparent: true
+      });
 
       starData.filter(
         star => star.vMag >= vMagRanges.min && star.vMag <= vMagRanges.max
@@ -84,14 +82,15 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
         const z = radius * Math.cos(dec) * Math.sin(ra);
 
         if (y > 0) {
-          positions.push(x, y, z);
-          sizes.push(Math.max(0.1, 5 - star.vMag));
+          const position = new THREE.Vector3(x, y, z);
+          position.multiplyScalar((star.vMag + 1) * 0.5 + 0.8);
+
+          positions.push(position.x, position.y, position.z);
         }
       });
 
       const geometry = new THREE.BufferGeometry();
       geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
-      geometry.setAttribute("size", new THREE.Float32BufferAttribute(sizes, 1));
 
       // 既存のオブジェクトを破棄
       if (pointsRef.current.geometry) pointsRef.current.geometry.dispose();

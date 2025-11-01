@@ -37,6 +37,7 @@ const CheckMap = ({ handleGPSChenge, className }: CheckMapProps) => {
           });
         },
         (error: GeolocationPositionError) => {
+          console.error("Error obtaining location:", error.message);
           setLocation(null);
         }
       );

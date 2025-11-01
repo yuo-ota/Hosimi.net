@@ -52,9 +52,10 @@ const StarInformationDialog = ({
 
       // 少し待ってからAladin初期化
       setTimeout(() => {
-        if ((window as any).A && aladinRef.current) {
+        console.log(window);
+        if (window.A && aladinRef.current) {
           try {
-            (window as any).A.aladin(aladinRef.current, {
+            (window.A.aladin(aladinRef.current, {
               fov: 1,
               target: starDetailInfo.starName,
               showReticle: false,
@@ -64,7 +65,7 @@ const StarInformationDialog = ({
               showLayersControl: false,
               showGotoControl: false,
               showFrame: false,
-            });
+            }));
             setIsAladinLoaded(true);
           } catch (err) {
             console.error("Aladin Lite initialization failed:", err);

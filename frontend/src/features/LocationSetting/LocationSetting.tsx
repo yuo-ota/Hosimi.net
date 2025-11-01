@@ -2,8 +2,8 @@
 
 import DecorateBorder from "@/components/DecorateBorder";
 import ArrowIcon from "@/assets/arrow.svg";
-import { useRouter } from "next/navigation";
 import { useTransitionNavigation } from "@/utils/trantision";
+import Image from "next/image";
 
 const LocationSetting = () => {
   const transition = useTransitionNavigation();
@@ -30,7 +30,7 @@ const LocationSetting = () => {
               className="w-full h-10 lg:h-12 bg-foreground rounded-full flex justify-between items-center px-4 lg:px-6"
               onClick={clickGPSSettingButton}>
               <span className="text-background text-lg lg:text-xl">ここから</span>
-              <img src={ArrowIcon.src} alt="矢印アイコン" className="h-2/5" />
+              <Image src={ArrowIcon.src} alt="矢印アイコン" width={24} height={24} />
             </button>
           </div>
         </DecorateBorder>
@@ -49,7 +49,7 @@ const LocationSetting = () => {
               className="w-full h-10 lg:h-12 bg-foreground rounded-full flex justify-between items-center px-4 lg:px-6"
               onClick={clickManualSettingButton}>
               <span className="text-background text-lg lg:text-xl">ここから</span>
-              <img src={ArrowIcon.src} alt="矢印アイコン" className="h-2/5" />
+              <Image src={ArrowIcon.src} alt="矢印アイコン" width={24} height={24} />
             </button>
           </div>
         </DecorateBorder>

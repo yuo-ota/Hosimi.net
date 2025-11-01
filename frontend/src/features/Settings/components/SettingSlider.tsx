@@ -14,15 +14,6 @@ type SettingSliderProps = {
   className?: string;
 };
 
-const getGridRowsClass = (count: number) => {
-  if (count <= 1) return "grid-rows-[1fr]";
-
-  const parts = Array(count - 1)
-    .fill("min-content")
-    .concat("1fr");
-  return `grid-rows-[${parts.join("_")}]`;
-};
-
 const SettingSlider = ({ sliders, className = "" }: SettingSliderProps) => {
   return (
     <>

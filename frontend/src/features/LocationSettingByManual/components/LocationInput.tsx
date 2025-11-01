@@ -3,6 +3,7 @@ import SearchIcon from "../assets/search.svg";
 import { GeoLocation } from "@/type/GeoLocation";
 import { getCoordsByLocationName } from "@/lib/api/geolocation";
 import DecorateBorder from "@/components/DecorateBorder";
+import Image from "next/image";
 
 type LocationInputProps = {
   setUserPosition: (userPosition: GeoLocation) => void;
@@ -63,13 +64,14 @@ const LocationInput = ({ setUserPosition, className = "" }: LocationInputProps) 
           </DecorateBorder>
           <DecorateBorder isBorderPutX={true} className="bg-foreground/30">
             <button
-              className="aspect-square flex justify-center items-center h-15 lg:h-16 bg-foreground/30"
+              className="aspect-square flex justify-center items-center h-15 lg:h-16 bg-foreground/30 hover:bg-foreground/50 active:bg-foreground/30"
               onClick={handleSearch}
             >
-              <img
+              <Image
                 src={SearchIcon.src}
                 alt="検索アイコン"
-                className="aspect-square h-6/10"
+                width={35}
+                height={35}
               />
             </button>
           </DecorateBorder>

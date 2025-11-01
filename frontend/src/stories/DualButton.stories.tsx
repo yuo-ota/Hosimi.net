@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import DualButton from "@/components/DualButton";
 
 const meta: Meta<typeof DualButton> = {
@@ -19,12 +19,14 @@ export const Default: Story = {
         isPriority: true,
         children: "Primary",
         handleClick: () => alert("Primary button clicked"),
+        isActive: true,
         className: "px-4 py-2",
       },
       {
         isPriority: false,
         children: "Secondary",
         handleClick: () => alert("Secondary button clicked"),
+        isActive: true,
         className: "px-4 py-2",
       },
     ],
@@ -44,12 +46,14 @@ export const WithCustomStyle: Story = {
           </>
         ),
         handleClick: () => console.log("戻るボタン"),
+        isActive: true,
         className: "w-2/5 px-4 py-2",
       },
       {
         isPriority: false,
         children: "確認",
         handleClick: () => console.log("確認ボタン"),
+        isActive: true,
         className: "w-2/5 px-4 py-2 text-base md:text-2xl",
       },
     ],

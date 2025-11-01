@@ -1,6 +1,5 @@
 'use client';
 
-import { point } from "leaflet";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 

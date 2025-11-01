@@ -8,11 +8,11 @@ export type ConstellationLine = {
 	endStarId: string;
 }
 
-export const isConstellationArray = (data: any) => {
-	return Array.isArray(data) && data.every((item: any) => isConstellation(item));
+export const isConstellationArray = (data: unknown) => {
+	return Array.isArray(data) && data.every((item: unknown) => isConstellation(item));
 }
 
-const isConstellation = (data: any) => {
+const isConstellation = (data: unknown) => {
 	return (
 		data !== null &&
 		typeof data === "object" &&
@@ -20,11 +20,11 @@ const isConstellation = (data: any) => {
 		("constellationLines" in data) &&
 		typeof data.constellationName === "string" &&
 		Array.isArray(data.constellationLines) &&
-		data.constellationLines.every((item: any) => isConstellationLine(item))
+		data.constellationLines.every((item: unknown) => isConstellationLine(item))
 	);
 }
 
-const isConstellationLine = (data: any) => {
+const isConstellationLine = (data: unknown) => {
 	return (
 		data !== null &&
 		typeof data === "object" &&
