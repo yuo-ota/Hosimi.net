@@ -32,12 +32,11 @@ File.foreach(file_path) do |line|
     end
 
     # DBに投入
-    Star.create!(
-        simbad_id: simbad_id,
-        right_ascension: ra,
-        declination: dec,
-        v_mag: v_mag
-    )
+    Star.find_or_create_by!(simbad_id: simbad_id) do |star|
+        star.right_ascension = ra
+        star.declination = dec
+        star.v_mag = v_mag
+    end
 end
 
 constellations = [
@@ -131,11 +130,10 @@ constellations = [
   ["Vulpecula", "こぎつね座"]
 ]
 
-constellations.each do |eng, jpn|
-  Constellation.create!(
-    constellation_name_eng: eng,
-    constellation_name_jpn: jpn
-  )
+Constellation.find_or_create_by!(
+  constellation_name_eng: eng
+) do |c|
+  c.constellation_name_jpn = jpn
 end
 
 # puts "Constellations seeded: #{constellations.size}"
