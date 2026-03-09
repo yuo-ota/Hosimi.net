@@ -7,35 +7,35 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: always
+
   rails:
     build: ./backend
-    ports:
-      - "3000:3000"
     depends_on:
       - db
     environment:
       HOSIMI_DATABASE_USERNAME: ${DATABASE_USERNAME}
       HOSIMI_DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      RAILS_ENV: ${RAILS_ENV}
+      RAILS_ENV: production
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+    restart: always
 
   nextjs:
     build: ./frontend
-    ports:
-      - "3001:3000"
     environment:
-      NODE_ENV: ${NODE_ENV}
+      NODE_ENV: production
+    restart: always
 
   nginx:
     image: nginx:stable
     volumes:
       - ./nginx:/etc/nginx/conf.d
     ports:
-      - "8000:80"
+      - "127.0.0.1:8000:80"
     depends_on:
       - rails
       - nextjs
-
+    restart: always
 
 volumes:
   pgdata:
