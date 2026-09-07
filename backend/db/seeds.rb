@@ -130,10 +130,12 @@ constellations = [
   ["Vulpecula", "こぎつね座"]
 ]
 
-Constellation.find_or_create_by!(
-  constellation_name_eng: eng
-) do |c|
-  c.constellation_name_jpn = jpn
+constellations.each do |eng, jpn|
+  Constellation.find_or_create_by!(
+    constellation_name_eng: eng
+  ) do |c|
+    c.constellation_name_jpn = jpn
+  end
 end
 
 # puts "Constellations seeded: #{constellations.size}"
