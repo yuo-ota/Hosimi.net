@@ -15,20 +15,28 @@ master へ push / PR マージ
 
 ## 必要な設定（GitHub リポジトリ）
 
-### Secrets（Settings → Secrets and variables → Actions → Secrets）
+`deploy` ジョブは Environment **`production`** を使う（`deploy.yml` の `environment: production`）。
+以下は Settings → Environments → `production` に登録する。
+
+### Environment secrets
 
 | 名前 | 内容 |
 |---|---|
-| `SSH_HOST` | 本番サーバーの IP / ホスト名 |
-| `SSH_USER` | SSH ユーザー名 |
-| `SSH_PORT` | SSH ポート（22 の場合は未設定でよい） |
 | `SSH_PRIVATE_KEY` | CD 専用 SSH 秘密鍵（公開鍵はサーバーの `~/.ssh/authorized_keys` に登録済みであること） |
-| `DEPLOY_PATH` | サーバー上でリポジトリを配置しているパス（`docker-compose.yml` と `.env` がある場所） |
 | `GHCR_PAT` | GHCR の private イメージを pull するための PAT。スコープ `read:packages` |
 
-`GITHUB_TOKEN` は自動で用意されるため登録不要（イメージの push に使用）。
+### Environment variables
 
-### Variables（同 → Variables）
+| 名前 | 例 | 内容 |
+|---|---|---|
+| `SSH_HOST` | `hosimi.net` | 本番サーバーの IP / ホスト名 |
+| `SSH_USER` | `github-cd` | SSH ユーザー名 |
+| `SSH_PORT` | `2222` | SSH ポート（22 なら未設定でよい） |
+| `DEPLOY_PATH` | `/opt/hosimi` | サーバー上でリポジトリを配置しているパス（`docker-compose.yml` と `.env` がある場所） |
+
+`GITHUB_TOKEN` は自動で用意されるため登録不要（`build-and-push` のイメージ push に使用）。
+
+### リポジトリ Variables（任意・`build-and-push` 用）
 
 | 名前 | 値 | 備考 |
 |---|---|---|

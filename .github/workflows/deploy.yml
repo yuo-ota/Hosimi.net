@@ -61,6 +61,7 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1
@@ -69,15 +70,15 @@ jobs:
           GHCR_USER: ${{ github.repository_owner }}
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: ${{ vars.SSH_HOST }}
+          username: ${{ vars.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || '22' }}
+          port: ${{ vars.SSH_PORT || '22' }}
           script_stop: true
           envs: IMAGE_TAG,GHCR_USER,GHCR_PAT
           script: |
             set -euo pipefail
-            cd "${{ secrets.DEPLOY_PATH }}"
+            cd "${{ vars.DEPLOY_PATH }}"
 
             # 最新の docker-compose.yml / nginx 設定を取得する。
             # .env は git 管理外なので reset の影響を受けない。
