@@ -17,7 +17,7 @@ import { StarDetailInfo } from "@/type/StarDetailInfo";
 import IconButton from "./components/IconButton";
 import { useTransitionNavigation } from "@/utils/trantision";
 import { calcSkyRotationAt, equatorialToVector3 } from "@/utils/celestialSphere";
-import { useSkyOrigin } from "./hooks/useSkyOrigin";
+import { useUserPosition } from "@/context/UserPositionContext";
 
 type ObservationProps = {
   setPhase: (phase: "idle" | "transitioning") => void;
@@ -32,7 +32,7 @@ const Observation = ({ setPhase }: ObservationProps) => {
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
   const { starData, vMagRanges } = useStarData();
-  const skyOrigin = useSkyOrigin();
+  const { position } = useUserPosition();
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [openPermissionDialog, setOpenPermissionDialog] = useState(true);
 
@@ -96,7 +96,7 @@ const Observation = ({ setPhase }: ObservationProps) => {
     const cameraDirection = currentDirectionRef.current;
 
     // 描画と同じ向きで比較するため、StarField と同じ天球の回転を掛ける
-    const skyRotation = skyOrigin ? calcSkyRotationAt(skyOrigin, Date.now()) : null;
+    const skyRotation = position ? calcSkyRotationAt(position, new Date()) : null;
 
     let closestStar: StarData = starData[0];
     let minAngle = Infinity;
@@ -171,7 +171,6 @@ const Observation = ({ setPhase }: ObservationProps) => {
           setTargetVector={handleDirectionChange}
           isVisibleConstellationLines={isVisibleConstellationLines}
           permissionGranted={permissionGranted}
-          skyOrigin={skyOrigin}
           className={`w-full h-full z-0`}
         />
         <FunctionButtons

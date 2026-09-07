@@ -3,26 +3,27 @@ import { useRef, useEffect, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useStarData } from "@/context/StarDataContext";
 import { useSetting } from "@/context/SettingContext";
+import { useUserPosition } from "@/context/UserPositionContext";
 import ConstellationView from "./ConstellationView";
-import { SkyOrigin, calcSkyRotationAt, equatorialToVector3 } from "@/utils/celestialSphere";
+import { calcSkyRotationAt, equatorialToVector3 } from "@/utils/celestialSphere";
 
 interface StarFieldProps {
   isVisibleConstellationLines: boolean;
-  skyOrigin: SkyOrigin | null;
 }
 
-const StarField = ({ isVisibleConstellationLines, skyOrigin }: StarFieldProps) => {
+const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
   const skyRef = useRef<THREE.Group>(null);
   const { starData, vMagRanges } = useStarData();
   const { contrastValue, starSizeValue } = useSetting();
+  const { position } = useUserPosition();
 
   // 星は天球に固定した座標で配置し、観測地と時刻による向きは天球ごとの回転で与える。
   // 恒星時は時間とともに進むため、毎フレーム現在時刻で計算し直す。
   useFrame(() => {
-    if (!skyRef.current || !skyOrigin) return;
+    if (!skyRef.current || !position) return;
 
-    skyRef.current.setRotationFromMatrix(calcSkyRotationAt(skyOrigin, Date.now()));
+    skyRef.current.setRotationFromMatrix(calcSkyRotationAt(position, new Date()));
   });
 
   const generateCircleTexture = () => {
@@ -51,19 +52,20 @@ const StarField = ({ isVisibleConstellationLines, skyOrigin }: StarFieldProps) =
     return texture;
   }
 
+  // 地平面。天球が観測地の向きに回っているため、この面が隠すのは実際に地平線の下にある星。
+  // 半透明だと three.js の透過パスで星より後に描かれ、減光するだけで遮蔽にならないため
+  // 不透明にして深度バッファを書かせる。
   const plane = useMemo(() => {
     const geometry = new THREE.PlaneGeometry(1000, 1000);
     const material = new THREE.MeshBasicMaterial({
       color: 0x000000,
       side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.2,
     });
     return (
       <mesh
         geometry={geometry}
         material={material}
-        position={[0, -5, 0]}
+        position={[0, 0, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
       />
     );

@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import * as THREE from "three";
 import {
-  advanceLocalSiderealTimeDeg,
   calcLocalSiderealTimeDeg,
   calcSkyRotation,
+  calcSkyRotationAt,
   equatorialToVector3,
 } from "./celestialSphere";
 
@@ -113,16 +113,53 @@ describe("恒星時", () => {
   });
 
   it("1分で約0.25度進む", () => {
-    const base = 100;
-    const advanced = advanceLocalSiderealTimeDeg(base, 0, 60_000);
+    const at = new Date("2026-09-07T17:58:00Z");
+    const oneMinuteLater = new Date(at.getTime() + 60_000);
 
-    expect(advanced - base).toBeCloseTo(0.25068, 5);
+    const advanced =
+      calcLocalSiderealTimeDeg(oneMinuteLater, 135) - calcLocalSiderealTimeDeg(at, 135);
+
+    expect(advanced).toBeCloseTo(0.25068, 5);
   });
 
-  it("360度を超えたら0以上360未満に戻る", () => {
-    const advanced = advanceLocalSiderealTimeDeg(359, 0, 3_600_000);
+  it("常に0以上360未満に収まる", () => {
+    // 1年ぶんを1時間刻みで確認する
+    const start = Date.parse("2026-01-01T00:00:00Z");
 
-    expect(advanced).toBeGreaterThanOrEqual(0);
-    expect(advanced).toBeLessThan(360);
+    for (let hour = 0; hour < 24 * 365; hour += 1) {
+      const lst = calcLocalSiderealTimeDeg(new Date(start + hour * 3_600_000), -175);
+
+      expect(lst).toBeGreaterThanOrEqual(0);
+      expect(lst).toBeLessThan(360);
+    }
+  });
+});
+
+describe("calcSkyRotationAt", () => {
+  it("その時刻の地方恒星時で天球を回す", () => {
+    const position = { latitude: 35.68, longitude: 139.77 };
+    const at = new Date("2026-09-07T17:58:00Z");
+
+    const star = equatorialToVector3(37.95, 89.26).applyMatrix4(calcSkyRotationAt(position, at));
+    const expected = equatorialToVector3(37.95, 89.26).applyMatrix4(
+      calcSkyRotation(calcLocalSiderealTimeDeg(at, position.longitude), position.latitude)
+    );
+
+    expect(star.distanceTo(expected)).toBeCloseTo(0, 10);
+  });
+
+  it("北極星がほぼ真北・高度=緯度の位置に来る", () => {
+    // ポラリス (赤経 37.95度 / 赤緯 89.26度) は天の北極から約0.74度しか離れていない
+    const position = { latitude: 35.68, longitude: 139.77 };
+    const polaris = equatorialToVector3(37.95, 89.26).applyMatrix4(
+      calcSkyRotationAt(position, new Date("2026-09-07T17:58:00Z"))
+    );
+
+    const altitude = toDeg(Math.asin(polaris.y));
+    // 方位角は北(-Z)から東(+X)まわり
+    const azimuth = (toDeg(Math.atan2(polaris.x, -polaris.z)) + 360) % 360;
+
+    expect(Math.abs(altitude - position.latitude)).toBeLessThan(1);
+    expect(Math.min(azimuth, 360 - azimuth)).toBeLessThan(1);
   });
 });

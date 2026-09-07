@@ -7,17 +7,15 @@ import * as THREE from "three";
 import CameraDirectionTracker from "./CameraDirectionTracker";
 import Image from "next/image";
 import { useEffect } from "react";
-import { SkyOrigin } from "@/utils/celestialSphere";
 
 type SkyViewProps = {
   setTargetVector: (vector: THREE.Vector3) => void;
   isVisibleConstellationLines: boolean;
   permissionGranted: boolean;
-  skyOrigin: SkyOrigin | null;
   className?: string;
 };
 
-const SkyView = ({setTargetVector, isVisibleConstellationLines, permissionGranted, skyOrigin, className = "" }: SkyViewProps) => {
+const SkyView = ({setTargetVector, isVisibleConstellationLines, permissionGranted, className = "" }: SkyViewProps) => {
   useEffect(() => {
     console.log("SkyView rendered with permissionGranted:", permissionGranted);
   }, [permissionGranted]);
@@ -57,7 +55,7 @@ const SkyView = ({setTargetVector, isVisibleConstellationLines, permissionGrante
             <directionalLight position={[5, 5, 5]} />
 
             {/* 星 */}
-            <StarField isVisibleConstellationLines={isVisibleConstellationLines} skyOrigin={skyOrigin} />
+            <StarField isVisibleConstellationLines={isVisibleConstellationLines} />
           </Canvas>
         </div>
       </div>
