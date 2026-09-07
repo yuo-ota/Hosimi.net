@@ -23,7 +23,9 @@ jobs:
           working-directory: backend
 
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+        # bin/brakeman は --ensure-latest 付きで、gem が最新でないと exit 5 になるため
+        # binstub を経由せず bundle exec で実行する。
+        run: bundle exec brakeman --no-pager
 
   backend-lint:
     runs-on: ubuntu-latest
