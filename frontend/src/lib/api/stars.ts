@@ -4,9 +4,12 @@ import { isStarDetailInfo } from "@/type/StarDetailInfo";
 const API_ORIGIN = process.env.NEXT_PUBLIC_API_ORIGIN;
 
 // 取得する星の視等級の範囲。
-// 下限は最も明るい恒星シリウス(-1.46等)を含められるよう -2.0 とする。
+// 実際に返る星はDBのカタログ(肉眼限界の6.5等 + 星座線の構成星)で決まるため、
+// ここでは取りこぼしが起きないよう十分に広い範囲を指定する。
+// 下限は最も明るいシリウス(-1.46等)、上限は最も暗い星座線構成星である
+// ミラ(6.53等)を含められる値にしている。
 const MIN_V_MAG = -2.0;
-const MAX_V_MAG = 5.0;
+const MAX_V_MAG = 7.0;
 
 export const getStarList = async () => {
     try {

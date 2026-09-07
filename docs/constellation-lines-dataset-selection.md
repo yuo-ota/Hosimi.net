@@ -116,16 +116,30 @@ main_id,hip_id,ra,dec,vmag
 
 ### 残タスク
 
-- [ ] `ConstellationLines.tsv` を手動DLして `backend/db/data/` に配置（**オーナー作業**）
-- [ ] 参照されている全HIPの V等級を TAP で実測し、6.5等で足りるか確認。超える星は個別に追加
-- [ ] `stars` テーブルに `hip` カラム追加（unique index 付き）＋ 既存行のバックフィル
-- [ ] TAP で星カタログを再生成し `simbad.txt` を差し替え
-- [ ] `constellation_lines` に `(constellation_id, start_star_id, end_star_id)` の unique index を追加
-- [ ] 星座線 seed を実装（**HIP経由で `stars.id` を解決。生IDの埋め込みは禁止**）
-- [ ] seed のスキップ条件（件数チェック）を追加
-- [ ] HIP突合に失敗した星を別リストに書き出し、後で手当て
+- [x] `ConstellationLines.tsv` を手動DLして `backend/db/data/` に配置
+- [x] 参照されている全HIPの V等級を TAP で実測 → 最暗星は **ミラ(6.53等)** の1件のみ
+- [x] `stars` テーブルに `hip` カラム追加（unique index 付き）
+- [x] TAP で星カタログを再生成し `simbad.txt` を差し替え（→ `db/data/star_catalog.tsv`）
+- [x] `constellation_lines` に `(constellation_id, start_star_id, end_star_id)` の unique index を追加
+- [x] 星座線 seed を実装（HIP経由で `stars.id` を解決。生IDの埋め込みは無し）
+- [x] seed のスキップ条件（件数チェック）を追加
+- [x] HIP突合に失敗した星の書き出し → **失敗0件のため手当て不要**
 - [ ] `localStorage` にスキーマ版を持たせてキャッシュを破棄できるようにする
 - [ ] nginx で `gzip on` を有効化
+
+### 投入結果
+
+| 項目 | 件数 |
+|---|---|
+| 恒星 | 8,433（V≤6.5 の 8,401 + 星座線構成星 32） |
+| 星座 | 88 |
+| 星座線 | 878（Arg / OeS の65本は除外） |
+| 解決できなかった線 | **0** |
+
+- SIMBAD の `allfluxes` に V等級が無い**重星系31件**（α Crux, ミザール, アルギエバ 等）は
+  VizieR のヒッパルコス星表 `I/239/hip_main` で補完した。
+- SIMBAD の `ident` に含まれる `HIP 9640B` のような**伴星成分付き識別子33件**は、
+  主星と重複するため除外した。
 
 ### 対象外とするもの
 
