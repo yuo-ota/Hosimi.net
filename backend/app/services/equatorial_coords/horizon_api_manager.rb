@@ -66,7 +66,3 @@ module EquatorialCoords
         end
     end
 end
-
-if __FILE__ == $0
-    HorizonAPIManager.get_moon_equatorial_coords
-end

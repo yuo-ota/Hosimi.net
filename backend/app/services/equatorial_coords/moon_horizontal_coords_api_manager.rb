@@ -33,9 +33,3 @@ module EquatorialCoords
         end
     end
 end
-
-if __FILE__ == $0
-    result = MoonHorizontalCoordsManager.get_moon_azimuth
-
-    puts result
-end
