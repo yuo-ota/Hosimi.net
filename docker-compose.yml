@@ -11,6 +11,7 @@ services:
 
   rails:
     build: ./backend
+    image: ghcr.io/yuo-ota/hosimi-backend:${IMAGE_TAG:-latest}
     depends_on:
       - db
     environment:
@@ -21,7 +22,12 @@ services:
     restart: always
 
   nextjs:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_ORIGIN: ${NEXT_PUBLIC_API_ORIGIN:-}
+        NEXT_PUBLIC_ADOBE_FONTS_KIT_ID: ${NEXT_PUBLIC_ADOBE_FONTS_KIT_ID:-juv0bpv}
+    image: ghcr.io/yuo-ota/hosimi-frontend:${IMAGE_TAG:-latest}
     environment:
       NODE_ENV: production
     restart: always

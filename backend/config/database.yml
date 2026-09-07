@@ -3,7 +3,8 @@ default: &default
   encoding: unicode
   username: <%= ENV['PG_USERNAME'] %>
   password: <%= ENV['PG_PASSWORD'] %>
-  host: db
+  # Docker Compose では "db" サービスを指す。CI など compose 外では PG_HOST で上書きする。
+  host: <%= ENV.fetch("PG_HOST", "db") %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:

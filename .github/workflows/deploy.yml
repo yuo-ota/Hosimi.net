@@ -1,0 +1,112 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_BASE: ghcr.io/${{ github.repository_owner }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: true
+          tags: |
+            ${{ env.IMAGE_BASE }}/hosimi-backend:latest
+            ${{ env.IMAGE_BASE }}/hosimi-backend:${{ github.sha }}
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,scope=backend,mode=max
+
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: true
+          build-args: |
+            NEXT_PUBLIC_API_ORIGIN=${{ vars.NEXT_PUBLIC_API_ORIGIN }}
+            NEXT_PUBLIC_ADOBE_FONTS_KIT_ID=${{ vars.NEXT_PUBLIC_ADOBE_FONTS_KIT_ID || 'juv0bpv' }}
+          tags: |
+            ${{ env.IMAGE_BASE }}/hosimi-frontend:latest
+            ${{ env.IMAGE_BASE }}/hosimi-frontend:${{ github.sha }}
+          cache-from: type=gha,scope=frontend
+          cache-to: type=gha,scope=frontend,mode=max
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+          GHCR_USER: ${{ github.repository_owner }}
+          GHCR_PAT: ${{ secrets.GHCR_PAT }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          script_stop: true
+          envs: IMAGE_TAG,GHCR_USER,GHCR_PAT
+          script: |
+            set -euo pipefail
+            cd "${{ secrets.DEPLOY_PATH }}"
+
+            # 最新の docker-compose.yml / nginx 設定を取得する。
+            # .env は git 管理外なので reset の影響を受けない。
+            git fetch --prune origin
+            git reset --hard
+            git checkout -B master origin/master
+
+            # デプロイ対象のイメージタグを .env に固定する。
+            # ロールバックはこの値を過去の commit SHA に戻して up し直す。
+            if grep -q '^IMAGE_TAG=' .env; then
+              sed -i "s|^IMAGE_TAG=.*|IMAGE_TAG=${IMAGE_TAG}|" .env
+            else
+              echo "IMAGE_TAG=${IMAGE_TAG}" >> .env
+            fi
+
+            echo "${GHCR_PAT}" | docker login ghcr.io -u "${GHCR_USER}" --password-stdin
+
+            docker compose pull rails nextjs
+            docker compose up -d
+            docker logout ghcr.io
+
+            # nginx の設定（./nginx をバインドマウント）は up -d では再読み込みされないため、
+            # 構文チェックが通ったら明示的に reload する。
+            docker compose exec -T nginx nginx -t
+            docker compose exec -T nginx nginx -s reload
+
+            docker image prune -f
+
+            # 簡易ヘルスチェック（nginx コンテナは 127.0.0.1:8000 で待ち受け）
+            sleep 5
+            curl -fsS -o /dev/null http://127.0.0.1:8000/ && echo "frontend OK"
+            curl -fsS -o /dev/null http://127.0.0.1:8000/api/constellations && echo "api OK"
