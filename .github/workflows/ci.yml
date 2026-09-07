@@ -68,11 +68,11 @@ jobs:
       PG_USERNAME: hosimi
       PG_PASSWORD: password
     steps:
-      - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev libpq-dev pkg-config
-
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev libpq-dev pkg-config
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
