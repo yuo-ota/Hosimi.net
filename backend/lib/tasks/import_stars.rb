@@ -1,4 +1,4 @@
-require_relative '../../app/utils/unit_converter'
+require_relative "../../app/utils/unit_converter"
 
 file_path = "c:/Users/yuuta/Documents/Astronom/backend/simbad.txt"
 

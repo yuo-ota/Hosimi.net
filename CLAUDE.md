@@ -90,13 +90,18 @@ API base URL is `process.env.NEXT_PUBLIC_API_ORIGIN` — `https://hosimi.net` in
 **`http://localhost:3001`**, so run Rails on port 3001 locally (`bin/rails server -p 3001`).
 Under Docker, nginx does the `/api/` routing instead.
 
-### Frontend Docker build (gotcha)
-[frontend/Dockerfile](frontend/Dockerfile) copies a pre-built `.next/` into the image — it
-does **not** run `npm run build`. Run `npm run build` locally before `docker compose build`.
+### Frontend Docker build
+[frontend/Dockerfile](frontend/Dockerfile) is a multi-stage build that runs `npm ci` +
+`npm run build` inside the image (no pre-built `.next/` needed). `NEXT_PUBLIC_*` values are
+inlined at build time via `--build-arg` (`NEXT_PUBLIC_API_ORIGIN`,
+`NEXT_PUBLIC_ADOBE_FONTS_KIT_ID`) — `docker-compose.yml` passes them, and CD passes them
+from GitHub Actions Variables.
 
 ## Conventions
 
 - Commit messages: Japanese, `type : 説明` (`fix : ...`, `refactor : ...`, `add : ...`, `style : ...`, `chore : ...`). Code comments are Japanese.
-- Default branch is `master`; active development on `develop`; feature branches like `feat/…`, `add/…`, `style/…` merged via PR. CI (`.github/workflows/ci.yml`) currently only triggers on `main` / PRs.
+- Default branch is `master`; active development on `develop`; feature branches like `feat/…`, `add/…`, `style/…` merged via PR.
+- CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on PRs and pushes to `master` / `develop`: backend brakeman / rubocop / minitest (Postgres service), frontend `npm run build`.
+- CD ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)) runs on push to `master` (or manual dispatch): builds + pushes both images to GHCR, then SSHes to the server to `docker compose pull` + `up -d`. Runbook: [docs/deployment.md](docs/deployment.md).
 - Rails Gemfile still carries `sqlite3` and default Kamal/`config/deploy.yml` scaffolding; the real DB is Postgres and deployment is docker-compose — ignore the Kamal boilerplate.
 - Design docs (OpenAPI spec, ER / robustness / screen-transition diagrams) live in `docs/`; editable sources under `docs/doc_source/` are gitignored.

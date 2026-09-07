@@ -1,6 +1,6 @@
-require_relative '../../utils/scraping_utils'
-require_relative '../../utils/unit_converter'
-require 'uri'
+require_relative "../../utils/scraping_utils"
+require_relative "../../utils/unit_converter"
+require "uri"
 
 module EquatorialCoords
     class HorizonApiManager
@@ -13,7 +13,7 @@ module EquatorialCoords
         # 月の赤道座標取得
         def self.get_moon_equatorial_coords
             time_param = make_param
-            
+
             url = "#{BASE_URL}#{time_param}"
 
             text = ScrapingUtils.fetch_data_by_url(url)
@@ -39,7 +39,7 @@ module EquatorialCoords
             ]
 
             # 個別にエンコードして & で結合
-            encoded_params = params.map { |p| URI.encode_www_form_component(p).gsub('%3D', '=') }
+            encoded_params = params.map { |p| URI.encode_www_form_component(p).gsub("%3D", "=") }
 
             encoded_params.join("&")
         end
