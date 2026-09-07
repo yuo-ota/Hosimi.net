@@ -6,6 +6,48 @@ import { Constellation } from "@/type/ConstellationData";
 import { VMagRange } from "@/type/VMagRange";
 import { getStarList } from "@/lib/api/stars";
 import { getConstellations } from "@/lib/api/constellations";
+import { DEFAULT_V_MAG_RANGE } from "@/config/starMagnitude";
+
+// 配信するデータの内容やキャッシュの構造を変えたら、この値を上げること。
+// 既存ユーザーの localStorage が破棄され、データが再取得される。
+// 上げ忘れると、一度キャッシュを持ったユーザーには新しいデータが永久に届かない。
+const CACHE_VERSION = "2";
+
+const CACHE_VERSION_KEY = "starDataCacheVersion";
+const STAR_DATA_KEY = "starData";
+const CONSTELLATION_LINES_KEY = "constellationLines";
+
+// localStorage はプライベートブラウジングや容量超過で例外を投げることがあるため、
+// 失敗しても表示自体は継続できるようにする。
+const readCache = <T,>(key: string): T[] => {
+  if (typeof window === "undefined") return [];
+
+  try {
+    // 版が違えば古いキャッシュとみなして捨てる
+    if (localStorage.getItem(CACHE_VERSION_KEY) !== CACHE_VERSION) return [];
+
+    const saved = localStorage.getItem(key);
+    if (!saved) return [];
+
+    const parsed: unknown = JSON.parse(saved);
+    return Array.isArray(parsed) ? (parsed as T[]) : [];
+  } catch {
+    return [];
+  }
+};
+
+const writeCache = (entries: [string, unknown][]) => {
+  if (typeof window === "undefined") return;
+
+  try {
+    entries.forEach(([key, value]) => localStorage.setItem(key, JSON.stringify(value)));
+    // 全て書き込めた後で版を記録する。
+    // 先に版を上げると、書き込みに失敗したデータが欠けたまま再取得されなくなる。
+    localStorage.setItem(CACHE_VERSION_KEY, CACHE_VERSION);
+  } catch {
+    // 保存できなくてもこの回の表示は成立するため、次回改めて取得させる
+  }
+};
 
 type StarDataContextType = {
   starData: StarData[];
@@ -21,54 +63,39 @@ type Props = {
 };
 
 export const StarDataProvider = ({ children }: Props) => {
-  // localStorageから初期値を取得
-  const [starData, setStarData] = useState<StarData[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('starData');
-      return saved ? JSON.parse(saved) : [];
-    }
-    return [];
-  });
-
-  const [constellationLines, setConstellationLines] = useState<Constellation[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('constellationLines');
-      return saved ? JSON.parse(saved) : [];
-    }
-    return [];
-  });
-
-  const [vMagRanges, setVMagRanges] = useState<VMagRange>({ min: -2.0, max: -2.0 });
+  const [starData, setStarData] = useState<StarData[]>(() => readCache<StarData>(STAR_DATA_KEY));
+  const [constellationLines, setConstellationLines] = useState<Constellation[]>(
+    () => readCache<Constellation>(CONSTELLATION_LINES_KEY)
+  );
+  const [vMagRanges, setVMagRanges] = useState<VMagRange>(DEFAULT_V_MAG_RANGE);
 
   useEffect(() => {
-    (async () => {
-      // データが既に存在する場合はスキップ
-      if (starData.length > 0 && constellationLines.length > 0) {
-        setVMagRanges({ min: -1.0, max: 3.0 });
-        return;
-      }
+    // キャッシュから読めていれば取得しない
+    if (starData.length > 0 && constellationLines.length > 0) return;
 
+    let cancelled = false;
+
+    (async () => {
       const [starResult, constellationResult] = await Promise.all([
         getStarList(),
         getConstellations()
       ]);
-      
-      if (constellationResult.success) {
-        setConstellationLines(constellationResult.constellationsData);
-        // localStorageに保存
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('constellationLines', JSON.stringify(constellationResult.constellationsData));
-        }
-      }
-      if (starResult.success) {
-        setStarData(starResult.starListData);
-        // localStorageに保存
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('starData', JSON.stringify(starResult.starListData));
-        }
+
+      if (cancelled) return;
+
+      if (starResult.success) setStarData(starResult.starListData);
+      if (constellationResult.success) setConstellationLines(constellationResult.constellationsData);
+
+      // 星と星座線は揃って初めて意味を持つため、両方成功したときだけ保存する
+      if (starResult.success && constellationResult.success) {
+        writeCache([
+          [STAR_DATA_KEY, starResult.starListData],
+          [CONSTELLATION_LINES_KEY, constellationResult.constellationsData]
+        ]);
       }
     })();
-    setVMagRanges({ min: -1.0, max: 3.0 });
+
+    return () => { cancelled = true; };
   }, [starData.length, constellationLines.length]);
 
   return (
