@@ -81,12 +81,11 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
         const y = radius * Math.sin(dec);
         const z = radius * Math.cos(dec) * Math.sin(ra);
 
-        if (y > 0) {
-          const position = new THREE.Vector3(x, y, z);
-          position.multiplyScalar((star.vMag + 1) * 0.5 + 0.8);
+        const position = new THREE.Vector3(x, y, z);
+        // 暗い星ほど遠くに配置し、sizeAttenuation によって小さく描画させる
+        position.multiplyScalar((star.vMag + 1) * 0.5 + 0.8);
 
-          positions.push(position.x, position.y, position.z);
-        }
+        positions.push(position.x, position.y, position.z);
       });
 
       const geometry = new THREE.BufferGeometry();
