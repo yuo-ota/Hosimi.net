@@ -113,7 +113,21 @@ jobs:
 
             docker image prune -f
 
-            # 簡易ヘルスチェック（nginx コンテナは 127.0.0.1:8000 で待ち受け）
-            sleep 5
-            curl -fsS -o /dev/null http://127.0.0.1:8000/ && echo "frontend OK"
-            curl -fsS -o /dev/null http://127.0.0.1:8000/api/constellations && echo "api OK"
+            # ヘルスチェック（nginx コンテナは 127.0.0.1:8000 で待ち受け）。
+            # Rails は初回起動時に db:migrate / db:seed が走り応答まで時間がかかるため、
+            # 最大 3 分（5 秒 × 36 回）リトライする。失敗時は直近ログを出して異常終了。
+            ok=0
+            for i in $(seq 1 36); do
+              if curl -fsS -o /dev/null http://127.0.0.1:8000/ \
+                 && curl -fsS -o /dev/null http://127.0.0.1:8000/api/constellations; then
+                ok=1
+                echo "healthcheck OK (${i} 回目 / 約 $((i * 5)) 秒)"
+                break
+              fi
+              sleep 5
+            done
+            if [ "$ok" -ne 1 ]; then
+              echo "healthcheck 失敗: 直近のコンテナログを出力します"
+              docker compose logs --tail=80 rails nextjs nginx || true
+              exit 1
+            fi
