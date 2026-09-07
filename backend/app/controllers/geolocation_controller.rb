@@ -4,7 +4,7 @@ class GeolocationController < ApplicationController
     # GET /api/geolocation/{locationName}
     def show
         location_name = params[:locationName]
-        
+
         begin
             data = Geolocation::GeolocationService.search_location(location_name)
             render json: data, status: :ok

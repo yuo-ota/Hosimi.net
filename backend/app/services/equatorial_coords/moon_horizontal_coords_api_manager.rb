@@ -1,11 +1,11 @@
-require_relative '../../utils/scraping_utils'
+require_relative "../../utils/scraping_utils"
 
-require 'json'
+require "json"
 
 module EquatorialCoords
     class MoonHorizontalCoordsApiManager
         URL = "https://mgpn.org/api/moon/position.cgi?json&lat=90&lon=0"
-        
+
 
         # -----------------------
         # 公開メソッド（外部から呼ぶ）
@@ -29,7 +29,7 @@ module EquatorialCoords
         end
 
         def self.get_moon_azimuth_from_json(json)
-            json['result']['azimuth']
+            json["result"]["azimuth"]
         end
     end
 end

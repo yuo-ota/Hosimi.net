@@ -5,7 +5,7 @@ class EquatorialCoordsController < ApplicationController
     def show
         latitude = params[:latitude].to_f
         longitude = params[:longitude].to_f
-        
+
         begin
             data = EquatorialCoords::EquatorialCoordsService.calc_equatorial_coords_by_user(latitude, longitude)
             render json: data, status: :ok

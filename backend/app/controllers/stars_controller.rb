@@ -4,7 +4,7 @@ class StarsController < ApplicationController
     # GET /api/stars/{id}
     def show
         star = Star.find(params[:id])
-        
+
         begin
             data = StarsService::StarService.research_star(star.simbad_id)
             render json: data, status: :ok

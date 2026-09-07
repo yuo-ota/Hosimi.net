@@ -1,13 +1,13 @@
-require_relative '../access_manager'
-require_relative './geocoding_manager'
+require_relative "../access_manager"
+require_relative "./geocoding_manager"
 
-require 'json'
+require "json"
 
 module Geolocation
     class GeolocationService
         MAX_REQUESTS = 1
         ACCESS_MANAGE_BASE_TIME = 10
-        
+
         @geocoding_access_manager = AccessManager.new(
             max_requests: MAX_REQUESTS,
             access_manage_base_time: ACCESS_MANAGE_BASE_TIME

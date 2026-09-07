@@ -1,5 +1,5 @@
-require 'open-uri'
-require 'nokogiri'
+require "open-uri"
+require "nokogiri"
 
 module ScrapingUtils
     def self.fetch_data_by_url(url)

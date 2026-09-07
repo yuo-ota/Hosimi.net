@@ -1,8 +1,8 @@
-require_relative '../access_manager'
-require_relative './horizon_api_manager'
-require_relative './moon_horizontal_coords_api_manager'
+require_relative "../access_manager"
+require_relative "./horizon_api_manager"
+require_relative "./moon_horizontal_coords_api_manager"
 
-require 'json'
+require "json"
 
 module EquatorialCoords
     class EquatorialCoordsService
