@@ -69,20 +69,26 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           GHCR_USER: ${{ github.repository_owner }}
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         with:
           host: ${{ vars.SSH_HOST }}
           username: ${{ vars.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ vars.SSH_PORT || '22' }}
           script_stop: true
-          envs: IMAGE_TAG,GHCR_USER,GHCR_PAT
+          envs: IMAGE_TAG,GHCR_USER,GHCR_PAT,GITHUB_REPOSITORY
           script: |
             set -euo pipefail
             cd "${{ vars.DEPLOY_PATH }}"
 
             # 最新の docker-compose.yml / nginx 設定を取得する。
             # .env は git 管理外なので reset の影響を受けない。
-            git fetch --prune origin
+            # public リポジトリなので匿名 HTTPS で取得する。サーバーの clone に
+            # 認証付き URL が設定されていても動くよう remote を正規化し、
+            # 資格情報の対話プロンプト（非対話セッションでは失敗する）を無効化する。
+            export GIT_TERMINAL_PROMPT=0
+            git remote set-url origin "https://github.com/${GITHUB_REPOSITORY}.git"
+            git -c credential.helper= fetch --prune origin
             git reset --hard
             git checkout -B master origin/master
 
