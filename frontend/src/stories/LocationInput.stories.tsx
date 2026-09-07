@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import LocationInput from "@/features/LocationSettingByManual/components/LocationInput";
 
 const meta: Meta<typeof LocationInput> = {

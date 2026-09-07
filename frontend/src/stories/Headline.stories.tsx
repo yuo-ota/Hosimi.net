@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import Headline from "@/components/Headline";
 
 const meta: Meta<typeof Headline> = {
