@@ -14,7 +14,7 @@ module StarsService
         def self.extract_tr_by_text(data, text)
             # text を含む span 要素を探す
             span = data.at_xpath("//span[contains(., '#{text}')]")
-            tr = span&.ancestors('tr')&.first
+            tr = span&.ancestors("tr")&.first
 
             tr
         end
@@ -24,14 +24,14 @@ module StarsService
             return [] unless tr
 
             # 2番目の td を取得
-            td = tr.css('td')[1]
+            td = tr.css("td")[1]
             return [] unless td
 
             # td 内の tt タグだけを取得し、そのテキストを配列化
-            td.css('tt').map { |tt| tt.text.strip }.reject(&:empty?)
+            td.css("tt").map { |tt| tt.text.strip }.reject(&:empty?)
         end
 
-        
+
         # -----------------------
         # privateメソッド（内部処理用）
         # -----------------------
@@ -40,7 +40,7 @@ module StarsService
         # 星情報部の抽出
         def self.extract_information_panel(data)
             td = data.at('td#basic_data[valign="TOP"]')
-            table = td.at('table')
+            table = td.at("table")
 
             table
         end

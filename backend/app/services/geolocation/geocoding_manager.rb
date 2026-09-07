@@ -1,5 +1,5 @@
-require_relative '../../utils/scraping_utils'
-require 'uri'
+require_relative "../../utils/scraping_utils"
+require "uri"
 
 module Geolocation
     class GeocodingManager
@@ -20,7 +20,7 @@ module Geolocation
         def self.parse_coords_xml(data)
             latitude = data.at_xpath("//coordinate/lat")&.text
             longitude = data.at_xpath("//coordinate/lng")&.text
-            
+
             {
                 latitude: latitude,
                 longitude: longitude

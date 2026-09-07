@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_14_055513) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_07_120200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_14_055513) do
     t.bigint "constellation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["constellation_id", "start_star_id", "end_star_id"], name: "index_constellation_lines_uniqueness", unique: true
     t.index ["constellation_id"], name: "index_constellation_lines_on_constellation_id"
     t.index ["end_star_id"], name: "index_constellation_lines_on_end_star_id"
     t.index ["start_star_id"], name: "index_constellation_lines_on_start_star_id"
@@ -30,6 +31,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_14_055513) do
     t.string "constellation_name_jpn", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "abbreviation"
+    t.index ["abbreviation"], name: "index_constellations_on_abbreviation", unique: true
     t.index ["constellation_name_eng"], name: "index_constellations_on_constellation_name_eng", unique: true
     t.index ["constellation_name_jpn"], name: "index_constellations_on_constellation_name_jpn", unique: true
   end
@@ -41,6 +44,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_14_055513) do
     t.float "v_mag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "hip"
+    t.index ["hip"], name: "index_stars_on_hip", unique: true
     t.index ["simbad_id"], name: "index_stars_on_simbad_id", unique: true
   end
 

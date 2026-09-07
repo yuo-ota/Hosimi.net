@@ -6,6 +6,11 @@ import StarIcon from "../assets/star.svg";
 import StartShineIcon from "../assets/star_shine.svg";
 import TriangleIcon from "../assets/triangle.svg";
 import { useStarData } from "@/context/StarDataContext";
+import {
+  DEFAULT_V_MAG_RANGE,
+  DISPLAY_V_MAG_MAX,
+  DISPLAY_V_MAG_MIN,
+} from "@/config/starMagnitude";
 import Image from "next/image";
 
 type VmagSettingSliderProps = {
@@ -16,35 +21,31 @@ const VmagSettingSlider = ({
   className,
 }: VmagSettingSliderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [bottomSliderValue, setBottomSliderValue] = useState<number>(-1);
-  const [topSliderValue, setTopSliderValue] = useState<number>(3);
+  const [bottomSliderValue, setBottomSliderValue] = useState<number>(DEFAULT_V_MAG_RANGE.min);
+  const [topSliderValue, setTopSliderValue] = useState<number>(DEFAULT_V_MAG_RANGE.max);
   const [bottomThumbDragging, setBottomThumbDragging] =
     useState<boolean>(false);
   const [topThumbDragging, setTopThumbDragging] = useState<boolean>(false);
   const { setVMagRanges } = useStarData();
 
-  const min = -1;
-  const max = 5;
+  const min = DISPLAY_V_MAG_MIN;
+  const max = DISPLAY_V_MAG_MAX;
 
+  // 操作後の値で更新する。
+  // setState は即座に反映されないため、更新前の state を setVMagRanges に渡すと
+  // 常に1操作分ずれた等級範囲が描画に反映されてしまう。
+  const applyRange = (nextBottom: number, nextTop: number) => {
+    setBottomSliderValue(nextBottom);
+    setTopSliderValue(nextTop);
+    setVMagRanges({ min: nextBottom, max: nextTop });
+  };
+
+  // 一方のつまみが他方を追い越したら、追い越された側も一緒に動かす
   const changedBottomSliderValue = (n: number) => {
-    if (n < topSliderValue) {
-      setBottomSliderValue(n);
-    } else {
-      setTopSliderValue(n);
-      setBottomSliderValue(n);
-    }
-
-    setVMagRanges({ min: bottomSliderValue, max: topSliderValue });
+    applyRange(n, Math.max(n, topSliderValue));
   };
   const changedTopSliderValue = (n: number) => {
-    if (n > bottomSliderValue) {
-      setTopSliderValue(n);
-    } else {
-      setBottomSliderValue(n);
-      setTopSliderValue(n);
-    }
-
-    setVMagRanges({ min: bottomSliderValue, max: topSliderValue });
+    applyRange(Math.min(n, bottomSliderValue), n);
   };
 
   const getGradient = (

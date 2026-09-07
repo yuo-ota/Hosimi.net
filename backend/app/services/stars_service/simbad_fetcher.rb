@@ -1,4 +1,4 @@
-require_relative '../../utils/scraping_utils'
+require_relative "../../utils/scraping_utils"
 
 module StarsService
     class SimbadFetcher

@@ -1,170 +1,128 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# 恒星・星座・星座線の初期データを投入する。
 #
-# Example:
+# データファイルは db/data 配下に置かれている。
+#   star_catalog.tsv        SIMBAD TAP から生成した恒星カタログ (V<=6.5 + 星座線構成星)
+#   constellations.tsv      88星座の IAU略号 / 学名 / 和名
+#   constellation_lines.tsv さくら式星座線定義データ (CC0)
 #
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# 生成手順と選定の経緯は docs/constellation-lines-dataset-selection.md を参照。
+#
+# このファイルは Docker コンテナの起動毎に実行されるため、
+# 冪等かつ、投入済みなら短時間で終了するように書くこと。
 
-require_relative '../app/utils/unit_converter'
+DATA_DIR = Rails.root.join("db", "data")
 
-file_path = "/rails/simbad.txt"
+# さくら式のデータには 88 星座に加えて以下のグループが含まれるが、
+# constellations テーブルに対応する行が無いため投入対象から除外する。
+#   Arg ... アルゴ座 (Car / Vel / Pup / Pyx を結合したもの)
+#   OeS ... へびつかい座とへび座を結合したもの
+EXCLUDED_GROUPS = %w[Arg OeS].freeze
 
-File.foreach(file_path) do |line|
-    # パイプ区切りで分割
-    parts = line.split("|").map(&:strip)
-    next unless parts.size == 4
+# 一度の upsert_all で送る行数。
+# PostgreSQL の1文あたりのバインドパラメータ上限(65535)に達しないよう分割する。
+BATCH_SIZE = 1000
 
-    simbad_id = parts[1]
-    coord = parts[2]
-    v_mag = parts[3].to_f
-
-    # 赤経RAと赤緯Decに分割（空白で区切り、RAは3つ、Decは3つ）
-    coord_parts = coord.strip.split
-    if coord_parts.size >= 6
-        ra = UnitConverter.ha_to_deg(coord_parts[0], coord_parts[1], coord_parts[2])
-        dec = UnitConverter.dms_to_deg(coord_parts[3], coord_parts[4], coord_parts[5])
-    else
-        ra = ""
-        dec = ""
-    end
-
-    # DBに投入
-    Star.create!(
-        simbad_id: simbad_id,
-        right_ascension: ra,
-        declination: dec,
-        v_mag: v_mag
-    )
+# TSV を読み込んで各行を配列として返す。
+def read_tsv(path, skip_header: false)
+  rows = File.readlines(path, chomp: true).reject(&:empty?).map { |line| line.split("\t") }
+  skip_header ? rows.drop(1) : rows
 end
 
-constellations = [
-  ["Andromeda", "アンドロメダ座"],
-  ["Antlia", "ポンプ座"],
-  ["Apus", "ふくちょう座"],
-  ["Aquarius", "みずがめ座"],
-  ["Aquila", "わし座"],
-  ["Ara", "さいだん座"],
-  ["Aries", "おひつじ座"],
-  ["Auriga", "ぎょしゃ座"],
-  ["Bootes", "うしかい座"],
-  ["Caelum", "ちょうこくぐ座"],
-  ["Camelopardalis", "きりん座"],
-  ["Cancer", "かに座"],
-  ["Canes Venatici", "りょうけん座"],
-  ["Canis Major", "おおいぬ座"],
-  ["Canis Minor", "こいぬ座"],
-  ["Capricornus", "やぎ座"],
-  ["Carina", "りゅうこつ座"],
-  ["Cassiopeia", "カシオペヤ座"],
-  ["Centaurus", "ケンタウルス座"],
-  ["Cepheus", "ケフェウス座"],
-  ["Cetus", "くじら座"],
-  ["Chamaeleon", "カメレオン座"],
-  ["Circinus", "コンパス座"],
-  ["Columba", "はと座"],
-  ["Coma Berenices", "かみのけ座"],
-  ["Corona Australis", "みなみのかんむり座"],
-  ["Corona Borealis", "かんむり座"],
-  ["Corvus", "からす座"],
-  ["Crater", "コップ座"],
-  ["Crux", "みなみじゅうじ座"],
-  ["Cygnus", "はくちょう座"],
-  ["Delphinus", "いるか座"],
-  ["Dorado", "かじき座"],
-  ["Draco", "りゅう座"],
-  ["Equuleus", "こうま座"],
-  ["Eridanus", "エリダヌス座"],
-  ["Fornax", "ろ座"],
-  ["Gemini", "ふたご座"],
-  ["Grus", "つる座"],
-  ["Hercules", "ヘラクレス座"],
-  ["Horologium", "とけい座"],
-  ["Hydra", "うみへび座"],
-  ["Hydrus", "みずへび座"],
-  ["Indus", "インディアン座"],
-  ["Lacerta", "とかげ座"],
-  ["Leo", "しし座"],
-  ["Leo Minor", "こじし座"],
-  ["Lepus", "うさぎ座"],
-  ["Libra", "てんびん座"],
-  ["Lupus", "おおかみ座"],
-  ["Lynx", "やまねこ座"],
-  ["Lyra", "こと座"],
-  ["Mensa", "テーブルさん座"],
-  ["Microscopium", "けんびきょう座"],
-  ["Monoceros", "いっかくじゅう座"],
-  ["Musca", "はえ座"],
-  ["Norma", "じょうぎ座"],
-  ["Octans", "はちぶんぎ座"],
-  ["Ophiuchus", "へびつかい座"],
-  ["Orion", "オリオン座"],
-  ["Pavo", "くじゃく座"],
-  ["Pegasus", "ペガスス座"],
-  ["Perseus", "ペルセウス座"],
-  ["Phoenix", "ほうほう座"],
-  ["Pictor", "がか座"],
-  ["Pisces", "うお座"],
-  ["Pisces Austrinus", "みなみのうお座"],
-  ["Puppis", "とも座"],
-  ["Pyxis", "らしんばん座"],
-  ["Reticulum", "レチクル座"],
-  ["Sagitta", "や座"],
-  ["Sagittarius", "いて座"],
-  ["Scorpius", "さそり座"],
-  ["Sculptor", "ちょうこくしつ座"],
-  ["Scutum", "たて座"],
-  ["Serpens", "へび座"],
-  ["Sextans", "ろくぶんぎ座"],
-  ["Taurus", "おうし座"],
-  ["Telescopium", "ぼうえんきょう座"],
-  ["Triangulum", "さんかく座"],
-  ["Triangulum Australe", "みなみのさんかく座"],
-  ["Tucana", "きょしちょう座"],
-  ["Ursa Major", "おおぐま座"],
-  ["Ursa Minor", "こぐま座"],
-  ["Vela", "ほ座"],
-  ["Virgo", "おとめ座"],
-  ["Volans", "とびうお座"],
-  ["Vulpecula", "こぎつね座"]
-]
+# 行を分割しながら upsert する。
+def upsert_in_batches(model, rows, unique_by:)
+  rows.each_slice(BATCH_SIZE) { |batch| model.upsert_all(batch, unique_by: unique_by) }
+end
 
-constellations.each do |eng, jpn|
-  Constellation.create!(
+now = Time.current
+
+# ---------------------------------------------------------------------------
+# 恒星
+# ---------------------------------------------------------------------------
+star_rows = read_tsv(DATA_DIR.join("star_catalog.tsv"), skip_header: true).map do |hip, simbad_id, ra, dec, v_mag|
+  {
+    hip: hip.to_i,
+    simbad_id: simbad_id,
+    right_ascension: ra,
+    declination: dec,
+    v_mag: v_mag.to_f,
+    created_at: now,
+    updated_at: now
+  }
+end
+
+# HIP を持つ星の件数が一致していれば投入済みとみなす。
+# (星団や銀河など HIP を持たない天体は対象外なので件数に含めない)
+if Star.where.not(hip: nil).count == star_rows.size
+  puts "Stars: 投入済みのためスキップしました (#{star_rows.size}件)"
+else
+  upsert_in_batches(Star, star_rows, unique_by: :simbad_id)
+  puts "Stars: #{star_rows.size}件を投入しました"
+end
+
+# ---------------------------------------------------------------------------
+# 星座
+# ---------------------------------------------------------------------------
+constellation_rows = read_tsv(DATA_DIR.join("constellations.tsv"), skip_header: true).map do |abbreviation, eng, jpn|
+  {
+    abbreviation: abbreviation,
     constellation_name_eng: eng,
-    constellation_name_jpn: jpn
-  )
+    constellation_name_jpn: jpn,
+    created_at: now,
+    updated_at: now
+  }
 end
 
-# puts "Constellations seeded: #{constellations.size}"
+# 学名を一意キーとして更新する。
+# 既存行には略号が入っていないため、投入済み判定は略号の有無で行う。
+if Constellation.where.not(abbreviation: nil).count == constellation_rows.size
+  puts "Constellations: 投入済みのためスキップしました (#{constellation_rows.size}件)"
+else
+  upsert_in_batches(Constellation, constellation_rows, unique_by: :constellation_name_eng)
+  puts "Constellations: #{constellation_rows.size}件を投入しました"
+end
 
-# Constellation Lines data
-# constellation_lines_data = [
-#   [1, 33, 403],
-#   [1, 230, 1112],
-#   [1, 283, 828],
-#   [1, 403, 1457],
-#   [1, 404, 714],
-#   [1, 578, 33],
-#   [1, 587, 1346],
-#   [1, 1112, 283],
-#   [1, 1338, 311],
-#   [1, 1457, 587],
-#   [1, 1666, 1480],
-#   [1, 230, 1338],
-#   [1, 578, 1666],
-#   [1, 1457, 933],
-#   [1, 1666, 230]
-# ]
+# ---------------------------------------------------------------------------
+# 星座線
+# ---------------------------------------------------------------------------
+# 自動採番の id を直接埋め込むと、カタログの内容が変わった際に
+# 無関係な星を指してしまう。必ず HIP 番号と略号から解決する。
+constellation_ids = Constellation.pluck(:abbreviation, :id).to_h
+star_ids = Star.where.not(hip: nil).pluck(:hip, :id).to_h
 
-# constellation_lines_data.each do |constellation_id, start_star_id, end_star_id|
-#   ConstellationLine.create!(
-#     constellation_id: constellation_id,
-#     start_star_id: start_star_id,
-#     end_star_id: end_star_id
-#   )
-# end
+line_rows = []
+unresolved = []
 
-# puts "Constellation lines seeded: #{constellation_lines_data.size}"
+read_tsv(DATA_DIR.join("constellation_lines.tsv")).each do |abbreviation, start_hip, end_hip|
+  next if EXCLUDED_GROUPS.include?(abbreviation)
+
+  constellation_id = constellation_ids[abbreviation]
+  start_star_id = star_ids[start_hip.to_i]
+  end_star_id = star_ids[end_hip.to_i]
+
+  if constellation_id.nil? || start_star_id.nil? || end_star_id.nil?
+    unresolved << [ abbreviation, start_hip, end_hip ]
+    next
+  end
+
+  line_rows << {
+    constellation_id: constellation_id,
+    start_star_id: start_star_id,
+    end_star_id: end_star_id,
+    created_at: now,
+    updated_at: now
+  }
+end
+
+if unresolved.any?
+  # 端点が解決できない線は ConstellationView 側で無言で捨てられてしまうため、
+  # ここで必ず可視化しておく。
+  warn "ConstellationLines: #{unresolved.size}本の線を解決できませんでした"
+  unresolved.each { |abbreviation, s, e| warn "  #{abbreviation}\tHIP #{s}\tHIP #{e}" }
+end
+
+if ConstellationLine.count == line_rows.size
+  puts "ConstellationLines: 投入済みのためスキップしました (#{line_rows.size}件)"
+else
+  upsert_in_batches(ConstellationLine, line_rows, unique_by: :index_constellation_lines_uniqueness)
+  puts "ConstellationLines: #{line_rows.size}件を投入しました"
+end

@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.gitignore
+Dockerfile
+.dockerignore
+certificates
+.env*
+*.log
+*storybook.log
+coverage
+storybook-static
+README.md
+tsconfig.tsbuildinfo

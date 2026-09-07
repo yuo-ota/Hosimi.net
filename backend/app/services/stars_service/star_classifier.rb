@@ -9,8 +9,8 @@ module StarsService
             categories = extract_category(info)
             classify_star(categories.map(&:strip))
         end
-        
-        
+
+
         # -----------------------
         # privateメソッド（内部処理用）
         # -----------------------
@@ -18,7 +18,7 @@ module StarsService
 
         # カテゴリーの抽出
         def self.extract_category(info)
-            tr = StarParser.extract_tr_by_text(info, 'Other object types')
+            tr = StarParser.extract_tr_by_text(info, "Other object types")
             categories = StarParser.extract_tt_texts(tr)
 
             categories

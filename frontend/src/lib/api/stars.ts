@@ -1,11 +1,12 @@
 import { isAPIError } from "@/type/APIError";
 import { isStarDataArray } from "@/type/StarData";
 import { isStarDetailInfo } from "@/type/StarDetailInfo";
+import { FETCH_V_MAG_MIN, FETCH_V_MAG_MAX } from "@/config/starMagnitude";
 const API_ORIGIN = process.env.NEXT_PUBLIC_API_ORIGIN;
 
 export const getStarList = async () => {
     try {
-        const response = await fetch(`${API_ORIGIN}/api/stars?minVMag=-1.0&maxVMag=5.0`);
+        const response = await fetch(`${API_ORIGIN}/api/stars?minVMag=${FETCH_V_MAG_MIN}&maxVMag=${FETCH_V_MAG_MAX}`);
         const data = await response.json();
         if (response.ok) {
             if (!isStarDataArray(data)) {

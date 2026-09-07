@@ -1,5 +1,5 @@
 class UnitConverter
-    # 時角 (Hour Angle > HA): 360度を24時間に変換した方式 
+    # 時角 (Hour Angle > HA): 360度を24時間に変換した方式
     # [https://ja.wikipedia.org/wiki/%E6%99%82%E8%A7%92]
 
     # 度分秒 (Degree Minute Second > DMS): 角度を60進法にした方式

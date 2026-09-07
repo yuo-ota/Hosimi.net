@@ -1,17 +1,17 @@
-require_relative '../access_manager'
-require_relative 'simbad_fetcher'
-require_relative 'star_parser'
-require_relative 'star_classifier'
-require_relative 'star_distance_calculator'
+require_relative "../access_manager"
+require_relative "simbad_fetcher"
+require_relative "star_parser"
+require_relative "star_classifier"
+require_relative "star_distance_calculator"
 
-require 'nokogiri'
-require 'json'
+require "nokogiri"
+require "json"
 
 module StarsService
     class StarService
         MAX_REQUESTS = 30
         ACCESS_MANAGE_BASE_TIME = 60
-            
+
         @simbad_access_manager = AccessManager.new(
             max_requests: MAX_REQUESTS,
             access_manage_base_time: ACCESS_MANAGE_BASE_TIME
@@ -34,10 +34,10 @@ module StarsService
 
             category = StarClassifier.classify_star_from_info(info)
 
-            if category == 'G' then
+            if category == "G" then
                 return build_star_json(star_name, category, nil)
             end
-            
+
             distance = StarDistanceCalculator.calculate_distance(info)
             build_star_json(star_name, category, distance)
         end
