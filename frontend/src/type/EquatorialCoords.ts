@@ -3,7 +3,7 @@ export type EquatorialCoords = {
 	rightAscension: number;
 };
 
-export const isEquatorialCoords = (data: unknown) => {
+export const isEquatorialCoords = (data: unknown): data is EquatorialCoords => {
 	return (
 		data !== null &&
 		typeof data === "object" &&

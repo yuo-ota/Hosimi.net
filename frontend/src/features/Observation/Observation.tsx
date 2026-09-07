@@ -16,6 +16,8 @@ import { StarData } from "@/type/StarData";
 import { StarDetailInfo } from "@/type/StarDetailInfo";
 import IconButton from "./components/IconButton";
 import { useTransitionNavigation } from "@/utils/trantision";
+import { calcSkyRotationAt, equatorialToVector3 } from "@/utils/celestialSphere";
+import { useSkyOrigin } from "./hooks/useSkyOrigin";
 
 type ObservationProps = {
   setPhase: (phase: "idle" | "transitioning") => void;
@@ -30,6 +32,7 @@ const Observation = ({ setPhase }: ObservationProps) => {
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
   const { starData, vMagRanges } = useStarData();
+  const skyOrigin = useSkyOrigin();
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [openPermissionDialog, setOpenPermissionDialog] = useState(true);
 
@@ -91,7 +94,10 @@ const Observation = ({ setPhase }: ObservationProps) => {
 
   const handleSearchButtonClick = () => {
     const cameraDirection = currentDirectionRef.current;
-    
+
+    // 描画と同じ向きで比較するため、StarField と同じ天球の回転を掛ける
+    const skyRotation = skyOrigin ? calcSkyRotationAt(skyOrigin, Date.now()) : null;
+
     let closestStar: StarData = starData[0];
     let minAngle = Infinity;
 
@@ -99,15 +105,8 @@ const Observation = ({ setPhase }: ObservationProps) => {
       star => star.vMag >= vMagRanges.min && star.vMag <= vMagRanges.max
     ).forEach((star) => {
       // 星の赤経・赤緯から3D座標に変換
-      const dec = (star.declination * Math.PI) / 180;
-      const ra = (star.rightAscension * Math.PI) / 180;
-      const radius = 10; // 球面半径（任意）
-
-      const starPosition = new THREE.Vector3(
-        radius * Math.cos(dec) * Math.cos(ra),
-        radius * Math.sin(dec),
-        radius * Math.cos(dec) * Math.sin(ra)
-      );
+      const starPosition = equatorialToVector3(star.rightAscension, star.declination, 10);
+      if (skyRotation) starPosition.applyMatrix4(skyRotation);
 
       // カメラ方向と星の位置の角度を計算
       const angle = cameraDirection.angleTo(starPosition);
@@ -172,6 +171,7 @@ const Observation = ({ setPhase }: ObservationProps) => {
           setTargetVector={handleDirectionChange}
           isVisibleConstellationLines={isVisibleConstellationLines}
           permissionGranted={permissionGranted}
+          skyOrigin={skyOrigin}
           className={`w-full h-full z-0`}
         />
         <FunctionButtons

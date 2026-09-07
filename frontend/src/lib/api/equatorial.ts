@@ -1,8 +1,15 @@
 import { isAPIError } from "@/type/APIError";
-import { isEquatorialCoords } from "@/type/EquatorialCoords";
+import { EquatorialCoords, isEquatorialCoords } from "@/type/EquatorialCoords";
 const API_ORIGIN = process.env.NEXT_PUBLIC_API_ORIGIN;
 
-export const getEquatorialCoords = async (latitude: number, longitude: number) => {
+type GetEquatorialCoordsResult =
+    | { success: true; equatorialCoordsData: EquatorialCoords }
+    | { success: false; error: string };
+
+export const getEquatorialCoords = async (
+    latitude: number,
+    longitude: number
+): Promise<GetEquatorialCoordsResult> => {
     try {
     const response = await fetch(`${API_ORIGIN}/api/equatorialCoords/${latitude}/${longitude}`);
     const data = await response.json();

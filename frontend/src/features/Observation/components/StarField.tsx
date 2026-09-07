@@ -1,17 +1,29 @@
 import * as THREE from "three";
 import { useRef, useEffect, useMemo } from "react";
+import { useFrame } from "@react-three/fiber";
 import { useStarData } from "@/context/StarDataContext";
 import { useSetting } from "@/context/SettingContext";
 import ConstellationView from "./ConstellationView";
+import { SkyOrigin, calcSkyRotationAt, equatorialToVector3 } from "@/utils/celestialSphere";
 
 interface StarFieldProps {
   isVisibleConstellationLines: boolean;
+  skyOrigin: SkyOrigin | null;
 }
 
-const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
+const StarField = ({ isVisibleConstellationLines, skyOrigin }: StarFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
+  const skyRef = useRef<THREE.Group>(null);
   const { starData, vMagRanges } = useStarData();
   const { contrastValue, starSizeValue } = useSetting();
+
+  // 星は天球に固定した座標で配置し、観測地と時刻による向きは天球ごとの回転で与える。
+  // 恒星時は時間とともに進むため、毎フレーム現在時刻で計算し直す。
+  useFrame(() => {
+    if (!skyRef.current || !skyOrigin) return;
+
+    skyRef.current.setRotationFromMatrix(calcSkyRotationAt(skyOrigin, Date.now()));
+  });
 
   const generateCircleTexture = () => {
     const size = 128;
@@ -74,14 +86,7 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
       starData.filter(
         star => star.vMag >= vMagRanges.min && star.vMag <= vMagRanges.max
       ).forEach((star) => {
-        const dec = (star.declination * Math.PI) / 180;
-        const ra = (star.rightAscension * Math.PI) / 180;
-        const radius = 10;
-        const x = radius * Math.cos(dec) * Math.cos(ra);
-        const y = radius * Math.sin(dec);
-        const z = radius * Math.cos(dec) * Math.sin(ra);
-
-        const position = new THREE.Vector3(x, y, z);
+        const position = equatorialToVector3(star.rightAscension, star.declination, 10);
         // 暗い星ほど遠くに配置し、sizeAttenuation によって小さく描画させる
         position.multiplyScalar((star.vMag + 1) * 0.5 + 0.8);
 
@@ -107,10 +112,12 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
   return (
     <>
       {plane}
-      <points ref={pointsRef} />
-      {isVisibleConstellationLines && (
-        <ConstellationView　/>
-      )}
+      <group ref={skyRef}>
+        <points ref={pointsRef} />
+        {isVisibleConstellationLines && (
+          <ConstellationView />
+        )}
+      </group>
     </>
   );
 };
