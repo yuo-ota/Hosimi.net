@@ -3,7 +3,7 @@ export type GeoLocation = {
 	longitude: number;
 };
 
-export const isGeoLocation = (data: unknown) => {
+export const isGeoLocation = (data: unknown): data is GeoLocation => {
 	return (
 		data !== null &&
 		typeof data === "object" &&

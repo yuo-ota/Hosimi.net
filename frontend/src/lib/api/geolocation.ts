@@ -1,9 +1,14 @@
-import { isGeoLocation } from "@/type/GeoLocation";
+import { GeoLocation, isGeoLocation } from "@/type/GeoLocation";
 import { isAPIError } from "@/type/APIError";
 const API_ORIGIN = process.env.NEXT_PUBLIC_API_ORIGIN;
 
+type GetCoordsByLocationNameResult =
+    | { success: true; geolocationData: GeoLocation }
+    | { success: false; error: string };
 
-export const getCoordsByLocationName = async (location: string) => {
+export const getCoordsByLocationName = async (
+    location: string
+): Promise<GetCoordsByLocationNameResult> => {
     try {
         const response = await fetch(`${API_ORIGIN}/api/geolocation/${location}`);
         const data = await response.json();

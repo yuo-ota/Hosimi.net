@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import DualButton from "@/components/DualButton";
 
 const meta: Meta<typeof DualButton> = {

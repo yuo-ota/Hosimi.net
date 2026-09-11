@@ -1,8 +1,11 @@
 import * as THREE from "three";
 import { useRef, useEffect, useMemo } from "react";
+import { useFrame } from "@react-three/fiber";
 import { useStarData } from "@/context/StarDataContext";
 import { useSetting } from "@/context/SettingContext";
+import { useUserPosition } from "@/context/UserPositionContext";
 import ConstellationView from "./ConstellationView";
+import { calcSkyRotationAt, equatorialToVector3 } from "@/utils/celestialSphere";
 
 interface StarFieldProps {
   isVisibleConstellationLines: boolean;
@@ -10,8 +13,18 @@ interface StarFieldProps {
 
 const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
+  const skyRef = useRef<THREE.Group>(null);
   const { starData, vMagRanges } = useStarData();
   const { contrastValue, starSizeValue } = useSetting();
+  const { position } = useUserPosition();
+
+  // 星は天球に固定した座標で配置し、観測地と時刻による向きは天球ごとの回転で与える。
+  // 恒星時は時間とともに進むため、毎フレーム現在時刻で計算し直す。
+  useFrame(() => {
+    if (!skyRef.current || !position) return;
+
+    skyRef.current.setRotationFromMatrix(calcSkyRotationAt(position, new Date()));
+  });
 
   const generateCircleTexture = () => {
     const size = 128;
@@ -39,20 +52,34 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
     return texture;
   }
 
+  // 地平面。天球が観測地の向きに回っているため、この面が隠すのは実際に地平線の下にある星。
+  // 半透明だと three.js の透過パスで星より後に描かれ、減光するだけで遮蔽にならないため
+  // 不透明にして深度バッファを書かせる。
+  // 平面ではなく底面を原点・頂点を真下に置いた円錐（底面は削除）にすることで、
+  // カメラ（0, 0, 0）と同じ高さに面が存在しなくなり、面の裏側が見えたり
+  // 地平線の縁が見えたりするのを防ぐ。
+  // 半径・高さは最も近い星（シリウス相当、vMag -1.46 で距離約5.7）より必ず手前に
+  // 円錐の側面が来るよう小さく保つ。角度θ（真下からの傾き）方向で円錐に当たる距離は
+  // R・H / (H・sinθ + R・cosθ) で、R=H=5 ならどの角度でも高々5にしかならず、
+  // どの方角の星よりも確実に手前で遮蔽できる（大きすぎると特に真下方向で
+  // 星より遠くにしか側面が無くなり、星が貫通して見えてしまう）。
   const plane = useMemo(() => {
-    const geometry = new THREE.PlaneGeometry(1000, 1000);
+    const radius = 5;
+    const height = 5;
+    const geometry = new THREE.ConeGeometry(radius, height, 32, 1, true);
+    // ConeGeometry は既定で頂点が+Y、底面が-Yにあるため、反転してから
+    // 底面がY=0・頂点が真下（-Y方向）に来るよう平行移動する。
+    geometry.rotateX(Math.PI);
+    geometry.translate(0, -height / 2, 0);
     const material = new THREE.MeshBasicMaterial({
       color: 0x000000,
       side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.2,
     });
     return (
       <mesh
         geometry={geometry}
         material={material}
-        position={[0, -5, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, 0, 0]}
       />
     );
   }, []);
@@ -74,16 +101,13 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
       starData.filter(
         star => star.vMag >= vMagRanges.min && star.vMag <= vMagRanges.max
       ).forEach((star) => {
-        const dec = (star.declination * Math.PI) / 180;
-        const ra = (star.rightAscension * Math.PI) / 180;
-        const radius = 10;
-        const x = radius * Math.cos(dec) * Math.cos(ra);
-        const y = radius * Math.sin(dec);
-        const z = radius * Math.cos(dec) * Math.sin(ra);
-
-        const position = new THREE.Vector3(x, y, z);
-        // 暗い星ほど遠くに配置し、sizeAttenuation によって小さく描画させる
-        position.multiplyScalar((star.vMag + 1) * 0.5 + 0.8);
+        const position = equatorialToVector3(star.rightAscension, star.declination, 10);
+        // 暗い星ほど遠くに配置し、sizeAttenuation によって小さく描画させる。
+        // 係数が大きいと明るい星(vMagが小さい)ほど極端に近くなり
+        // (以前は等級-1台で距離5〜8程度まで縮んでいた)、sizeAttenuation は
+        // 距離に反比例して点を拡大するため見た目のサイズが爆発的に大きくなっていた。
+        // 距離の変動幅を狭めてサイズ差を緩やかにする。
+        position.multiplyScalar(star.vMag * 0.2 + 2.5);
 
         positions.push(position.x, position.y, position.z);
       });
@@ -107,10 +131,12 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
   return (
     <>
       {plane}
-      <points ref={pointsRef} />
-      {isVisibleConstellationLines && (
-        <ConstellationView　/>
-      )}
+      <group ref={skyRef}>
+        <points ref={pointsRef} />
+        {isVisibleConstellationLines && (
+          <ConstellationView />
+        )}
+      </group>
     </>
   );
 };
