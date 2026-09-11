@@ -55,8 +55,22 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
   // 地平面。天球が観測地の向きに回っているため、この面が隠すのは実際に地平線の下にある星。
   // 半透明だと three.js の透過パスで星より後に描かれ、減光するだけで遮蔽にならないため
   // 不透明にして深度バッファを書かせる。
+  // 平面ではなく底面を原点・頂点を真下に置いた円錐（底面は削除）にすることで、
+  // カメラ（0, 0, 0）と同じ高さに面が存在しなくなり、面の裏側が見えたり
+  // 地平線の縁が見えたりするのを防ぐ。
+  // 半径・高さは最も近い星（シリウス相当、vMag -1.46 で距離約5.7）より必ず手前に
+  // 円錐の側面が来るよう小さく保つ。角度θ（真下からの傾き）方向で円錐に当たる距離は
+  // R・H / (H・sinθ + R・cosθ) で、R=H=5 ならどの角度でも高々5にしかならず、
+  // どの方角の星よりも確実に手前で遮蔽できる（大きすぎると特に真下方向で
+  // 星より遠くにしか側面が無くなり、星が貫通して見えてしまう）。
   const plane = useMemo(() => {
-    const geometry = new THREE.PlaneGeometry(1000, 1000);
+    const radius = 5;
+    const height = 5;
+    const geometry = new THREE.ConeGeometry(radius, height, 32, 1, true);
+    // ConeGeometry は既定で頂点が+Y、底面が-Yにあるため、反転してから
+    // 底面がY=0・頂点が真下（-Y方向）に来るよう平行移動する。
+    geometry.rotateX(Math.PI);
+    geometry.translate(0, -height / 2, 0);
     const material = new THREE.MeshBasicMaterial({
       color: 0x000000,
       side: THREE.DoubleSide,
@@ -66,7 +80,6 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
         geometry={geometry}
         material={material}
         position={[0, 0, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
       />
     );
   }, []);
