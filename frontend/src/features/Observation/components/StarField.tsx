@@ -102,8 +102,12 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
         star => star.vMag >= vMagRanges.min && star.vMag <= vMagRanges.max
       ).forEach((star) => {
         const position = equatorialToVector3(star.rightAscension, star.declination, 10);
-        // 暗い星ほど遠くに配置し、sizeAttenuation によって小さく描画させる
-        position.multiplyScalar((star.vMag + 1) * 0.5 + 0.8);
+        // 暗い星ほど遠くに配置し、sizeAttenuation によって小さく描画させる。
+        // 係数が大きいと明るい星(vMagが小さい)ほど極端に近くなり
+        // (以前は等級-1台で距離5〜8程度まで縮んでいた)、sizeAttenuation は
+        // 距離に反比例して点を拡大するため見た目のサイズが爆発的に大きくなっていた。
+        // 距離の変動幅を狭めてサイズ差を緩やかにする。
+        position.multiplyScalar(star.vMag * 0.2 + 2.5);
 
         positions.push(position.x, position.y, position.z);
       });
