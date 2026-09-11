@@ -1,20 +1,14 @@
 import { useStarData } from "@/context/StarDataContext";
 import { useMemo, useRef, useEffect } from "react";
 import * as THREE from "three";
+import { equatorialToVector3 } from "@/utils/celestialSphere";
+
+// 親の <group> が観測地と時刻に応じて回すため、ここでは天球に固定した座標だけを作る
+const calcXYZ = (ra: number, dec: number) => equatorialToVector3(ra, dec, 10);
 
 const ConstellationView = () => {
   const { starData, constellationLines } = useStarData();
   const linesRef = useRef<THREE.Group>(null!);
-
-	const calcXYZ = (ra: number, dec: number) => {
-		const radius = 10;
-		const radDec = (dec * Math.PI) / 180;
-		const radRa = (ra * Math.PI) / 180;
-		const x = radius * Math.cos(radDec) * Math.cos(radRa);
-		const y = radius * Math.sin(radDec);
-		const z = radius * Math.cos(radDec) * Math.sin(radRa);
-		return new THREE.Vector3(x, y, z);
-	};
 
   // 星座線のgeometryとmaterialを作成
   const { geometry, material } = useMemo(() => {

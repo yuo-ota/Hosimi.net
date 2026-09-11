@@ -23,6 +23,7 @@ Monorepo with three deployables plus a reverse proxy:
 | Production build | `npm run build` |
 | Start built app | `npm run start` |
 | Lint | `npm run lint` |
+| Unit tests (Vitest, node — coordinate math) | `npm run test:unit` |
 | Component tests (Vitest, Storybook browser mode / Playwright chromium) | `npx vitest` |
 | Storybook | `npm run storybook` |
 
@@ -51,11 +52,10 @@ Routes in [backend/config/routes.rb](backend/config/routes.rb):
 - `GET /api/stars/:id` — live detail for one star: scrapes **SIMBAD** HTML, classifies object type, computes distance from parallax
 - `GET /api/constellations` — constellations plus their line segments
 - `GET /api/geolocation/:locationName` — place name → lat/lng via **geocoding.jp**
-- `GET /api/equatorialCoords/:latitude/:longitude` — observer equatorial coords, derived from the Moon's position via **NASA JPL Horizons API** + **mgpn.org** moon API
 
 Layering: `controllers/` → `app/services/<domain>/` (one service per domain, with
 `*_manager` classes wrapping each external call) → `app/utils/` (`ScrapingUtils` = Nokogiri
-open-uri, `UnitConverter` = HA/DMS ↔ degrees).
+open-uri).
 
 Every outbound-call service holds an in-process `AccessManager` (`app/services/access_manager.rb`)
 that rate-limits third-party requests and raises `TooManyRequestsError` → HTTP 429. The
@@ -80,6 +80,7 @@ App Router pages: `/` (welcome), `/location-settings` (+ `/auto`, `/manual`),
 - `src/components/` — shared UI; `src/context/` — three Context providers (`UserPosition`, `StarData`, `Setting`) wrapping the app in [src/app/layout.tsx](frontend/src/app/layout.tsx)
 - `src/lib/api/*` — typed `fetch` wrappers returning `{ success: true, ... } | { success: false, error }`, validated at runtime by `isX` type guards in `src/type/*`
 - 3D sky: **three.js** + `@react-three/fiber` + `@react-three/drei`; look-around uses `deviceorientation` events with an iOS permission-request flow (`Observation.tsx`)
+- Sky orientation: stars are placed in a sphere-fixed equatorial frame, and `src/utils/celestialSphere.ts` rotates the whole `<group>` into the observer's horizon frame (world axes are **+X east / +Y zenith / +Z south**, matching what `DeviceOrientationControls` produces). Local sidereal time is computed from the device clock — there is no API call for it. Guard tests: `npm run test:unit`
 - Location picking: **Leaflet** + `react-leaflet`
 - `StarData` / `Setting` context state is persisted to `localStorage` (`starData`, `constellationLines`, `contrastValue`, `starSizeValue`); star/constellation data is fetched once then reused from storage
 
