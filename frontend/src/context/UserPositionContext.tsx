@@ -1,7 +1,35 @@
 "use client"
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { GeoLocation } from "@/type/GeoLocation";
+import { GeoLocation, isGeoLocation } from "@/type/GeoLocation";
+
+const USER_POSITION_KEY = "userPosition";
+
+// localStorage はプライベートブラウジングや容量超過で例外を投げることがあるため、
+// 失敗しても表示自体は継続できるようにする。
+const readStoredPosition = (): GeoLocation | null => {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const saved = localStorage.getItem(USER_POSITION_KEY);
+    if (!saved) return null;
+
+    const parsed: unknown = JSON.parse(saved);
+    return isGeoLocation(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+};
+
+const writeStoredPosition = (position: GeoLocation) => {
+  if (typeof window === "undefined") return;
+
+  try {
+    localStorage.setItem(USER_POSITION_KEY, JSON.stringify(position));
+  } catch {
+    // 保存できなくてもこの回の観測は成立するため、次回改めて設定させる
+  }
+};
 
 // Context の型
 type UserPositionContextType = {
@@ -17,7 +45,13 @@ type UserPositionProviderProps = {
 };
 
 export const UserPositionProvider = ({ children }: UserPositionProviderProps) => {
-  const [position, setPosition] = useState<GeoLocation | null>(null);
+  // 観測画面を直接リロードしても観測地を復元できるようにする
+  const [position, setPositionState] = useState<GeoLocation | null>(() => readStoredPosition());
+
+  const setPosition = (pos: GeoLocation) => {
+    setPositionState(pos);
+    writeStoredPosition(pos);
+  };
 
   return (
     <UserPositionContext.Provider value={{ position, setPosition }}>

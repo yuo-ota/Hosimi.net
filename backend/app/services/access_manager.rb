@@ -1,6 +1,4 @@
 class AccessManager
-    class TooManyRequestsError < StandardError; end
-
     def initialize(max_requests:, access_manage_base_time:)
         @max_requests = max_requests
         @access_manage_base_time = access_manage_base_time
