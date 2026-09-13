@@ -137,9 +137,13 @@ const StarInformationDialog = ({
                 <span className="font-title font-bold [word-spacing:-0.3em] text-4xl text-foreground">
                   {starDetailInfo.starName}
                 </span>
-                <span className="font-title font-bold text-2xl text-foreground">
-                  {starDetailInfo.category}
-                </span>
+                {/* "星"は分類できなかった場合の汎用フォールバック(backend/app/services/stars_service/star_classifier.rb)。
+                    銀河・星団などと違い表示しても情報にならないため隠す */}
+                {starDetailInfo.category !== "星" && (
+                  <span className="font-title font-bold text-2xl text-foreground">
+                    {starDetailInfo.category}
+                  </span>
+                )}
                 <div className="flex flex-col mt-8 gap-y-2">
                   <div className="flex gap-x-2 items-end">
                     <span className="text-md text-foreground">等級:</span>
