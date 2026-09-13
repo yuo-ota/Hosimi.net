@@ -30,6 +30,7 @@ const Observation = ({ setPhase }: ObservationProps) => {
   const [isVisibleConstellationLines, setIsVisibleConstellationLines] = useState<boolean>(false);
   const [closestStar, setClosestStar] = useState<StarData | null>(null);
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
+  const [isFetchingStarDetail, setIsFetchingStarDetail] = useState<boolean>(false);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
   const { starData, vMagRanges } = useStarData();
   const { position } = useUserPosition();
@@ -119,28 +120,27 @@ const Observation = ({ setPhase }: ObservationProps) => {
     });
 
     if (closestStar !== null) {
-      try {
-        setClosestStar(closestStar);
-        handleStarDetail(closestStar.starId);
-      } catch (error) {
-        console.error("Error fetching star details:", error);
-        return;
-      }
-
+      setClosestStar(closestStar);
+      setClosestStarDetailInfo(null);
       setIsOpenDialog(true);
+      handleStarDetail(closestStar.starId);
     }
   };
 
   const handleStarDetail = async (starId: string) => {
+    setIsFetchingStarDetail(true);
+
     const data = await getStarDetailInfo(starId)
 
     if (!data.success) {
       console.error(data.error);
+      setIsFetchingStarDetail(false);
       return;
     }
 
     // 取得した星の詳細情報を状態に保存
     setClosestStarDetailInfo(data.starDetailInfoData);
+    setIsFetchingStarDetail(false);
   };
 
   const handleBackButtonClick = () => {
@@ -224,11 +224,12 @@ const Observation = ({ setPhase }: ObservationProps) => {
             </div>
           </div>
         }
-        {(closestStar && closestStarDetailInfo) && (
+        {(closestStar && isOpenDialog) && (
           <StarInformationDialog
             starDetailInfo={closestStarDetailInfo}
             starData={closestStar}
             isOpenDialog={isOpenDialog}
+            isLoading={isFetchingStarDetail}
             setIsOpenDialog={setIsOpenDialog}
             className={`absolute z-30 w-full h-full`}
           />
