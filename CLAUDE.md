@@ -13,35 +13,63 @@ Monorepo with three deployables plus a reverse proxy:
 - `frontend/` — Next.js 16 (App Router), React 19, TypeScript, Tailwind v4
 - `nginx/` — routes `/` → Next.js, `/api/` → Rails
 - `docker-compose.yml` — production stack (`db` + `rails` + `nextjs` + `nginx`)
+- `docker-compose.dev.yml` — dev overlay (`db` + `rails` + `nextjs` with hot reload); see below
 
 ## Running it
 
-### Frontend (`cd frontend`)
+### Local dev stack (Docker — the normal way to run `db` + `rails` + `nextjs` for development)
+```
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up db rails nextjs
+```
+- Frontend: `https://localhost:3000` (Next.js's own self-signed cert, `--experimental-https`,
+  same mkcert-generated files under `frontend/certificates/` as before)
+- Backend API: `http://localhost:3001/api/...` (also reachable through the frontend's
+  `/api/...` rewrite at :3000)
+- Source is bind-mounted from `frontend/` and `backend/` — edits on the host take effect
+  immediately (Next.js Fast Refresh / Rails `enable_reloading`). `node_modules`/`.next`
+  and Ruby gems live in named volumes so they survive rebuilds and aren't clobbered by the
+  bind mount.
+- The `nextjs` dev container runs `next dev --webpack` (not `--turbopack`, unlike the plain
+  `npm run dev`) with `WATCHPACK_POLLING=true`. Confirmed by testing: on Docker Desktop for
+  Windows, bind-mount file-change events don't reach Turbopack's watcher at all (even with
+  `watchOptions.pollIntervalMs` set) — Fast Refresh silently does nothing until the container
+  is restarted. Plain webpack's polling watcher (`WATCHPACK_POLLING`) does pick up bind-mount
+  edits reliably, so that's what [frontend/Dockerfile.dev](frontend/Dockerfile.dev) uses.
+- `nginx` is **not** part of the dev overlay (production-only reverse proxy) — don't include
+  it when bringing the dev stack up.
+- Uses its own throwaway DB user/volume (`hosimi`/`hosimi`, `pgdata_dev`), independent from
+  the production `pgdata` volume.
+- `docker-compose.dev.yml` sets `name: hosimi-dev`, giving the dev stack its own Compose
+  project (`hosimi-dev-db-1`, etc.) separate from production's `hosimi-*` containers. This is
+  load-bearing: without it, Compose's project name defaults to the directory name (`hosimi`)
+  regardless of which `-f` files are combined, so the dev stack would recreate/replace the
+  running production containers under the same names the moment it starts — this actually
+  happened once. Always pass **both** `-f` files together (a plain `docker compose up` on
+  `docker-compose.yml` alone still targets the production project and is safe on its own).
+- Dockerfiles: [backend/Dockerfile.dev](backend/Dockerfile.dev) / [frontend/Dockerfile.dev](frontend/Dockerfile.dev)
+  (dev-only; production uses the plain `Dockerfile` in each directory, unaffected by this).
+
+### Frontend tooling (`cd frontend`, needs a local `npm ci` — not containerized)
 | Task | Command |
 |---|---|
-| Dev server (HTTPS, Turbopack, :3000) | `npm run dev` |
 | Production build | `npm run build` |
-| Start built app | `npm run start` |
 | Lint | `npm run lint` |
 | Unit tests (Vitest, node — coordinate math) | `npm run test:unit` |
 | Component tests (Vitest, Storybook browser mode / Playwright chromium) | `npx vitest` |
 | Storybook | `npm run storybook` |
 
-Package manager is **npm** (`package-lock.json`). Dev uses `--experimental-https` with
-local certs in `frontend/certificates/` (mkcert).
+Package manager is **npm** (`package-lock.json`).
 
-### Backend (`cd backend`)
+### Backend tooling (`cd backend`, needs local Ruby/bundle — not containerized)
 | Task | Command |
 |---|---|
-| Server | `bin/rails server` |
-| Migrate / seed | `bin/rails db:migrate` / `bin/rails db:seed` |
 | Tests (Minitest) | `bin/rails test` |
 | Lint | `bin/rubocop` (rubocop-rails-omakase) |
 | Security scan | `bin/brakeman` |
 | CI-equivalent | `bin/rails db:test:prepare test` |
 
-### Full stack
-`cp .env.sample .env` and fill it, then `docker compose up --build`.
+### Production stack
+`cp .env.sample .env` and fill it, then `docker compose up --build` (no `-f docker-compose.dev.yml`).
 
 ## Architecture notes
 
@@ -88,8 +116,10 @@ App Router pages: `/` (welcome), `/location-settings` (+ `/auto`, `/manual`),
 API base URL is `process.env.NEXT_PUBLIC_API_ORIGIN` — `https://hosimi.net` in production,
 **empty** in dev (`.env.development`), so requests go to relative `/api/...`. In dev,
 [frontend/next.config.ts](frontend/next.config.ts) rewrites `/api/:path*` to
-**`http://localhost:3001`**, so run Rails on port 3001 locally (`bin/rails server -p 3001`).
-Under Docker, nginx does the `/api/` routing instead.
+`process.env.BACKEND_ORIGIN` (default **`http://localhost:3001`**, i.e. Rails on port 3001).
+`docker-compose.dev.yml` overrides `BACKEND_ORIGIN` to `http://rails:3000` so the `nextjs`
+container reaches the `rails` container by service name instead. In production, nginx does
+the `/api/` routing instead and this rewrite is never hit.
 
 ### Frontend Docker build
 [frontend/Dockerfile](frontend/Dockerfile) is a multi-stage build that runs `npm ci` +

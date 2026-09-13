@@ -5,13 +5,14 @@ import { useStarData } from "@/context/StarDataContext";
 import { useSetting } from "@/context/SettingContext";
 import { useUserPosition } from "@/context/UserPositionContext";
 import ConstellationView from "./ConstellationView";
-import { calcSkyRotationAt, equatorialToVector3 } from "@/utils/celestialSphere";
+import { HORIZON_CLIP_PLANE, calcSkyRotationAt, getStarPosition } from "@/utils/celestialSphere";
+import { ConstellationDisplayMode } from "@/type/ConstellationDisplayMode";
 
 interface StarFieldProps {
-  isVisibleConstellationLines: boolean;
+  constellationDisplayMode: ConstellationDisplayMode;
 }
 
-const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
+const StarField = ({ constellationDisplayMode }: StarFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
   const skyRef = useRef<THREE.Group>(null);
   const { starData, vMagRanges } = useStarData();
@@ -95,19 +96,16 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
         sizeAttenuation: true,
         map: generateCircleTexture(),
         alphaTest: 0.5,
-        transparent: true
+        transparent: true,
+        // 地面の円錐だけだと視線が地平線をかすめる角度で星が手前に描かれてしまうため、
+        // 地平線より下(y<0)を確実に切り捨てる
+        clippingPlanes: [HORIZON_CLIP_PLANE]
       });
 
       starData.filter(
         star => star.vMag >= vMagRanges.min && star.vMag <= vMagRanges.max
       ).forEach((star) => {
-        const position = equatorialToVector3(star.rightAscension, star.declination, 10);
-        // 暗い星ほど遠くに配置し、sizeAttenuation によって小さく描画させる。
-        // 係数が大きいと明るい星(vMagが小さい)ほど極端に近くなり
-        // (以前は等級-1台で距離5〜8程度まで縮んでいた)、sizeAttenuation は
-        // 距離に反比例して点を拡大するため見た目のサイズが爆発的に大きくなっていた。
-        // 距離の変動幅を狭めてサイズ差を緩やかにする。
-        position.multiplyScalar(star.vMag * 0.2 + 2.5);
+        const position = getStarPosition(star.rightAscension, star.declination, star.vMag);
 
         positions.push(position.x, position.y, position.z);
       });
@@ -133,8 +131,8 @@ const StarField = ({ isVisibleConstellationLines }: StarFieldProps) => {
       {plane}
       <group ref={skyRef}>
         <points ref={pointsRef} />
-        {isVisibleConstellationLines && (
-          <ConstellationView />
+        {constellationDisplayMode !== "none" && (
+          <ConstellationView showNames={constellationDisplayMode === "linesAndNames"} />
         )}
       </group>
     </>

@@ -1,0 +1,67 @@
+# ローカル開発用のオーバーレイ。docker-compose.yml(本番用)はそのままに、
+# db / rails / nextjs だけホットリロードできる開発用の設定に差し替える。
+# nginx は本番専用のため、開発では起動しない(下記のように起動サービスを明示すること)。
+#
+# 使い方:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up db rails nextjs
+#
+#   フロントエンド: https://localhost:3000 (Next.js が自己署名証明書で提供)
+#   バックエンドAPI: http://localhost:3001/api/...
+#
+# DB・gemのデータはこのファイル専用の named volume に永続化されるため、
+# 本番用スタック(pgdata)とは混ざらない。
+#
+# 重要: 下の `name:` で本番用(hosimi)とは別のプロジェクト名(hosimi-dev)にしている。
+# これが無いと、コンテナ名が本番と同じ(hosimi-db-1 など)になり、開発用スタックを
+# 起動しただけで本番用コンテナが開発用イメージに置き換わってしまう
+# (docker compose の既定のプロジェクト名はディレクトリ名になるため、-f を重ねただけでは
+# 別プロジェクトにならない)。上のコマンドのように必ずこのファイルもあわせて -f で
+# 指定すること(このファイル無しで docker-compose.yml だけを操作すると本番用に戻る)。
+name: hosimi-dev
+
+services:
+  db:
+    environment:
+      POSTGRES_USER: hosimi
+      POSTGRES_PASSWORD: hosimi
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data
+
+  rails:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    image: hosimi-backend:dev
+    environment:
+      RAILS_ENV: development
+      PG_USERNAME: hosimi
+      PG_PASSWORD: hosimi
+      PG_HOST: db
+    volumes:
+      - ./backend:/rails
+      - rails_bundle_dev:/usr/local/bundle
+    ports:
+      - "3001:3000"
+
+  nextjs:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    image: hosimi-frontend:dev
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_ORIGIN: ""
+      # next.config.ts の rewrites が /api/* を転送する先。素の npm run dev は
+      # localhost:3001 を見るが、コンテナ間では rails サービス名で名前解決する。
+      BACKEND_ORIGIN: http://rails:3000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata_dev:
+  rails_bundle_dev:

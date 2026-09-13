@@ -9,6 +9,9 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  # docker-compose.dev.yml では Next.js から rails サービス名で参照されるため許可する
+  config.hosts << "rails"
+
   # Show full error reports.
   config.consider_all_requests_local = true
 
