@@ -4,6 +4,8 @@ import VmagSettingSlider from "./VmagSettingSlider";
 type ButtonProps = {
   icon: SvgIconData;
   clickHandle: () => void;
+  highlighted?: boolean;
+  badge?: boolean;
 };
 
 type FunctionButtonsProps = {
@@ -22,6 +24,8 @@ const FunctionButtons = ({
             icon={elem.icon}
             clickHandle={elem.clickHandle}
             isActive={true}
+            highlighted={elem.highlighted}
+            badge={elem.badge}
             className="flex-none"
           />
         ))}

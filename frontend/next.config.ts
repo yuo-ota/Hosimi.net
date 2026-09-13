@@ -1,11 +1,15 @@
 import type { NextConfig } from "next";
 
+// 開発時にAPIをどこへ転送するか。素の `npm run dev` ならホスト側の :3001、
+// Docker(docker-compose.dev.yml)なら rails サービスを指すよう上書きする。
+const BACKEND_ORIGIN = process.env.BACKEND_ORIGIN ?? 'http://localhost:3001';
+
 const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:3001/api/:path*', // Railsサーバー
+        destination: `${BACKEND_ORIGIN}/api/:path*`, // Railsサーバー
       },
     ];
   },

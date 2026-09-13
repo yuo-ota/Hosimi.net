@@ -18,6 +18,7 @@ import IconButton from "./components/IconButton";
 import { useTransitionNavigation } from "@/utils/trantision";
 import { calcSkyRotationAt, equatorialToVector3 } from "@/utils/celestialSphere";
 import { useUserPosition } from "@/context/UserPositionContext";
+import { ConstellationDisplayMode, nextConstellationDisplayMode } from "@/type/ConstellationDisplayMode";
 
 type ObservationProps = {
   setPhase: (phase: "idle" | "transitioning") => void;
@@ -27,11 +28,12 @@ const Observation = ({ setPhase }: ObservationProps) => {
   const transition = useTransitionNavigation();
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
-  const [isVisibleConstellationLines, setIsVisibleConstellationLines] = useState<boolean>(false);
+  const [constellationDisplayMode, setConstellationDisplayMode] = useState<ConstellationDisplayMode>("none");
   const [closestStar, setClosestStar] = useState<StarData | null>(null);
   const [closestStarDetailInfo, setClosestStarDetailInfo] = useState<StarDetailInfo | null>(null);
+  const [isFetchingStarDetail, setIsFetchingStarDetail] = useState<boolean>(false);
   const currentDirectionRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
-  const { starData, vMagRanges } = useStarData();
+  const { starData, vMagRanges, constellationLines } = useStarData();
   const { position } = useUserPosition();
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [openPermissionDialog, setOpenPermissionDialog] = useState(true);
@@ -119,28 +121,27 @@ const Observation = ({ setPhase }: ObservationProps) => {
     });
 
     if (closestStar !== null) {
-      try {
-        setClosestStar(closestStar);
-        handleStarDetail(closestStar.starId);
-      } catch (error) {
-        console.error("Error fetching star details:", error);
-        return;
-      }
-
+      setClosestStar(closestStar);
+      setClosestStarDetailInfo(null);
       setIsOpenDialog(true);
+      handleStarDetail(closestStar.starId);
     }
   };
 
   const handleStarDetail = async (starId: string) => {
+    setIsFetchingStarDetail(true);
+
     const data = await getStarDetailInfo(starId)
 
     if (!data.success) {
       console.error(data.error);
+      setIsFetchingStarDetail(false);
       return;
     }
 
     // 取得した星の詳細情報を状態に保存
     setClosestStarDetailInfo(data.starDetailInfoData);
+    setIsFetchingStarDetail(false);
   };
 
   const handleBackButtonClick = () => {
@@ -164,12 +165,22 @@ const Observation = ({ setPhase }: ObservationProps) => {
     transition("/settings", "top_to_bottom");
   };
 
+  // データ取得前に星座表示を切り替えても ConstellationView 側では何も描画されない
+  // (星・星座線が無いため)。ボタンだけ見た目が変わって肝心の表示が伴わない状態を
+  // 避けるため、データが揃うまではボタンを無視する。
+  const isStarDataLoading = starData.length === 0 || constellationLines.length === 0;
+
+  const handleConstellationButtonClick = () => {
+    if (isStarDataLoading) return;
+    setConstellationDisplayMode(prevMode => nextConstellationDisplayMode(prevMode));
+  };
+
   return (
     <>
       <div className="flex w-full h-full relative overflow-hidden">
         <SkyView
           setTargetVector={handleDirectionChange}
-          isVisibleConstellationLines={isVisibleConstellationLines}
+          constellationDisplayMode={constellationDisplayMode}
           permissionGranted={permissionGranted}
           className={`w-full h-full z-0`}
         />
@@ -185,7 +196,11 @@ const Observation = ({ setPhase }: ObservationProps) => {
             },
             {
               icon: { path: constellationIcon.src, alt: "星座表示ボタン" },
-              clickHandle: () => {setIsVisibleConstellationLines(!isVisibleConstellationLines);},
+              clickHandle: () => {handleConstellationButtonClick();},
+              // 非表示->線のみ->線+名前 の3状態を巡回するボタンなので、
+              // 押しただけでは変化がわかりづらい。色と右上のバッジで今の状態を示す
+              highlighted: constellationDisplayMode !== "none",
+              badge: constellationDisplayMode === "linesAndNames",
             },
           ]}
         />
@@ -224,11 +239,12 @@ const Observation = ({ setPhase }: ObservationProps) => {
             </div>
           </div>
         }
-        {(closestStar && closestStarDetailInfo) && (
+        {(closestStar && isOpenDialog) && (
           <StarInformationDialog
             starDetailInfo={closestStarDetailInfo}
             starData={closestStar}
             isOpenDialog={isOpenDialog}
+            isLoading={isFetchingStarDetail}
             setIsOpenDialog={setIsOpenDialog}
             className={`absolute z-30 w-full h-full`}
           />

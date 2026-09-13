@@ -31,6 +31,25 @@ export const equatorialToVector3 = (
   );
 };
 
+// 星を描画する際の基準半径。実際の距離ではなく演出上の値。
+const STAR_RENDER_BASE_RADIUS = 10;
+
+/**
+ * 星を描画する3D座標を返す。暗い星ほど遠くに配置し、sizeAttenuation によって
+ * 小さく描画させるための演出上の値であり、実際の距離ではない。
+ * 星座線・星座名もこの関数を使うことで、星の位置とずれないようにする。
+ * (以前は等級による係数が大きすぎて、明るい星ほど極端に近くなり
+ * sizeAttenuation で見た目のサイズが爆発的に大きくなっていたため、
+ * 距離の変動幅を狭めてある)
+ */
+export const getStarPosition = (
+  rightAscensionDeg: number,
+  declinationDeg: number,
+  vMag: number
+): THREE.Vector3 =>
+  equatorialToVector3(rightAscensionDeg, declinationDeg, STAR_RENDER_BASE_RADIUS)
+    .multiplyScalar(vMag * 0.2 + 2.5);
+
 /**
  * グリニッジ恒星時(度)を UTC から求める。
  *
@@ -90,3 +109,12 @@ export const calcSkyRotation = (
  */
 export const calcSkyRotationAt = (position: GeoLocation, date: Date): THREE.Matrix4 =>
   calcSkyRotation(calcLocalSiderealTimeDeg(date, position.longitude), position.latitude);
+
+/**
+ * 地平線(ワールド座標の y=0。+Y が天頂)より下を確実に切り捨てるクリッピング平面。
+ * 地面を不透明な円錐で塞いで深度バッファで遮蔽する方法だと、視線が地平線付近を
+ * かすめる角度で星が手前に描画されてしまうことがあったため、GPUのクリッピングで
+ * y<0 を機械的に切り捨てる。星・星座線のマテリアルの clippingPlanes に渡して使う
+ * (要 renderer.localClippingEnabled = true)。
+ */
+export const HORIZON_CLIP_PLANE = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);

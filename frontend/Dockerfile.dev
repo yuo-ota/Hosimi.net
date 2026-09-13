@@ -1,0 +1,25 @@
+# syntax=docker/dockerfile:1
+
+# ローカル開発用の Dockerfile。本番用は Dockerfile を参照。
+# ソースは docker-compose.dev.yml がバインドマウントして上書きするため、
+# ここでの COPY は volume 無しで単体 `docker build` した場合の保険。
+
+FROM node:20-slim
+WORKDIR /app
+
+# 依存関係だけ先にコピーしてキャッシュを効かせる
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+ENV NEXT_TELEMETRY_DISABLED=1 \
+    WATCHPACK_POLLING=true
+
+EXPOSE 3000
+# npm run dev は --turbopack 付き(package.json)だが、Docker(特にWindowsの
+# Docker Desktop)のbind mountだとファイル変更イベントがTurbopackの監視に
+# 届かず保存してもFast Refreshが効かないことを確認したため、ここでは
+# 明示的に --webpack + WATCHPACK_POLLING=true(ポーリング監視)を使う。
+# ホスト側で直接動かす npm run dev は影響を受けない(Turbopackのまま)。
+CMD ["npx", "next", "dev", "--webpack", "--experimental-https", "--hostname", "0.0.0.0"]
