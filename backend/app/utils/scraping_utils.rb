@@ -2,8 +2,8 @@ require "open-uri"
 require "nokogiri"
 
 module ScrapingUtils
-    def self.fetch_data_by_url(url)
-        URI.open(url).read
+    def self.fetch_data_by_url(url, headers = {})
+        URI.open(url, headers).read
     end
 
     def self.fetch_html(html)

@@ -5,8 +5,9 @@ require "json"
 
 module Geolocation
     class GeolocationService
+        # Nominatim の利用ポリシー上限（1リクエスト/秒）に合わせる
         MAX_REQUESTS = 1
-        ACCESS_MANAGE_BASE_TIME = 10
+        ACCESS_MANAGE_BASE_TIME = 1
 
         @geocoding_access_manager = AccessManager.new(
             max_requests: MAX_REQUESTS,
@@ -25,8 +26,8 @@ module Geolocation
         def self.search_location(location_name)
             status = GeolocationService.geocoding_access_manager.check_request
 
-            data = GeocodingManager.fetch_coords_xml(location_name)
-            location = GeocodingManager.parse_coords_xml(data)
+            data = GeocodingManager.fetch_coords_json(location_name)
+            location = GeocodingManager.parse_coords_json(data)
 
             build_location_json(location[:latitude], location[:longitude])
         end
