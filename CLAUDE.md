@@ -51,7 +51,7 @@ Routes in [backend/config/routes.rb](backend/config/routes.rb):
 - `GET /api/stars?minVMag=&maxVMag=` — star coords from DB, filtered by visual magnitude (both params required)
 - `GET /api/stars/:id` — live detail for one star: scrapes **SIMBAD** HTML, classifies object type, computes distance from parallax
 - `GET /api/constellations` — constellations plus their line segments
-- `GET /api/geolocation/:locationName` — place name → lat/lng via **geocoding.jp**
+- `GET /api/geolocation/:locationName` — place name → lat/lng via **Nominatim (OpenStreetMap)**
 
 Layering: `controllers/` → `app/services/<domain>/` (one service per domain, with
 `*_manager` classes wrapping each external call) → `app/utils/` (`ScrapingUtils` = Nokogiri
