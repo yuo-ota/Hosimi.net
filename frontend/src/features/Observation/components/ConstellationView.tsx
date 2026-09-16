@@ -1,5 +1,5 @@
 import { useStarData } from "@/context/StarDataContext";
-import { useMemo, useRef, useEffect, Suspense } from "react";
+import { useMemo, useRef, useEffect, useState, Suspense } from "react";
 import * as THREE from "three";
 import { Billboard, Text } from "@react-three/drei";
 import { HORIZON_CLIP_PLANE, equatorialToVector3, getStarPosition } from "@/utils/celestialSphere";
@@ -25,6 +25,22 @@ type ConstellationLabel = {
 const ConstellationView = ({ showNames }: ConstellationViewProps) => {
   const { starData, constellationLines } = useStarData();
   const linesRef = useRef<THREE.Group>(null!);
+
+  // 画面回転(0/90/180/270度)を星座名の文字にだけ打ち消しでかけ、本体を横向きにしても
+  // 文字だけは読める向きを保つ。星・星座線側はカメラの向き計算(常にワールドのYを上に
+  // 固定)には手を入れないため、この値は星座名ラベル以外には影響しない。
+  const [screenAngle, setScreenAngle] = useState(0);
+
+  useEffect(() => {
+    const orientation = window.screen?.orientation;
+    if (!orientation) return;
+
+    const updateAngle = () => setScreenAngle(orientation.angle);
+    updateAngle();
+
+    orientation.addEventListener("change", updateAngle);
+    return () => orientation.removeEventListener("change", updateAngle);
+  }, []);
 
   // 星座線のgeometryとmaterial、星座名のラベル位置を作成
   const { geometry, material, labels } = useMemo(() => {
@@ -116,6 +132,7 @@ const ConstellationView = ({ showNames }: ConstellationViewProps) => {
                 outlineColor="#000000"
                 anchorX="center"
                 anchorY="middle"
+                rotation={[0, 0, THREE.MathUtils.degToRad(-screenAngle)]}
               >
                 {label.name}
               </Text>
