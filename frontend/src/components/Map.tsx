@@ -17,9 +17,10 @@ const myIcon = new Icon({
 type MapProps = {
   userPosition: GeoLocation;
   className?: string;
+  onMapClick?: (position: GeoLocation) => void;
 };
 
-const Map = ({ userPosition, className = "" }: MapProps) => {
+const Map = ({ userPosition, className = "", onMapClick }: MapProps) => {
   if (userPosition.latitude === null || userPosition.longitude === null) {
     return <></>;
   }
@@ -31,7 +32,7 @@ const Map = ({ userPosition, className = "" }: MapProps) => {
         scrollWheelZoom={true}
         className={`${className} flex-1 rounded-lg h-full w-full`}
       >
-        <MapController userPosition={userPosition} />
+        <MapController userPosition={userPosition} onMapClick={onMapClick} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
