@@ -40,12 +40,18 @@ const VmagSettingSlider = ({
     setVMagRanges({ min: nextBottom, max: nextTop });
   };
 
+  // 0.1刻みの小数は2進数では正確に表現できず、計算の過程で
+  // 0.6000000000000001 のような誤差が乗ることがあるため、表示・比較の前に丸める
+  const roundToStep = (n: number) => Number(n.toFixed(1));
+
   // 一方のつまみが他方を追い越したら、追い越された側も一緒に動かす
   const changedBottomSliderValue = (n: number) => {
-    applyRange(n, Math.max(n, topSliderValue));
+    const rounded = roundToStep(n);
+    applyRange(rounded, Math.max(rounded, topSliderValue));
   };
   const changedTopSliderValue = (n: number) => {
-    applyRange(Math.min(n, bottomSliderValue), n);
+    const rounded = roundToStep(n);
+    applyRange(Math.min(bottomSliderValue, rounded), rounded);
   };
 
   // トラック（持ち手以外の部分）をクリックした位置に最も近い持ち手を動かす
@@ -56,11 +62,7 @@ const VmagSettingSlider = ({
     const rect = container.getBoundingClientRect();
     const ratio = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height));
     const rawValue = min + ratio * (max - min);
-    const step = 0.1;
-    const clickedValue = Math.min(
-      max,
-      Math.max(min, Math.round(rawValue / step) * step)
-    );
+    const clickedValue = Math.min(max, Math.max(min, roundToStep(rawValue)));
 
     const distanceToBottom = Math.abs(clickedValue - bottomSliderValue);
     const distanceToTop = Math.abs(clickedValue - topSliderValue);
