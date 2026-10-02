@@ -1,7 +1,12 @@
 import Headline from "@/components/Headline";
 import { lazy, Suspense } from "react";
+import type { Metadata } from "next";
 
 const Setting = lazy(() => import("@/features/Settings/Setting"));
+
+export const metadata: Metadata = {
+  title: "設定",
+};
 
 export default function SettingPage() {
   return (
