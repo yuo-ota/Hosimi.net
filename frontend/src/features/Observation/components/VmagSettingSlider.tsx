@@ -48,6 +48,29 @@ const VmagSettingSlider = ({
     applyRange(Math.min(n, bottomSliderValue), n);
   };
 
+  // トラック（持ち手以外の部分）をクリックした位置に最も近い持ち手を動かす
+  const handleTrackClick = (clientY: number) => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const rect = container.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height));
+    const rawValue = min + ratio * (max - min);
+    const step = 0.1;
+    const clickedValue = Math.min(
+      max,
+      Math.max(min, Math.round(rawValue / step) * step)
+    );
+
+    const distanceToBottom = Math.abs(clickedValue - bottomSliderValue);
+    const distanceToTop = Math.abs(clickedValue - topSliderValue);
+    if (distanceToBottom <= distanceToTop) {
+      changedBottomSliderValue(clickedValue);
+    } else {
+      changedTopSliderValue(clickedValue);
+    }
+  };
+
   const getGradient = (
     bottomValue: number,
     topValue: number,
@@ -91,6 +114,12 @@ const VmagSettingSlider = ({
           ref={containerRef}
           className="relative aspect-square flex-1 pointer-events-none"
         >
+          {/* 持ち手以外のトラック部分をクリックした時に近い方の持ち手を動かすための透明な受け皿 */}
+          <div
+            className="absolute inset-0 pointer-events-auto cursor-pointer"
+            style={{ zIndex: 1 }}
+            onClick={(e) => handleTrackClick(e.clientY)}
+          />
           <input
             type="range"
             min={min}
