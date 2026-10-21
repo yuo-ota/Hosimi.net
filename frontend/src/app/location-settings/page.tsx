@@ -1,5 +1,10 @@
 import Headline from "@/components/Headline";
 import LocationSetting from "@/features/LocationSetting/LocationSetting";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "観測地点設定",
+};
 
 export default function LocationSettingPage() {
   return (

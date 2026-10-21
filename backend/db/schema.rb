@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_07_120200) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_07_120200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "constellation_lines", force: :cascade do |t|
-    t.bigint "start_star_id", null: false
-    t.bigint "end_star_id", null: false
     t.bigint "constellation_id", null: false
     t.datetime "created_at", null: false
+    t.bigint "end_star_id", null: false
+    t.bigint "start_star_id", null: false
     t.datetime "updated_at", null: false
     t.index ["constellation_id", "start_star_id", "end_star_id"], name: "index_constellation_lines_uniqueness", unique: true
     t.index ["constellation_id"], name: "index_constellation_lines_on_constellation_id"
@@ -27,24 +27,24 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_07_120200) do
   end
 
   create_table "constellations", force: :cascade do |t|
+    t.string "abbreviation"
     t.string "constellation_name_eng", null: false
     t.string "constellation_name_jpn", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "abbreviation"
     t.index ["abbreviation"], name: "index_constellations_on_abbreviation", unique: true
     t.index ["constellation_name_eng"], name: "index_constellations_on_constellation_name_eng", unique: true
     t.index ["constellation_name_jpn"], name: "index_constellations_on_constellation_name_jpn", unique: true
   end
 
   create_table "stars", force: :cascade do |t|
-    t.string "simbad_id", null: false
-    t.decimal "right_ascension", precision: 10, scale: 6
-    t.decimal "declination", precision: 10, scale: 6
-    t.float "v_mag"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal "declination", precision: 10, scale: 6
     t.integer "hip"
+    t.decimal "right_ascension", precision: 10, scale: 6
+    t.string "simbad_id", null: false
+    t.datetime "updated_at", null: false
+    t.float "v_mag"
     t.index ["hip"], name: "index_stars_on_hip", unique: true
     t.index ["simbad_id"], name: "index_stars_on_simbad_id", unique: true
   end

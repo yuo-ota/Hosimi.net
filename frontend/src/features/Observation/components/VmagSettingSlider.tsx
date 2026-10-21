@@ -40,12 +40,37 @@ const VmagSettingSlider = ({
     setVMagRanges({ min: nextBottom, max: nextTop });
   };
 
+  // 0.1刻みの小数は2進数では正確に表現できず、計算の過程で
+  // 0.6000000000000001 のような誤差が乗ることがあるため、表示・比較の前に丸める
+  const roundToStep = (n: number) => Number(n.toFixed(1));
+
   // 一方のつまみが他方を追い越したら、追い越された側も一緒に動かす
   const changedBottomSliderValue = (n: number) => {
-    applyRange(n, Math.max(n, topSliderValue));
+    const rounded = roundToStep(n);
+    applyRange(rounded, Math.max(rounded, topSliderValue));
   };
   const changedTopSliderValue = (n: number) => {
-    applyRange(Math.min(n, bottomSliderValue), n);
+    const rounded = roundToStep(n);
+    applyRange(Math.min(bottomSliderValue, rounded), rounded);
+  };
+
+  // トラック（持ち手以外の部分）をクリックした位置に最も近い持ち手を動かす
+  const handleTrackClick = (clientY: number) => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const rect = container.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height));
+    const rawValue = min + ratio * (max - min);
+    const clickedValue = Math.min(max, Math.max(min, roundToStep(rawValue)));
+
+    const distanceToBottom = Math.abs(clickedValue - bottomSliderValue);
+    const distanceToTop = Math.abs(clickedValue - topSliderValue);
+    if (distanceToBottom <= distanceToTop) {
+      changedBottomSliderValue(clickedValue);
+    } else {
+      changedTopSliderValue(clickedValue);
+    }
   };
 
   const getGradient = (
@@ -91,6 +116,12 @@ const VmagSettingSlider = ({
           ref={containerRef}
           className="relative aspect-square flex-1 pointer-events-none"
         >
+          {/* 持ち手以外のトラック部分をクリックした時に近い方の持ち手を動かすための透明な受け皿 */}
+          <div
+            className="absolute inset-0 pointer-events-auto cursor-pointer"
+            style={{ zIndex: 1 }}
+            onClick={(e) => handleTrackClick(e.clientY)}
+          />
           <input
             type="range"
             min={min}

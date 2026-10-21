@@ -29,6 +29,7 @@ const LocationSettingByManual = () => {
         <LocationInput setUserPosition={setUserPosition} className="w-full lg:w-auto lg:row-span-1"></LocationInput>
         <Map
           userPosition={userPosition}
+          onMapClick={setUserPosition}
           className="flex-1 lg:col-span-1 w-full lg:w-auto lg:row-span-2 min-h-[250px]"
         />
         
