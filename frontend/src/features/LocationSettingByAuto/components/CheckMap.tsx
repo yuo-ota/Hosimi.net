@@ -13,6 +13,8 @@ type CheckMapProps = {
 
 const CheckMap = ({ handleGPSChenge, className }: CheckMapProps) => {
   const [location, setLocation] = useState<GeoLocation | null>(null);
+  // 初回取得が完了するまでの数秒間は、エラーではなく取得待ちであることを表示するための状態
+  const [isFetching, setIsFetching] = useState(true);
 
   const [secondsLeft, setSecondsLeft] = useState(10);
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
@@ -31,6 +33,7 @@ const CheckMap = ({ handleGPSChenge, className }: CheckMapProps) => {
             latitude,
             longitude,
           });
+          setIsFetching(false);
           handleGPSChenge({
             latitude: latitude,
             longitude: longitude,
@@ -39,8 +42,11 @@ const CheckMap = ({ handleGPSChenge, className }: CheckMapProps) => {
         (error: GeolocationPositionError) => {
           console.error("Error obtaining location:", error.message);
           setLocation(null);
+          setIsFetching(false);
         }
       );
+    } else {
+      setIsFetching(false);
     }
     setCountFlag(true);
   };
@@ -78,16 +84,20 @@ const CheckMap = ({ handleGPSChenge, className }: CheckMapProps) => {
             位置更新まであと{secondsLeft}秒
           </div>
         </div>
-        {!location ? (
+        {location ? (
+          <Map userPosition={location} />
+        ) : isFetching ? (
+          <div className="flex w-full flex-1 border-3 bg-foreground/20 border-foreground rounded-lg p-10">
+            現在地を取得しています。
+            <br />
+            端末の状況によっては数秒かかることがあります。少々お待ちください
+          </div>
+        ) : (
           <div className="flex w-full flex-1 border-3 bg-attention/20 border-attention rounded-lg p-10">
             GPS情報が取得できません。
             <br />
             ブラウザの設定を確認するか、手動設定に切り替えてください
           </div>
-        ) : (
-          <>
-            <Map userPosition={location} />
-          </>
         )}
       </div>
     </>

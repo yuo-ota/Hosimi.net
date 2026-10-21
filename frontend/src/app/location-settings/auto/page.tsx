@@ -1,7 +1,12 @@
 import Headline from "@/components/Headline";
 import { Suspense, lazy } from "react";
+import type { Metadata } from "next";
 
 const LocationSettingByAuto = lazy(() => import("@/features/LocationSettingByAuto/LocationSettingByAuto"));
+
+export const metadata: Metadata = {
+  title: "観測地点確認",
+};
 
 export default function LocationSettingByAutoPage() {
   return (
