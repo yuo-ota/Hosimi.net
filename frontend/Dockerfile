@@ -1,13 +1,13 @@
 # syntax=docker/dockerfile:1
 
 # ---- 依存関係のインストール ----
-FROM node:20-slim AS deps
+FROM node:24-slim AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
 # ---- ビルド ----
-FROM node:20-slim AS build
+FROM node:24-slim AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -24,7 +24,7 @@ ENV NEXT_PUBLIC_API_ORIGIN=$NEXT_PUBLIC_API_ORIGIN \
 RUN npm run build
 
 # ---- 本番ランタイム ----
-FROM node:20-slim AS runner
+FROM node:24-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1

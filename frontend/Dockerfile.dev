@@ -4,7 +4,7 @@
 # ソースは docker-compose.dev.yml がバインドマウントして上書きするため、
 # ここでの COPY は volume 無しで単体 `docker build` した場合の保険。
 
-FROM node:20-slim
+FROM node:24-slim
 WORKDIR /app
 
 # 依存関係だけ先にコピーしてキャッシュを効かせる
