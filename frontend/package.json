@@ -37,7 +37,7 @@
     "@vitest/browser-playwright": "^5.0.5",
     "@vitest/coverage-v8": "^5.0.5",
     "eslint": "^9",
-    "eslint-config-next": "16.3.4",
+    "eslint-config-next": "16.4.2",
     "eslint-plugin-storybook": "^10.6.3",
     "playwright": "^1.54.2",
     "storybook": "^10.6.3",
